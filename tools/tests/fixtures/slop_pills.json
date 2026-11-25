@@ -1,0 +1,374 @@
+{
+ "meta": {
+  "genre": "simulator",
+  "depth": "chunky",
+  "direction": "A collection of gaming-style buttons for the interface"
+ },
+ "root": {
+  "class": "ScreenGui",
+  "name": "SlopGui",
+  "children": [
+   {
+    "class": "Frame",
+    "Position": [
+     0.5,
+     -480,
+     0.5,
+     -160
+    ],
+    "Size": [
+     0,
+     960,
+     0,
+     320
+    ],
+    "BackgroundColor3": "#1E1B4B",
+    "children": [
+     {
+      "class": "TextLabel",
+      "Position": [
+       0,
+       0,
+       0,
+       10
+      ],
+      "Size": [
+       1,
+       0,
+       0,
+       40
+      ],
+      "Text": "Roblox Game UI Buttons",
+      "Font": "GothamBold",
+      "TextSize": 28,
+      "TextColor3": "#FFFFFF"
+     },
+     {
+      "class": "TextButton",
+      "Position": [
+       0,
+       40,
+       0,
+       80
+      ],
+      "Size": [
+       0,
+       270,
+       0,
+       60
+      ],
+      "BackgroundColor3": "#FFFFFF",
+      "Text": "\u25b6 Play Now",
+      "Font": "GothamBold",
+      "TextSize": 22,
+      "TextColor3": "#FFFFFF",
+      "corner": [
+       1,
+       0
+      ],
+      "gradient": {
+       "colors": [
+        "#22C55E",
+        "#06B6D4"
+       ],
+       "rotation": 45
+      },
+      "children": [
+       {
+        "class": "Frame",
+        "Position": [
+         0,
+         12,
+         0,
+         5
+        ],
+        "Size": [
+         1,
+         -24,
+         0,
+         22
+        ],
+        "BackgroundColor3": "#FFFFFF",
+        "BackgroundTransparency": 0.75,
+        "corner": [
+         1,
+         0
+        ]
+       }
+      ]
+     },
+     {
+      "class": "TextButton",
+      "Position": [
+       0,
+       340,
+       0,
+       80
+      ],
+      "Size": [
+       0,
+       270,
+       0,
+       60
+      ],
+      "BackgroundColor3": "#FFFFFF",
+      "Text": "\ud83d\udcb0 Buy Robux",
+      "Font": "GothamBold",
+      "TextSize": 22,
+      "TextColor3": "#FFFFFF",
+      "corner": [
+       1,
+       0
+      ],
+      "gradient": {
+       "colors": [
+        "#F59E0B",
+        "#EF4444"
+       ],
+       "rotation": 45
+      },
+      "children": [
+       {
+        "class": "Frame",
+        "Position": [
+         0,
+         12,
+         0,
+         5
+        ],
+        "Size": [
+         1,
+         -24,
+         0,
+         22
+        ],
+        "BackgroundColor3": "#FFFFFF",
+        "BackgroundTransparency": 0.75,
+        "corner": [
+         1,
+         0
+        ]
+       }
+      ]
+     },
+     {
+      "class": "TextButton",
+      "Position": [
+       0,
+       640,
+       0,
+       80
+      ],
+      "Size": [
+       0,
+       270,
+       0,
+       60
+      ],
+      "BackgroundColor3": "#FFFFFF",
+      "Text": "\u2b50 Get Premium",
+      "Font": "GothamBold",
+      "TextSize": 22,
+      "TextColor3": "#FFFFFF",
+      "corner": [
+       1,
+       0
+      ],
+      "gradient": {
+       "colors": [
+        "#A855F7",
+        "#EC4899"
+       ],
+       "rotation": 45
+      },
+      "children": [
+       {
+        "class": "Frame",
+        "Position": [
+         0,
+         12,
+         0,
+         5
+        ],
+        "Size": [
+         1,
+         -24,
+         0,
+         22
+        ],
+        "BackgroundColor3": "#FFFFFF",
+        "BackgroundTransparency": 0.75,
+        "corner": [
+         1,
+         0
+        ]
+       }
+      ]
+     },
+     {
+      "class": "TextButton",
+      "Position": [
+       0,
+       40,
+       0,
+       170
+      ],
+      "Size": [
+       0,
+       270,
+       0,
+       60
+      ],
+      "BackgroundColor3": "#FFFFFF",
+      "Text": "\ud83c\udf92 Inventory",
+      "Font": "GothamBold",
+      "TextSize": 22,
+      "TextColor3": "#FFFFFF",
+      "corner": [
+       1,
+       0
+      ],
+      "gradient": {
+       "colors": [
+        "#3B82F6",
+        "#06B6D4"
+       ],
+       "rotation": 45
+      },
+      "children": [
+       {
+        "class": "Frame",
+        "Position": [
+         0,
+         12,
+         0,
+         5
+        ],
+        "Size": [
+         1,
+         -24,
+         0,
+         22
+        ],
+        "BackgroundColor3": "#FFFFFF",
+        "BackgroundTransparency": 0.75,
+        "corner": [
+         1,
+         0
+        ]
+       }
+      ]
+     },
+     {
+      "class": "TextButton",
+      "Position": [
+       0,
+       340,
+       0,
+       170
+      ],
+      "Size": [
+       0,
+       270,
+       0,
+       60
+      ],
+      "BackgroundColor3": "#FFFFFF",
+      "Text": "\u2699 Settings",
+      "Font": "GothamBold",
+      "TextSize": 22,
+      "TextColor3": "#FFFFFF",
+      "corner": [
+       1,
+       0
+      ],
+      "gradient": {
+       "colors": [
+        "#6B7280",
+        "#374151"
+       ],
+       "rotation": 45
+      },
+      "children": [
+       {
+        "class": "Frame",
+        "Position": [
+         0,
+         12,
+         0,
+         5
+        ],
+        "Size": [
+         1,
+         -24,
+         0,
+         22
+        ],
+        "BackgroundColor3": "#FFFFFF",
+        "BackgroundTransparency": 0.75,
+        "corner": [
+         1,
+         0
+        ]
+       }
+      ]
+     },
+     {
+      "class": "TextButton",
+      "Position": [
+       0,
+       640,
+       0,
+       170
+      ],
+      "Size": [
+       0,
+       270,
+       0,
+       60
+      ],
+      "BackgroundColor3": "#FFFFFF",
+      "Text": "\ud83d\udc65 Friends",
+      "Font": "GothamBold",
+      "TextSize": 22,
+      "TextColor3": "#FFFFFF",
+      "corner": [
+       1,
+       0
+      ],
+      "gradient": {
+       "colors": [
+        "#EC4899",
+        "#F43F5E"
+       ],
+       "rotation": 45
+      },
+      "children": [
+       {
+        "class": "Frame",
+        "Position": [
+         0,
+         12,
+         0,
+         5
+        ],
+        "Size": [
+         1,
+         -24,
+         0,
+         22
+        ],
+        "BackgroundColor3": "#FFFFFF",
+        "BackgroundTransparency": 0.75,
+        "corner": [
+         1,
+         0
+        ]
+       }
+      ]
+     }
+    ]
+   }
+  ]
+ }
+}

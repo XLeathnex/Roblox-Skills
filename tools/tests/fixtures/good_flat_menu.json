@@ -1,0 +1,53 @@
+{
+ "meta": {"genre": "horror", "game": "Ward 9", "depth": "flat", "motion": "calm",
+  "direction": "Abandoned hospital case file: typewritten labels on near-black, bone-white ink, one dried-blood accent, hairline rules like a form, lots of empty dark"},
+ "tokens": {
+  "c": {"void": "#0B0C0D", "bone": "#DAD3C4", "dim": "#8A8477", "rule": "#DAD3C4", "blood": "#9E2B25"},
+  "font": {"display": "SpecialElite", "body": "RobotoCondensed:Light"}
+ },
+ "components": {
+  "Row": {"params": {"label": "OPTION", "value": "ON", "on": true},
+   "node": {"class": "TextButton", "Size": [1,0,0,54], "motion": "button",
+    "children": [
+     {"class": "TextLabel", "name": "Label", "Size": [0.6,0,1,0], "Text": "{{label}}", "FontFace": "$font.body", "TextSize": 26, "TextColor3": "$c.bone", "TextXAlignment": "Left"},
+     {"class": "TextLabel", "name": "Value", "AnchorPoint": [1,0], "Position": [1,0,0,0], "Size": [0.4,0,1,0], "Text": "{{value}}", "FontFace": "$font.display", "TextSize": 24, "TextColor3": "$c.dim", "TextXAlignment": "Right"},
+     {"class": "Frame", "name": "Rule", "AnchorPoint": [0,1], "Position": [0,0,1,0], "Size": [1,0,0,1], "BackgroundColor3": "$c.rule", "BackgroundTransparency": 0.86}
+    ]}},
+  "Tab": {"params": {"label": "TAB", "active": false},
+   "node": {"class": "TextButton", "Size": [1,0,0,46], "motion": "button",
+    "children": [
+     {"if": "{{active}}", "class": "Frame", "name": "Mark", "AnchorPoint": [0,0.5], "Position": [0,0,0.5,0], "Size": [0,3,0,26], "BackgroundColor3": "$c.blood"},
+     {"class": "TextLabel", "name": "Label", "Position": [0,18,0,0], "Size": [1,-18,1,0], "Text": "{{label}}", "FontFace": "$font.display", "TextSize": 28, "TextColor3": "$c.dim", "TextXAlignment": "Left"}
+    ]}}
+ },
+ "root": {"class": "ScreenGui", "name": "SettingsGui", "ScreenInsets": "None", "children": [
+  {"class": "Frame", "name": "Scrim", "Size": [1,0,1,0], "BackgroundColor3": "$c.void", "BackgroundTransparency": 0.25},
+  {"class": "ImageLabel", "name": "Vignette", "Size": [1,0,1,0], "Image": "asset:vignette"},
+  {"class": "ImageLabel", "name": "Grain", "Size": [1,0,1,0], "Image": "asset:grain", "ScaleType": "Tile", "TileSize": [0,256,0,256], "ImageColor3": "$c.bone", "ImageTransparency": 0.95},
+  {"class": "Frame", "name": "Menu", "autoscale": "modal", "AnchorPoint": [0.5,0.5], "Position": [0.5,0,0.52,0], "Size": [0,1180,0,470],
+   "children": [
+    {"class": "TextLabel", "name": "CaseNo", "Size": [0,400,0,22], "Text": "CASE FILE 09 / PATIENT SETTINGS", "FontFace": "$font.body", "TextSize": 18, "TextColor3": "$c.blood", "TextXAlignment": "Left"},
+    {"class": "TextLabel", "name": "Title", "Position": [0,0,0,26], "Size": [0,600,0,70], "Text": "SETTINGS", "FontFace": "$font.display", "TextSize": 68, "TextColor3": "$c.bone", "TextXAlignment": "Left"},
+    {"class": "Frame", "name": "TopRule", "Position": [0,0,0,112], "Size": [1,0,0,1], "BackgroundColor3": "$c.rule", "BackgroundTransparency": 0.6},
+    {"class": "Frame", "name": "Tabs", "Position": [0,0,0,140], "Size": [0,260,0,240], "list": {"gap": 6},
+     "children": [
+      {"use": "Tab", "name": "GraphicsTab", "label": "GRAPHICS", "active": true},
+      {"use": "Tab", "name": "AudioTab", "label": "AUDIO"},
+      {"use": "Tab", "name": "ControlsTab", "label": "CONTROLS"},
+      {"use": "Tab", "name": "GameplayTab", "label": "GAMEPLAY"}
+     ]},
+    {"class": "Frame", "name": "Options", "Position": [0,340,0,132], "Size": [1,-340,0,280], "list": {"gap": 0},
+     "children": [
+      {"use": "Row", "name": "Quality", "label": "LEVEL OF DETAIL", "value": "< ULTRA >"},
+      {"use": "Row", "name": "Shadows", "label": "SHADOW QUALITY", "value": "< HIGH >"},
+      {"use": "Row", "name": "Grain", "label": "FILM GRAIN", "value": "ON"},
+      {"use": "Row", "name": "Flashlight", "label": "FLASHLIGHT SWAY", "value": "OFF"}
+     ]},
+    {"class": "TextButton", "name": "Back", "motion": "button", "AnchorPoint": [0,1], "Position": [0,0,1,0], "Size": [0,200,0,50],
+     "stroke": {"color": "$c.bone", "thickness": 1, "transparency": 0.55, "mode": "Border"},
+     "children": [{"class": "TextLabel", "name": "Label", "Size": [1,0,1,0], "Text": "BACK", "FontFace": "$font.display", "TextSize": 24, "TextColor3": "$c.bone"}]},
+    {"class": "TextButton", "name": "Apply", "motion": "button", "AnchorPoint": [1,1], "Position": [1,0,1,0], "Size": [0,260,0,50], "BackgroundColor3": "$c.blood",
+     "children": [{"class": "TextLabel", "name": "Label", "Size": [1,0,1,0], "Text": "SAVE CHANGES", "FontFace": "$font.display", "TextSize": 24, "TextColor3": "$c.bone"}]}
+   ]}
+ ]}
+}

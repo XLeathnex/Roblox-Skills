@@ -1,0 +1,62 @@
+{
+  "stripes": {
+    "file": "stripes.png",
+    "kind": "texture",
+    "size": [
+      256,
+      256
+    ],
+    "id": null
+  },
+  "ribbon": {
+    "file": "ribbon.png",
+    "kind": "shape",
+    "size": [
+      192,
+      96
+    ],
+    "slice": [
+      27,
+      47,
+      165,
+      49
+    ],
+    "id": null
+  },
+  "coin": {
+    "file": "coin.png",
+    "kind": "icon",
+    "size": [
+      256,
+      256
+    ],
+    "id": null
+  },
+  "flag": {
+    "file": "flag.png",
+    "kind": "icon",
+    "size": [
+      256,
+      256
+    ],
+    "id": null
+  },
+  "clock": {
+    "file": "clock.png",
+    "kind": "icon",
+    "size": [
+      256,
+      256
+    ],
+    "id": null
+  },
+  "arrow": {
+    "file": "arrow.png",
+    "kind": "icon",
+    "size": [
+      256,
+      256
+    ],
+    "id": null
+  }
+}

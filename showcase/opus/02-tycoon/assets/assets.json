@@ -1,0 +1,74 @@
+{
+  "slice": {
+    "file": "slice.png",
+    "kind": "icon",
+    "size": [
+      256,
+      256
+    ],
+    "id": null
+  },
+  "scooter": {
+    "file": "scooter.png",
+    "kind": "icon",
+    "size": [
+      256,
+      256
+    ],
+    "id": null
+  },
+  "table": {
+    "file": "table.png",
+    "kind": "icon",
+    "size": [
+      256,
+      256
+    ],
+    "id": null
+  },
+  "chef": {
+    "file": "chef.png",
+    "kind": "icon",
+    "size": [
+      256,
+      256
+    ],
+    "id": null
+  },
+  "flame": {
+    "file": "flame.png",
+    "kind": "icon",
+    "size": [
+      256,
+      256
+    ],
+    "id": null
+  },
+  "close": {
+    "file": "close.png",
+    "kind": "icon",
+    "size": [
+      256,
+      256
+    ],
+    "id": null
+  },
+  "kraft": {
+    "file": "kraft.png",
+    "kind": "texture",
+    "size": [
+      256,
+      256
+    ],
+    "id": null
+  },
+  "arrow": {
+    "file": "arrow.png",
+    "kind": "icon",
+    "size": [
+      256,
+      256
+    ],
+    "id": null
+  }
+}

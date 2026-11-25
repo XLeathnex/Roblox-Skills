@@ -1,0 +1,38 @@
+{
+  "oven": {
+    "file": "oven.png",
+    "kind": "icon",
+    "size": [
+      256,
+      256
+    ],
+    "id": null
+  },
+  "scooter": {
+    "file": "scooter.png",
+    "kind": "icon",
+    "size": [
+      256,
+      256
+    ],
+    "id": null
+  },
+  "tables": {
+    "file": "tables.png",
+    "kind": "icon",
+    "size": [
+      256,
+      256
+    ],
+    "id": null
+  },
+  "chef": {
+    "file": "chef.png",
+    "kind": "icon",
+    "size": [
+      256,
+      256
+    ],
+    "id": null
+  }
+}

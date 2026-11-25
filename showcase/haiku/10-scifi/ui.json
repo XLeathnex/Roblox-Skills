@@ -1,0 +1,83 @@
+{
+ "meta": {
+  "genre": "scifi",
+  "game": "Orbital Drift",
+  "depth": "flat",
+  "motion": "snappy",
+  "direction": "Halcyon Orbital League timing screens: graphite glass plates with chamfered corners and scanlines, one amber ion signal reserved for boost and the GO call, Michroma numerals with Jura captions, nothing in the centre but the banner."
+ },
+ "tokens": {
+  "c": {"base": "#0B1118", "track": "#1B2836", "line": "#2A3B4D", "text": "#E9F1F7", "dim": "#7D90A3", "signal": "#FFB020"},
+  "r": {"sm": 2},
+  "font": {"display": "Michroma", "body": "Jura:Medium"}
+ },
+ "components": {
+  "Plate": {
+   "params": {},
+   "node": {"class": "ImageLabel", "name": "Plate", "Image": "asset:plate-chamfer", "ScaleType": "Slice", "SliceCenter": [25, 25, 167, 71],
+    "ImageColor3": "$c.base", "ImageTransparency": 0.08, "Size": [1, 0, 1, 0],
+    "children": [
+     {"class": "ImageLabel", "name": "Scanlines", "Image": "asset:scanlines", "ScaleType": "Tile", "TileSize": [0, 128, 0, 128],
+      "Size": [1, 0, 1, 0], "ImageColor3": "$c.text", "ImageTransparency": 0.95}
+    ]}
+  },
+  "Seg": {
+   "params": {"color": "$c.track"},
+   "node": {"class": "Frame", "name": "Seg", "Size": [0, 36, 0, 22], "BackgroundColor3": "{{color}}", "corner": "$r.sm"}
+  }
+ },
+ "root": {"class": "ScreenGui", "name": "RaceHudGui", "children": [
+  {"class": "Frame", "name": "PositionGroup", "autoscale": "hud", "AnchorPoint": [0, 0], "Position": [0, 24, 0, 72], "Size": [0, 240, 0, 116],
+   "children": [
+    {"use": "Plate", "Size": [1, 0, 1, 0]},
+    {"class": "Frame", "name": "EdgeBar", "Size": [0, 4, 1, 0], "BackgroundColor3": "$c.signal"},
+    {"class": "TextLabel", "name": "Caption", "Position": [0, 24, 0, 14], "Size": [1, -40, 0, 24], "Text": "POSITION", "FontFace": "$font.body", "TextSize": 20, "TextColor3": "$c.dim", "TextXAlignment": "Left"},
+    {"class": "TextLabel", "name": "Place", "Position": [0, 20, 0, 40], "Size": [0, 96, 0, 68], "Text": "3", "FontFace": "$font.display", "TextSize": 64, "TextColor3": "$c.text", "TextXAlignment": "Left"},
+    {"class": "TextLabel", "name": "Field", "Position": [0, 118, 0, 64], "Size": [0, 110, 0, 40], "Text": "/8", "FontFace": "$font.display", "TextSize": 34, "TextColor3": "$c.dim", "TextXAlignment": "Left"}
+   ]},
+  {"class": "Frame", "name": "LapGroup", "autoscale": "hud", "AnchorPoint": [0.5, 0], "Position": [0.5, 0, 0, 24], "Size": [0, 560, 0, 96],
+   "children": [
+    {"use": "Plate", "Size": [1, 0, 1, 0]},
+    {"class": "TextLabel", "name": "LapCaption", "Position": [0, 24, 0, 12], "Size": [0, 160, 0, 22], "Text": "LAP", "FontFace": "$font.body", "TextSize": 20, "TextColor3": "$c.dim", "TextXAlignment": "Left"},
+    {"class": "TextLabel", "name": "LapCount", "Position": [0, 24, 0, 34], "Size": [0, 190, 0, 50], "Text": "2/3", "FontFace": "$font.display", "TextSize": 42, "TextColor3": "$c.text", "TextXAlignment": "Left"},
+    {"class": "Frame", "name": "Divider", "Position": [0, 230, 0, 18], "Size": [0, 2, 0, 60], "BackgroundColor3": "$c.line"},
+    {"class": "TextLabel", "name": "TimeCaption", "Position": [0, 254, 0, 12], "Size": [0, 180, 0, 22], "Text": "LAP TIME", "FontFace": "$font.body", "TextSize": 20, "TextColor3": "$c.dim", "TextXAlignment": "Left"},
+    {"class": "TextLabel", "name": "LapTime", "Position": [0, 254, 0, 34], "Size": [0, 290, 0, 50], "Text": "00:42.318", "FontFace": "$font.display", "TextSize": 36, "TextColor3": "$c.text", "TextXAlignment": "Left"}
+   ]},
+  {"class": "Frame", "name": "SpeedGroup", "autoscale": "hud", "AnchorPoint": [1, 1], "Position": [1, -24, 1, -24], "Size": [0, 340, 0, 176],
+   "children": [
+    {"use": "Plate", "Size": [1, 0, 1, 0]},
+    {"class": "TextLabel", "name": "SpeedCaption", "Position": [0, 24, 0, 16], "Size": [0, 160, 0, 22], "Text": "SPEED", "FontFace": "$font.body", "TextSize": 20, "TextColor3": "$c.dim", "TextXAlignment": "Left"},
+    {"class": "TextLabel", "name": "SpeedValue", "Position": [0, 24, 0, 30], "Size": [1, -48, 0, 96], "Text": "412", "FontFace": "$font.display", "TextSize": 96, "TextColor3": "$c.text", "TextXAlignment": "Right"},
+    {"class": "TextLabel", "name": "SpeedUnit", "AnchorPoint": [1, 0], "Position": [1, -24, 0, 132], "Size": [0, 120, 0, 24], "Text": "KM/H", "FontFace": "$font.body", "TextSize": 22, "TextColor3": "$c.dim", "TextXAlignment": "Right"}
+   ]},
+  {"class": "Frame", "name": "BoostGroup", "autoscale": "hud", "AnchorPoint": [0.5, 1], "Position": [0.5, 0, 1, -32], "Size": [0, 560, 0, 96],
+   "children": [
+    {"use": "Plate", "Size": [1, 0, 1, 0]},
+    {"class": "TextLabel", "name": "BoostCaption", "Position": [0, 24, 0, 12], "Size": [0, 160, 0, 22], "Text": "BOOST", "FontFace": "$font.body", "TextSize": 20, "TextColor3": "$c.dim", "TextXAlignment": "Left"},
+    {"class": "TextLabel", "name": "BoostPercent", "AnchorPoint": [1, 0], "Position": [1, -24, 0, 10], "Size": [0, 140, 0, 28], "Text": "75%", "FontFace": "$font.display", "TextSize": 28, "TextColor3": "$c.signal", "TextXAlignment": "Right"},
+    {"class": "Frame", "name": "Segments", "Position": [0, 24, 0, 50], "Size": [1, -48, 0, 22], "list": {"dir": "H", "gap": 6},
+     "children": [
+      {"use": "Seg", "name": "Seg1", "color": "$c.signal"},
+      {"use": "Seg", "name": "Seg2", "color": "$c.signal"},
+      {"use": "Seg", "name": "Seg3", "color": "$c.signal"},
+      {"use": "Seg", "name": "Seg4", "color": "$c.signal"},
+      {"use": "Seg", "name": "Seg5", "color": "$c.signal"},
+      {"use": "Seg", "name": "Seg6", "color": "$c.signal"},
+      {"use": "Seg", "name": "Seg7", "color": "$c.signal"},
+      {"use": "Seg", "name": "Seg8", "color": "$c.signal"},
+      {"use": "Seg", "name": "Seg9", "color": "$c.signal"},
+      {"use": "Seg", "name": "Seg10"},
+      {"use": "Seg", "name": "Seg11"},
+      {"use": "Seg", "name": "Seg12"}
+     ]}
+   ]},
+  {"class": "Frame", "name": "GoBanner", "AnchorPoint": [0.5, 0.5], "Position": [0.5, 0, 0.42, 0], "Size": [0, 520, 0, 150], "motion": "panel",
+   "children": [
+    {"class": "TextLabel", "name": "Kicker", "Position": [0, 0, 0, -40], "Size": [1, 0, 0, 26], "Text": "GRID RELEASE", "FontFace": "$font.body", "TextSize": 22, "TextColor3": "$c.dim"},
+    {"class": "Frame", "name": "TopRule", "Size": [1, 0, 0, 2], "BackgroundColor3": "$c.signal"},
+    {"class": "TextLabel", "name": "GoText", "Size": [1, 0, 1, 0], "Text": "GO", "FontFace": "$font.display", "TextSize": 120, "TextColor3": "$c.signal"},
+    {"class": "Frame", "name": "BottomRule", "Position": [0, 0, 1, -2], "Size": [1, 0, 0, 2], "BackgroundColor3": "$c.signal"}
+   ]}
+ ]}
+}

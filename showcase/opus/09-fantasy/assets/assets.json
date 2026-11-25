@@ -1,0 +1,194 @@
+{
+  "pine-fill": {
+    "file": "pine-fill.png",
+    "kind": "material-fill",
+    "size": [
+      256,
+      256
+    ],
+    "id": null
+  },
+  "pine-frame": {
+    "file": "pine-frame.png",
+    "kind": "material-frame",
+    "size": [
+      192,
+      192
+    ],
+    "slice": [
+      32,
+      32,
+      160,
+      160
+    ],
+    "id": null
+  },
+  "iron-fill": {
+    "file": "iron-fill.png",
+    "kind": "material-fill",
+    "size": [
+      256,
+      256
+    ],
+    "id": null
+  },
+  "iron-frame": {
+    "file": "iron-frame.png",
+    "kind": "material-frame",
+    "size": [
+      192,
+      192
+    ],
+    "slice": [
+      32,
+      32,
+      160,
+      160
+    ],
+    "id": null
+  },
+  "sword": {
+    "file": "sword.png",
+    "kind": "icon",
+    "size": [
+      256,
+      256
+    ],
+    "id": null
+  },
+  "shield": {
+    "file": "shield.png",
+    "kind": "icon",
+    "size": [
+      256,
+      256
+    ],
+    "id": null
+  },
+  "flame": {
+    "file": "flame.png",
+    "kind": "icon",
+    "size": [
+      256,
+      256
+    ],
+    "id": null
+  },
+  "leaf": {
+    "file": "leaf.png",
+    "kind": "icon",
+    "size": [
+      256,
+      256
+    ],
+    "id": null
+  },
+  "gem": {
+    "file": "gem.png",
+    "kind": "icon",
+    "size": [
+      256,
+      256
+    ],
+    "id": null
+  },
+  "key": {
+    "file": "key.png",
+    "kind": "icon",
+    "size": [
+      256,
+      256
+    ],
+    "id": null
+  },
+  "potion": {
+    "file": "potion.png",
+    "kind": "icon",
+    "size": [
+      256,
+      256
+    ],
+    "id": null
+  },
+  "coin": {
+    "file": "coin.png",
+    "kind": "icon",
+    "size": [
+      256,
+      256
+    ],
+    "id": null
+  },
+  "bag": {
+    "file": "bag.png",
+    "kind": "icon",
+    "size": [
+      256,
+      256
+    ],
+    "id": null
+  },
+  "heart": {
+    "file": "heart.png",
+    "kind": "icon",
+    "size": [
+      256,
+      256
+    ],
+    "id": null
+  },
+  "egg": {
+    "file": "egg.png",
+    "kind": "icon",
+    "size": [
+      256,
+      256
+    ],
+    "id": null
+  },
+  "skull": {
+    "file": "skull.png",
+    "kind": "icon",
+    "size": [
+      256,
+      256
+    ],
+    "id": null
+  },
+  "close": {
+    "file": "close.png",
+    "kind": "icon",
+    "size": [
+      256,
+      256
+    ],
+    "id": null
+  },
+  "backpack": {
+    "file": "backpack.png",
+    "kind": "icon",
+    "size": [
+      256,
+      256
+    ],
+    "id": null
+  },
+  "star": {
+    "file": "star.png",
+    "kind": "icon",
+    "size": [
+      256,
+      256
+    ],
+    "id": null
+  },
+  "noise": {
+    "file": "noise.png",
+    "kind": "texture",
+    "size": [
+      256,
+      256
+    ],
+    "id": null
+  }
+}

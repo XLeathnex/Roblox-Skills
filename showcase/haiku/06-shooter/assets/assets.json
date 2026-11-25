@@ -1,0 +1,41 @@
+{
+  "plate": {
+    "file": "plate.png",
+    "kind": "shape",
+    "size": [
+      256,
+      96
+    ],
+    "slice": [
+      23,
+      23,
+      233,
+      73
+    ],
+    "id": null
+  },
+  "grid": {
+    "file": "grid.png",
+    "kind": "texture",
+    "size": [
+      128,
+      128
+    ],
+    "id": null
+  },
+  "bracket": {
+    "file": "bracket.png",
+    "kind": "shape",
+    "size": [
+      64,
+      64
+    ],
+    "slice": [
+      22,
+      22,
+      42,
+      42
+    ],
+    "id": null
+  }
+}

@@ -1,0 +1,185 @@
+{
+  "cut-plate": {
+    "file": "cut-plate.png",
+    "kind": "shape",
+    "size": [
+      192,
+      96
+    ],
+    "slice": [
+      22,
+      22,
+      170,
+      74
+    ],
+    "id": null
+  },
+  "slash": {
+    "file": "slash.png",
+    "kind": "shape",
+    "size": [
+      192,
+      96
+    ],
+    "slice": [
+      29,
+      47,
+      163,
+      49
+    ],
+    "id": null
+  },
+  "sunburst": {
+    "file": "sunburst.png",
+    "kind": "overlay",
+    "size": [
+      512,
+      512
+    ],
+    "id": null
+  },
+  "glow": {
+    "file": "glow.png",
+    "kind": "overlay",
+    "size": [
+      512,
+      512
+    ],
+    "id": null
+  },
+  "halftone": {
+    "file": "halftone.png",
+    "kind": "texture",
+    "size": [
+      256,
+      256
+    ],
+    "id": null
+  },
+  "gem": {
+    "file": "gem.png",
+    "kind": "icon",
+    "size": [
+      256,
+      256
+    ],
+    "id": null
+  },
+  "plus": {
+    "file": "plus.png",
+    "kind": "icon",
+    "size": [
+      256,
+      256
+    ],
+    "id": null
+  },
+  "close": {
+    "file": "close.png",
+    "kind": "icon",
+    "size": [
+      256,
+      256
+    ],
+    "id": null
+  },
+  "clock": {
+    "file": "clock.png",
+    "kind": "icon",
+    "size": [
+      256,
+      256
+    ],
+    "id": null
+  },
+  "star": {
+    "file": "star.png",
+    "kind": "icon",
+    "size": [
+      256,
+      256
+    ],
+    "id": null
+  },
+  "sword": {
+    "file": "sword.png",
+    "kind": "icon",
+    "size": [
+      256,
+      256
+    ],
+    "id": null
+  },
+  "flame": {
+    "file": "flame.png",
+    "kind": "icon",
+    "size": [
+      256,
+      256
+    ],
+    "id": null
+  },
+  "bolt": {
+    "file": "bolt.png",
+    "kind": "icon",
+    "size": [
+      256,
+      256
+    ],
+    "id": null
+  },
+  "shield": {
+    "file": "shield.png",
+    "kind": "icon",
+    "size": [
+      256,
+      256
+    ],
+    "id": null
+  },
+  "leaf": {
+    "file": "leaf.png",
+    "kind": "icon",
+    "size": [
+      256,
+      256
+    ],
+    "id": null
+  },
+  "target": {
+    "file": "target.png",
+    "kind": "icon",
+    "size": [
+      256,
+      256
+    ],
+    "id": null
+  },
+  "skull": {
+    "file": "skull.png",
+    "kind": "icon",
+    "size": [
+      256,
+      256
+    ],
+    "id": null
+  },
+  "info": {
+    "file": "info.png",
+    "kind": "icon",
+    "size": [
+      256,
+      256
+    ],
+    "id": null
+  },
+  "spirit-blade": {
+    "file": "spirit-blade.png",
+    "kind": "icon",
+    "size": [
+      560,
+      560
+    ],
+    "id": null
+  }
+}

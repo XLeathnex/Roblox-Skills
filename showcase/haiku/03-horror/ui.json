@@ -1,0 +1,73 @@
+{
+ "meta": {"genre": "horror", "game": "The Lighthouse Keeper", "depth": "flat", "motion": "calm",
+  "direction": "A 1920s keeper's logbook on a storm-black scrim: typewriter labels, old serif entries in bone-paper ink, and one lamp-amber mark for the selected line. No boxes, only hairlines, the vignette and the light."},
+ "tokens": {
+  "c": {"scrim": "#06080B", "bone": "#E6DCC3", "dim": "#8C8572", "accent": "#D9A441"},
+  "r": {"sm": 2},
+  "font": {"display": "Balthazar", "body": "SpecialElite"}
+ },
+ "components": {
+  "Item": {
+   "params": {"name": "MenuItem", "text": "RESUME", "color": "$c.dim", "mark": false},
+   "node": {"class": "TextButton", "name": "{{name}}", "Size": [1, 0, 0, 64], "motion": "button",
+    "BackgroundTransparency": 1, "Text": "{{text}}", "FontFace": "$font.display", "TextSize": 40,
+    "TextColor3": "{{color}}", "TextXAlignment": "Left", "children": [
+     {"class": "Frame", "name": "AccentMark", "if": "{{mark}}", "AnchorPoint": [0, 0.5], "Position": [0, -30, 0.5, 0],
+      "Size": [0, 4, 0, 34], "BackgroundColor3": "$c.accent"}
+    ]}
+  },
+  "Slider": {
+   "params": {"name": "Slider", "label": "VOLUME", "value": "80%", "fill": 0.8},
+   "node": {"class": "Frame", "name": "{{name}}", "Size": [1, 0, 0, 64], "BackgroundTransparency": 1, "children": [
+    {"class": "TextLabel", "name": "Label", "Size": [0.7, 0, 0, 26], "BackgroundTransparency": 1, "Text": "{{label}}",
+     "FontFace": "$font.body", "TextSize": 20, "TextColor3": "$c.dim", "TextXAlignment": "Left"},
+    {"class": "TextLabel", "name": "Value", "AnchorPoint": [1, 0], "Position": [1, 0, 0, 0], "Size": [0.3, 0, 0, 26],
+     "BackgroundTransparency": 1, "Text": "{{value}}", "FontFace": "$font.display", "TextSize": 24, "TextColor3": "$c.bone",
+     "TextXAlignment": "Right"},
+    {"class": "Frame", "name": "Track", "Position": [0, 0, 0, 40], "Size": [1, 0, 0, 2],
+     "BackgroundColor3": "$c.bone", "BackgroundTransparency": 0.85},
+    {"class": "Frame", "name": "Fill", "Position": [0, 0, 0, 39], "Size": ["{{fill}}", 0, 0, 4], "BackgroundColor3": "$c.accent"}
+   ]}
+  }
+ },
+ "root": {"class": "ScreenGui", "name": "PauseGui", "ResetOnSpawn": false, "IgnoreGuiInset": true, "children": [
+  {"class": "Frame", "name": "Scrim", "Size": [1, 0, 1, 0], "BackgroundColor3": "$c.scrim", "BackgroundTransparency": 0.35},
+  {"class": "Frame", "name": "Vignette", "Size": [1, 0, 1, 0],
+   "gradient": {"type": "Radial", "colors": ["$c.scrim", "$c.scrim"], "transparency": [1, 0]}},
+
+  {"class": "Frame", "name": "LogColumn", "autoscale": "hud", "AnchorPoint": [0, 0.5], "Position": [0, 120, 0.5, 0],
+   "Size": [0, 720, 0, 800], "BackgroundTransparency": 1, "children": [
+    {"class": "TextLabel", "name": "Kicker", "Position": [0, 0, 0, 0], "Size": [1, 0, 0, 28], "BackgroundTransparency": 1,
+     "Text": "THE LIGHTHOUSE KEEPER  ·  LOG 0417", "FontFace": "$font.body", "TextSize": 20, "TextColor3": "$c.dim",
+     "TextXAlignment": "Left"},
+    {"class": "TextLabel", "name": "Title", "Position": [0, 0, 0, 40], "Size": [1, 0, 0, 120], "BackgroundTransparency": 1,
+     "Text": "PAUSED", "FontFace": "$font.display", "TextSize": 104, "TextColor3": "$c.bone", "TextXAlignment": "Left"},
+    {"class": "TextLabel", "name": "Subtitle", "Position": [0, 0, 0, 170], "Size": [1, 0, 0, 40], "BackgroundTransparency": 1,
+     "Text": "The storm has not stopped. Neither should you.", "FontFace": "$font.body", "TextSize": 22,
+     "TextColor3": "$c.dim", "TextXAlignment": "Left"},
+    {"class": "Frame", "name": "Rule", "Position": [0, 0, 0, 240], "Size": [1, 0, 0, 1],
+     "BackgroundColor3": "$c.bone", "BackgroundTransparency": 0.8},
+    {"use": "Item", "name": "ResumeButton", "text": "RESUME", "color": "$c.bone", "mark": true, "Position": [0, 0, 0, 290]},
+    {"use": "Item", "name": "SettingsButton", "text": "SETTINGS", "Position": [0, 0, 0, 370], "opens": "SettingsColumn"},
+    {"use": "Item", "name": "QuitButton", "text": "QUIT TO MENU", "Position": [0, 0, 0, 450]},
+    {"class": "TextLabel", "name": "Hint", "Position": [0, 0, 1, -28], "Size": [1, 0, 0, 24], "BackgroundTransparency": 1,
+     "Text": "ESC  RESUME        ENTER  SELECT", "FontFace": "$font.body", "TextSize": 18, "TextColor3": "$c.dim",
+     "TextXAlignment": "Left"}
+   ]},
+
+  {"class": "Frame", "name": "SettingsColumn", "autoscale": "hud", "startHidden": true, "AnchorPoint": [0, 0.5],
+   "Position": [0, 960, 0.5, 0], "Size": [0, 640, 0, 800], "BackgroundTransparency": 1, "children": [
+    {"class": "TextLabel", "name": "Kicker", "Position": [0, 0, 0, 0], "Size": [1, 0, 0, 28], "BackgroundTransparency": 1,
+     "Text": "KEEPER'S SETTINGS  ·  PAGE 2", "FontFace": "$font.body", "TextSize": 20, "TextColor3": "$c.dim",
+     "TextXAlignment": "Left"},
+    {"class": "TextLabel", "name": "Title", "Position": [0, 0, 0, 40], "Size": [1, 0, 0, 90], "BackgroundTransparency": 1,
+     "Text": "Settings", "FontFace": "$font.display", "TextSize": 64, "TextColor3": "$c.bone", "TextXAlignment": "Left"},
+    {"class": "Frame", "name": "Rule", "Position": [0, 0, 0, 150], "Size": [1, 0, 0, 1],
+     "BackgroundColor3": "$c.bone", "BackgroundTransparency": 0.8},
+    {"use": "Slider", "name": "VolumeSlider", "label": "VOLUME", "value": "80%", "fill": 0.8, "Position": [0, 0, 0, 190]},
+    {"use": "Slider", "name": "BrightnessSlider", "label": "BRIGHTNESS", "value": "60%", "fill": 0.6, "Position": [0, 0, 0, 270]},
+    {"use": "Slider", "name": "SensitivitySlider", "label": "MOUSE SENSITIVITY", "value": "0.50", "fill": 0.5, "Position": [0, 0, 0, 350]},
+    {"use": "Item", "name": "BackButton", "text": "BACK", "Position": [0, 0, 0, 450], "closes": "SettingsColumn"}
+   ]}
+ ]}
+}

@@ -1,0 +1,59 @@
+{
+  "hull-skew": {
+    "file": "hull-skew.png",
+    "kind": "shape",
+    "size": [
+      192,
+      96
+    ],
+    "slice": [
+      28,
+      47,
+      164,
+      49
+    ],
+    "id": null
+  },
+  "corner-bracket": {
+    "file": "corner-bracket.png",
+    "kind": "shape",
+    "size": [
+      192,
+      96
+    ],
+    "slice": [
+      38,
+      38,
+      154,
+      58
+    ],
+    "id": null
+  },
+  "scanlines": {
+    "file": "scanlines.png",
+    "kind": "texture",
+    "size": [
+      256,
+      256
+    ],
+    "id": null
+  },
+  "checker": {
+    "file": "checker.png",
+    "kind": "texture",
+    "size": [
+      256,
+      256
+    ],
+    "id": null
+  },
+  "glow": {
+    "file": "glow.png",
+    "kind": "overlay",
+    "size": [
+      512,
+      512
+    ],
+    "id": null
+  }
+}

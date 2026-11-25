@@ -1,0 +1,194 @@
+{
+  "wood-fill": {
+    "file": "wood-fill.png",
+    "kind": "material-fill",
+    "size": [
+      256,
+      256
+    ],
+    "id": null
+  },
+  "wood-frame": {
+    "file": "wood-frame.png",
+    "kind": "material-frame",
+    "size": [
+      192,
+      192
+    ],
+    "slice": [
+      32,
+      32,
+      160,
+      160
+    ],
+    "id": null
+  },
+  "iron-fill": {
+    "file": "iron-fill.png",
+    "kind": "material-fill",
+    "size": [
+      256,
+      256
+    ],
+    "id": null
+  },
+  "iron-frame": {
+    "file": "iron-frame.png",
+    "kind": "material-frame",
+    "size": [
+      192,
+      192
+    ],
+    "slice": [
+      32,
+      32,
+      160,
+      160
+    ],
+    "id": null
+  },
+  "grain": {
+    "file": "grain.png",
+    "kind": "texture",
+    "size": [
+      256,
+      256
+    ],
+    "id": null
+  },
+  "ic-sword": {
+    "file": "ic-sword.png",
+    "kind": "icon",
+    "size": [
+      256,
+      256
+    ],
+    "id": null
+  },
+  "ic-shield": {
+    "file": "ic-shield.png",
+    "kind": "icon",
+    "size": [
+      256,
+      256
+    ],
+    "id": null
+  },
+  "ic-potion": {
+    "file": "ic-potion.png",
+    "kind": "icon",
+    "size": [
+      256,
+      256
+    ],
+    "id": null
+  },
+  "ic-leaf": {
+    "file": "ic-leaf.png",
+    "kind": "icon",
+    "size": [
+      256,
+      256
+    ],
+    "id": null
+  },
+  "ic-paw": {
+    "file": "ic-paw.png",
+    "kind": "icon",
+    "size": [
+      256,
+      256
+    ],
+    "id": null
+  },
+  "ic-bolt": {
+    "file": "ic-bolt.png",
+    "kind": "icon",
+    "size": [
+      256,
+      256
+    ],
+    "id": null
+  },
+  "ic-egg": {
+    "file": "ic-egg.png",
+    "kind": "icon",
+    "size": [
+      256,
+      256
+    ],
+    "id": null
+  },
+  "ic-gem": {
+    "file": "ic-gem.png",
+    "kind": "icon",
+    "size": [
+      256,
+      256
+    ],
+    "id": null
+  },
+  "ic-flame": {
+    "file": "ic-flame.png",
+    "kind": "icon",
+    "size": [
+      256,
+      256
+    ],
+    "id": null
+  },
+  "ic-skull": {
+    "file": "ic-skull.png",
+    "kind": "icon",
+    "size": [
+      256,
+      256
+    ],
+    "id": null
+  },
+  "ic-coin": {
+    "file": "ic-coin.png",
+    "kind": "icon",
+    "size": [
+      256,
+      256
+    ],
+    "id": null
+  },
+  "ic-bag": {
+    "file": "ic-bag.png",
+    "kind": "icon",
+    "size": [
+      256,
+      256
+    ],
+    "id": null
+  },
+  "ic-book": {
+    "file": "ic-book.png",
+    "kind": "icon",
+    "size": [
+      256,
+      256
+    ],
+    "id": null
+  },
+  "ic-heart": {
+    "file": "ic-heart.png",
+    "kind": "icon",
+    "size": [
+      256,
+      256
+    ],
+    "id": null
+  },
+  "ic-close": {
+    "file": "ic-close.png",
+    "kind": "icon",
+    "size": [
+      256,
+      256
+    ],
+    "id": null
+  }
+}

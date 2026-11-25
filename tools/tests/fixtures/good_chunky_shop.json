@@ -1,0 +1,69 @@
+{
+ "meta": {"genre": "simulator", "game": "Sugar Rush Pets", "depth": "chunky", "motion": "bouncy",
+  "direction": "Candy factory: glossy hard-candy buttons on cream wafer panels, chocolate-brown outlines instead of black, round bubbly type, pink is the brand, mint means buy"},
+ "tokens": {
+  "c": {"cream": "#FFF4E2", "wafer": "#F6DDB4", "choc": "#4A2618", "pink": "#FF5FA2", "mint": "#2ED3A0", "berry": "#7A4DFF", "lemon": "#FFC738", "cherry": "#F0443E"},
+  "r": {"sm": 10, "md": 16, "lg": 26},
+  "font": {"display": "FredokaOne", "body": "Nunito:ExtraBold"}
+ },
+ "components": {
+  "Btn": {"params": {"text": "BUY", "color": "$c.mint", "size": 30},
+   "node": {"class": "TextButton", "Size": [0, 200, 0, 66], "BackgroundColor3": "#FFFFFF", "motion": "button", "corner": "$r.md",
+    "gradient": ["shade({{color}},1.2)", "{{color}}", "shade({{color}},-0.8)"],
+    "stroke": {"color": "$c.choc", "thickness": 3, "mode": "Border"},
+    "children": [
+     {"class": "UIShadow", "name": "LipEdge", "Color": "$c.choc", "Offset": [0,0,0,7], "Spread": [0,3,0,3], "ZIndex": -2},
+     {"class": "UIShadow", "name": "Lip", "Color": "shade({{color}},-3)", "Offset": [0,0,0,7], "ZIndex": -1},
+     {"class": "UIShadow", "name": "TopLight", "Inset": true, "Color": "#FFFFFF", "Offset": [0,0,0,3], "Transparency": 0.5, "ZIndex": -3},
+     {"class": "UIShadow", "name": "BottomShade", "Inset": true, "Color": "shade({{color}},-3)", "Offset": [0,0,0,-4], "Transparency": 0.45, "ZIndex": -4},
+     {"class": "TextLabel", "name": "Label", "Size": [1,0,1,0], "Text": "{{text}}", "FontFace": "$font.display", "TextSize": "{{size}}", "TextColor3": "#FFFFFF",
+      "stroke": {"color": "$c.choc", "thickness": 2.5},
+      "children": [{"class": "UIShadow", "Mode": "Text", "Color": "$c.choc", "Offset": [0,0,0,3]}]}
+    ]}},
+  "Card": {"params": {"title": "Egg", "price": "799", "tint": "$c.pink", "icon": "asset:egg"},
+   "node": {"class": "Frame", "Size": [0, 210, 0, 268], "BackgroundColor3": "#FFFFFF", "corner": "$r.md",
+    "gradient": ["shade({{tint}},3.2)", "shade({{tint}},1.8)"],
+    "stroke": {"color": "$c.choc", "thickness": 3},
+    "children": [
+     {"class": "UIShadow", "Color": "shade($c.wafer,-3)", "Offset": [0,0,0,5], "Spread": [0,3,0,3], "ZIndex": -1},
+     {"class": "UIShadow", "Inset": true, "Color": "#FFFFFF", "Offset": [0,0,0,3], "Transparency": 0.35, "ZIndex": -2},
+     {"class": "ImageLabel", "name": "Rays", "AnchorPoint": [0.5,0.5], "Position": [0.5,0,0,96], "Size": [0,220,0,220], "Image": "asset:sunburst", "ImageColor3": "#FFFFFF", "ImageTransparency": 0.45},
+     {"class": "ImageLabel", "name": "Icon", "AnchorPoint": [0.5,0.5], "Position": [0.5,0,0,96], "Size": [0,128,0,128], "Image": "{{icon}}", "ScaleType": "Fit", "Rotation": -6},
+     {"class": "TextLabel", "name": "Title", "Position": [0,0,0,160], "Size": [1,0,0,30], "Text": "{{title}}", "FontFace": "$font.display", "TextSize": 24, "TextColor3": "$c.choc"},
+     {"use": "Btn", "name": "Buy", "AnchorPoint": [0.5,1], "Position": [0.5,0,1,-18], "Size": [0,170,0,52], "text": "{{price}}", "size": 26}
+    ]}}
+ },
+ "root": {"class": "ScreenGui", "name": "ShopGui", "children": [
+  {"class": "Frame", "name": "ShopPanel", "autoscale": "modal", "motion": "panel", "AnchorPoint": [0.5,0.5], "Position": [0.5,0,0.5,0], "Size": [0,820,0,470],
+   "BackgroundColor3": "#FFFFFF", "corner": "$r.lg", "gradient": ["$c.cream", "$c.wafer"], "stroke": {"color": "$c.choc", "thickness": 4},
+   "children": [
+    {"class": "UIShadow", "Color": "shade($c.choc,-1)", "Offset": [0,0,0,10], "Spread": [0,4,0,4], "Transparency": 0.15, "ZIndex": -1},
+    {"class": "UIShadow", "Inset": true, "Color": "#FFFFFF", "Offset": [0,0,0,4], "Transparency": 0.2, "ZIndex": -2},
+    {"class": "Frame", "name": "Header", "AnchorPoint": [0.5,0.5], "Position": [0.5,0,0,4], "Size": [0,360,0,72], "BackgroundColor3": "#FFFFFF", "corner": "$r.md", "Rotation": -1.5,
+     "gradient": ["shade($c.pink,1)", "$c.pink", "shade($c.pink,-1)"], "stroke": {"color": "$c.choc", "thickness": 4},
+     "children": [
+      {"class": "UIShadow", "Color": "$c.choc", "Offset": [0,0,0,7], "Spread": [0,4,0,4], "ZIndex": -2},
+      {"class": "UIShadow", "Color": "shade($c.pink,-3)", "Offset": [0,0,0,7], "ZIndex": -1},
+      {"class": "UIShadow", "Inset": true, "Color": "#FFFFFF", "Offset": [0,0,0,3], "Transparency": 0.5, "ZIndex": -3},
+      {"class": "ImageLabel", "name": "Stripes", "Size": [1,0,1,0], "Image": "asset:stripes", "ScaleType": "Tile", "TileSize": [0,96,0,96], "ImageTransparency": 0.88, "corner": "$r.md"},
+      {"class": "TextLabel", "name": "Title", "Size": [1,0,1,0], "Text": "EGG SHOP", "FontFace": "$font.display", "TextSize": 44, "TextColor3": "#FFFFFF",
+       "stroke": {"color": "$c.choc", "thickness": 3}, "children": [{"class": "UIShadow", "Mode": "Text", "Color": "$c.choc", "Offset": [0,0,0,4]}]}
+     ]},
+    {"class": "ImageButton", "name": "CloseButton", "closes": "ShopPanel", "motion": "button", "AnchorPoint": [0.5,0.5], "Position": [1,-14,0,14], "Size": [0,60,0,60],
+     "BackgroundColor3": "#FFFFFF", "corner": 14, "gradient": ["shade($c.cherry,1)", "shade($c.cherry,-1)"], "stroke": {"color": "$c.choc", "thickness": 4},
+     "children": [
+      {"class": "UIShadow", "Color": "$c.choc", "Offset": [0,0,0,5], "Spread": [0,4,0,4], "ZIndex": -2},
+      {"class": "UIShadow", "Color": "shade($c.cherry,-3)", "Offset": [0,0,0,5], "ZIndex": -1},
+      {"class": "UIShadow", "Inset": true, "Color": "#FFFFFF", "Offset": [0,0,0,3], "Transparency": 0.5, "ZIndex": -3},
+      {"class": "ImageLabel", "name": "X", "AnchorPoint": [0.5,0.5], "Position": [0.5,0,0.5,0], "Size": [0,34,0,34], "Image": "asset:x", "ImageColor3": "#FFFFFF"}
+     ]},
+    {"class": "Frame", "name": "Items", "Position": [0,34,0,62], "Size": [1,-68,0,290], "list": {"dir": "H", "gap": 26, "align": "Center", "valign": "Center"},
+     "children": [
+      {"use": "Card", "name": "CandyEgg", "title": "Candy Egg", "price": "799"},
+      {"use": "Card", "name": "GemEgg", "title": "Gem Egg", "price": "2,500", "tint": "$c.berry", "icon": "asset:gem"},
+      {"use": "Card", "name": "LemonEgg", "title": "Lemon Egg", "price": "12K", "tint": "$c.lemon"}
+     ]},
+    {"class": "TextLabel", "name": "Hint", "AnchorPoint": [0.5,1], "Position": [0.5,0,1,-26], "Size": [1,-80,0,56], "Text": "Hatch 3 at once with Triple Hatch!", "FontFace": "$font.body", "TextSize": 22, "TextColor3": "shade($c.choc,2)"}
+   ]}
+ ]}
+}
