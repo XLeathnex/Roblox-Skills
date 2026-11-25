@@ -1,5 +1,5 @@
 __pycache__/
 *.pyc
 .DS_Store
-# temporary: showcase runs are still being generated; removed when they finish
+# the 20 generated showcase UIs are kept out of the repo (see final notes)
 showcase/

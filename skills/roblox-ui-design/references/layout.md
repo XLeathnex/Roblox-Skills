@@ -5,7 +5,7 @@
 Design in 1080p pixels (offsets) inside a group marked `autoscale`. The bundled UIRuntime script scales each group by `(screenHeight / 1080) ^ 0.4`, so a phone gets about 0.66x instead of 0.36x and stays tappable.
 
 - `"autoscale": "hud"`: an edge-anchored group. Anchor it with scale + anchor point (`"AnchorPoint": [0, 0.5], "Position": [0, 16, 0.5, 0]`), size it in offsets.
-- `"autoscale": "modal"`: a centred panel. It also shrinks to fit the safe area, so on a phone a panel taller than about 470px or wider than about 1070px gets smaller than the HUD scale. Keep modals landscape (roughly 800-1000 x 440-520) and their body text 22px or larger; scroll instead of growing taller.
+- `"autoscale": "modal"`: a centred panel. Draw it at any convenient size in landscape proportions (for example 1200x680); it is scaled to fill about 94% of a phone's safe area and about 76% of a desktop's, so it is always a substantial part of the screen. Because a phone is small, keep body text at least 1/22 of the panel's height and scroll long lists instead of shrinking them.
 - Full-screen layers (scrims, vignettes) use scale `[1,0,1,0]` and no autoscale. A ScreenGui that must cover the notch and top bar sets `"ScreenInsets": "None"`.
 - Sizes at 1080p: buttons 60px tall or more (primary 64-76); HUD side buttons and hotbar slots 76-92 square with 44-56 icons; bars 320-440 wide and 24-32 tall; HUD text 22 or larger. Anything smaller is unreadable on a phone.
 - A phone in landscape is only about 590 design-pixels tall and 1270 wide after scaling. Give every HUD group its own corner or edge and keep a left or right edge stack under about 300px tall, or groups that look far apart at 1080p will collide (the linter checks this).

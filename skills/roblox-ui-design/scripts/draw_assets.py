@@ -939,7 +939,7 @@ def main(argv=None):
     elif a.cmd == "shape":
         img, sc, note = shape(a.kind, a.width, a.height, a.cut, a.border, not a.flat)
         snippet = {"class": "ImageLabel", "name": name.title().replace("-", ""), "Size": [0, a.width, 0, a.height],
-                   "Image": f"asset:{name}", "ImageColor3": "$color.primary"}
+                   "Image": f"asset:{name}", "ImageColor3": "#FFFFFF"}
         if sc:
             snippet.update({"ScaleType": "Slice", "SliceCenter": sc})
         else:
@@ -963,7 +963,7 @@ def main(argv=None):
         snippet = {"class": "ImageLabel", "name": a.name.title() + "Icon", "Size": [0, 48, 0, 48], "Image": f"asset:{name}",
                    "ScaleType": "Fit"}
         if a.style == "glyph":
-            snippet["ImageColor3"] = "$color.ink"
+            snippet["ImageColor3"] = "#FFFFFF"
         save(img, out, "icon", snippet, "Glyph icons are white: tint them with ImageColor3." if a.style == "glyph"
              else "Toon icon with a same-hue outline; do not tint it.")
     elif a.cmd == "sheet":

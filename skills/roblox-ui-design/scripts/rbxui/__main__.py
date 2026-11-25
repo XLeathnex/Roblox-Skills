@@ -48,9 +48,16 @@ def _pick_zoom(spec, render, names):
         targets += render.find_nodes(spec.root, name)[:1]
     if targets:
         return targets
-    buttons = [n for n in spec.root.walk() if n.cls in S.BUTTON_CLASSES and hasattr(n, "rect") and n.rect[2] > 0]
+    buttons = [n for n in spec.root.walk() if n.cls in S.BUTTON_CLASSES and getattr(n, "rect", (0, 0, 0, 0))[2] > 0]
     buttons.sort(key=lambda n: -(n.rect[2] * n.rect[3]))
-    return buttons[:1]
+    if buttons:
+        return buttons[:1]
+    # no buttons (a pure HUD): show the busiest small group instead
+    vw = spec.root.rect[2] if hasattr(spec.root, "rect") else 1920
+    groups = [n for n in spec.root.walk() if n.cls in S.GUI_OBJECTS and getattr(n, "rect", (0, 0, 0, 0))[2] > 40
+              and n.rect[2] < vw * 0.45 and len(n.children) >= 3]
+    groups.sort(key=lambda n: -sum(1 for _ in n.walk()))
+    return groups[:1]
 
 
 def review_image(spec, out: Path, zoom_names=None, backdrop=None):
@@ -60,11 +67,22 @@ def review_image(spec, out: Path, zoom_names=None, backdrop=None):
         return None
     from PIL import Image, ImageDraw
 
+    # Panels marked startHidden are closed when the game starts. PC shows that start state (unless nothing
+    # else exists); the phone view opens the first such panel so both states get looked at.
+    hidden = [n.name for n in spec.root.walk() if n.attrs.get("StartHidden")]
+    always = any(n.cls in S.GUI_OBJECTS and not n.attrs.get("StartHidden") for n in spec.root.children)
+    pc_open = None if (hidden and always) else (hidden[0] if hidden else None)
+    phone_open = hidden[0] if hidden else None
+    L.HIDE_START_HIDDEN.update({"on": bool(hidden), "except": pc_open})
     pc, r = render.render(spec, "pc", 1.0, backdrop)
     missing = set(r.missing_assets)
+    L.HIDE_START_HIDDEN.update({"on": bool(hidden), "except": phone_open})
     phone, r2 = render.render(spec, "phone", 1.0, backdrop)
     big, r3 = render.render(spec, "pc", 3.0, backdrop, chrome=False)
     targets = _pick_zoom(spec, render, zoom_names)
+    L.HIDE_START_HIDDEN.update({"on": False, "except": None})
+    pc_label = "PC 1920x1080" + (" (start state)" if hidden and pc_open is None else (f" ({pc_open} open)" if pc_open else ""))
+    phone_label = "phone 844x390" + (f" ({phone_open} open)" if phone_open else "")
     W = 1280
     top = pc.resize((W, 720), Image.LANCZOS)
     sheet = Image.new("RGB", (W, 720 + 390), (22, 24, 28))
@@ -76,7 +94,7 @@ def review_image(spec, out: Path, zoom_names=None, backdrop=None):
         crop.thumbnail((zw - 12, zh - 12), Image.LANCZOS)
         sheet.paste(crop, (844 + (zw - crop.width) // 2, 720 + (zh - crop.height) // 2))
     d = ImageDraw.Draw(sheet)
-    for xy, text in (((8, 694), "PC 1920x1080"), ((8, 1084), "phone 844x390"),
+    for xy, text in (((8, 694), pc_label), ((8, 1084), phone_label),
                      ((852, 1084), f"close-up: {targets[0].name}" if targets else "")):
         if text:
             d.rectangle([xy[0] - 4, xy[1] - 2, xy[0] + 8 * len(text), xy[1] + 14], fill=(0, 0, 0))

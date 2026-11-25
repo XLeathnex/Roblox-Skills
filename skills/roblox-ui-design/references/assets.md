@@ -1,6 +1,8 @@
 # Images: when and how
 
-UICorner, UIStroke, UIGradient and UIShadow already cover rounded rectangles, outlines, gradients (linear, radial, conical), drop and inset shadows. Reach for an image only for what instances cannot do: textures, non-rectangular shapes, material frames, atmosphere overlays, icons. A UI must still look finished before its images are uploaded.
+The best Roblox UI is mostly images: panel frames, ribbons, plaques, item art, icons, textures. Instances (UICorner, UIStroke, UIGradient, UIShadow) give you rounded rectangles with outlines, gradients and shadows; everything with more character than that is drawn. Draw what this game's direction calls for. A UI should still hold together before its images are uploaded, so build the structure from instances and put the art on top.
+
+The stock generators below are for generic building blocks (noise, stripes, a vignette). For anything that carries the game's identity (its panel frame, its header, its currency and item icons) write your own drawing code with the helpers in "Draw your own", and spend real effort on it: shading, highlights, outlines, small details. Look at every image you draw before you use it.
 
 ## Draw them
 

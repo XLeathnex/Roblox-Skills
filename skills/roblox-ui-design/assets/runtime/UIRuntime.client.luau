@@ -156,13 +156,21 @@ local function applyAutoScale(object: GuiObject)
 	local state = getState(object)
 	local scale = baseScale()
 	if mode == "modal" then
+		-- A modal fills most of a phone and about three quarters of a desktop, whatever size it was drawn at.
 		local available = gui.AbsoluteSize
 		local size = object.Size
+		local camera = Workspace.CurrentCamera
+		local height = if camera then camera.ViewportSize.Y else REFERENCE_HEIGHT
+		local fill = 0.94 - 0.18 * math.clamp((height - 500) / 500, 0, 1)
+		local fit = math.huge
 		if size.X.Scale == 0 and size.X.Offset > 0 and available.X > 0 then
-			scale = math.min(scale, 0.96 * available.X / size.X.Offset)
+			fit = math.min(fit, fill * available.X / size.X.Offset)
 		end
 		if size.Y.Scale == 0 and size.Y.Offset > 0 and available.Y > 0 then
-			scale = math.min(scale, 0.94 * available.Y / size.Y.Offset)
+			fit = math.min(fit, fill * available.Y / size.Y.Offset)
+		end
+		if fit < math.huge then
+			scale = math.min(fit, 2)
 		end
 	end
 	state.auto = scale

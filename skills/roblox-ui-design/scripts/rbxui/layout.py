@@ -22,8 +22,18 @@ DEVICES = {
 }
 
 
+HIDE_START_HIDDEN = {"on": False, "except": None}
+
+
 def visible_gui_children(node: Node):
-    return [c for c in node.children if c.cls in GUI_OBJECTS and effective(c, "Visible") is not False]
+    out = []
+    for c in node.children:
+        if c.cls not in GUI_OBJECTS or effective(c, "Visible") is False:
+            continue
+        if HIDE_START_HIDDEN["on"] and c.attrs.get("StartHidden") and c.name != HIDE_START_HIDDEN["except"]:
+            continue
+        out.append(c)
+    return out
 
 
 def _udim(u, basis, px):
@@ -140,6 +150,12 @@ def auto_scale_base(viewport_h: float) -> float:
     return max(0.55, min(1.5, (viewport_h / 1080.0) ** 0.4))
 
 
+def modal_fill(viewport_h: float) -> float:
+    """Share of the safe area a modal should occupy: most of a phone, about three quarters of a desktop."""
+    t = max(0.0, min(1.0, (viewport_h - 500.0) / 500.0))
+    return 0.94 - 0.18 * t
+
+
 def _own_scale(node: Node) -> float:
     mode = node.attrs.get("AutoScale")
     if mode:
@@ -147,10 +163,14 @@ def _own_scale(node: Node) -> float:
         if mode == "modal":
             sx, ox, sy, oy = effective(node, "Size") or (0, 0, 0, 0)
             aw, ah = CTX["avail"]
+            fill = modal_fill(CTX["vh"])
+            fits = []
             if sx == 0 and ox > 0:
-                s = min(s, 0.96 * aw / ox)
+                fits.append(fill * aw / ox)
             if sy == 0 and oy > 0:
-                s = min(s, 0.94 * ah / oy)
+                fits.append(fill * ah / oy)
+            if fits:
+                s = min(min(fits), 2.0)  # a modal grows or shrinks to fill the screen, whatever size it was drawn at
         return s
     s = node.child("UIScale")
     return float(s.props.get("Scale", 1.0)) if s else 1.0

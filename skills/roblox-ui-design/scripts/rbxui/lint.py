@@ -143,40 +143,50 @@ def _covers(outer: Node, inner: Node) -> bool:
 
 
 def backdrop_for(node: Node):
-    """(colour, opacity, owner) of what is painted behind `node`: the nearest filled ancestor, or an
-    earlier sibling of it (a scrim, a panel plate) that covers the node. Colour is None when only an
-    image sits behind it (unknown colour) or nothing does (owner None: the 3D world)."""
+    """What is painted behind `node`: every filled ancestor and every earlier sibling that covers it,
+    composited front to back. -> (colour or None, opacity 0..1, nearest layer or None).
+    Colour is None when an image is the main thing behind the text (unknown colour) or nothing is."""
     cur = node
+    acc = [0.0, 0.0, 0.0]
+    alpha = 0.0
+    nearest = None
     image_owner = None
-    while cur is not None:
+
+    def add(layer: Node):
+        nonlocal alpha, nearest, image_owner
+        c = fill_color(layer)
+        a = bg_alpha(layer)
+        if c is not None and a >= 0.04:
+            w = (1 - alpha) * a
+            for i in range(3):
+                acc[i] += w * c[i]
+            alpha += w
+            nearest = nearest or layer
+        if layer.cls in IMAGE_CLASSES and (effective(layer, "Image") or "") and layer is not node and alpha < 0.6:
+            image_owner = image_owner or layer
+
+    while cur is not None and alpha < 0.97:
         if cur.cls in GUI_OBJECTS:
-            c = fill_color(cur)
-            if c is not None and bg_alpha(cur) >= 0.35:
-                return c, bg_alpha(cur), cur
-            if cur.cls in IMAGE_CLASSES and (effective(cur, "Image") or "") and cur is not node:
-                image_owner = image_owner or cur
+            add(cur)
         parent = cur.parent
         if parent is not None:
             z = (effective(cur, "ZIndex") or 1) if cur.cls in GUI_OBJECTS else 1
             idx = parent.children.index(cur)
-            best = None
+            behind = []
             for i, sib in enumerate(parent.children):
                 if sib is cur or sib.cls not in GUI_OBJECTS or effective(sib, "Visible") is False:
                     continue
                 sz = effective(sib, "ZIndex") or 1
-                if not (sz < z or (sz == z and i < idx)) or not _covers(sib, node):
-                    continue
-                c = fill_color(sib)
-                if c is not None and bg_alpha(sib) >= 0.35:
-                    best = (c, bg_alpha(sib), sib)
-                elif sib.cls in IMAGE_CLASSES and (effective(sib, "Image") or ""):
-                    image_owner = image_owner or sib
-            if best:
-                return best
+                if (sz < z or (sz == z and i < idx)) and _covers(sib, node):
+                    behind.append((sz, i, sib))
+            for _, _, sib in sorted(behind, key=lambda t: (-t[0], -t[1])):
+                add(sib)
         cur = parent
-    if image_owner is not None:
+    if image_owner is not None and alpha < 0.6:
         return None, 1.0, image_owner
-    return None, 0.0, None
+    if alpha < 0.04:
+        return None, 0.0, None
+    return tuple(v / alpha for v in acc), alpha, nearest
 
 
 def in_modal(node: Node) -> bool:
@@ -366,7 +376,8 @@ def _rule_text_sizes(nodes, rep: Report, dev: str):
                          "Add \"maxText\": <your type-scale size> (and usually \"minText\": 10).")
     if dev == "pc" and len(sizes) >= 4:
         vals = sorted({round(s[0]) for s in sizes})
-        if vals[-1] / max(1, vals[0]) < 1.5:
+        has_panel = any(n.attrs.get("AutoScale") == "modal" or n.attrs.get("Motion") == "panel" for n in nodes)
+        if has_panel and vals[-1] / max(1, vals[0]) < 1.5:
             rep.warn("flat-type-scale", "typography", f"text sizes run only from {vals[0]}px to {vals[-1]}px; nothing reads as a headline.",
                      "Make the title at least 2x the body size; use 3-4 sizes with clear jumps.")
         if len(vals) > 7:
@@ -537,8 +548,12 @@ def _rule_shapes(nodes, rep: Report, depth: str):
     if len(rounded) >= 5:
         radii = Counter()
         for n in rounded:
+            if is_pill(n):
+                continue  # circles and chips take their radius from their size
             r = round(max(L.corner_radii(n, n.rect[2], n.rect[3], n.px)))
             radii[r] += 1
+        if not radii:
+            radii[0] += 1
         heights = [min(n.rect[2], n.rect[3]) for n in rounded]
         if len(radii) == 1 and max(heights) / max(1.0, min(heights)) >= 3.5:
             rep.warn("one-radius", "shapes", f"every rounded shape uses radius {next(iter(radii))}px, from {min(heights):.0f}px chips to "
@@ -559,13 +574,15 @@ def _rule_shapes(nodes, rep: Report, depth: str):
         if len(near) < 2:
             continue
         gap = max(0.0, min(near))
+        if w < pw * 0.6 and h < ph * 0.6:
+            continue  # a small object inside a card, not a nested container
         outer = max(L.corner_radii(p, pw, ph, p.px))
         inner = max(L.corner_radii(n, w, h, n.px))
         expected = max(0.0, outer - gap)
         if outer >= 8 and inner >= outer and 2 <= gap <= 14 and not is_pill(p):
             rep.warn("corners-not-concentric", _name(n), "a rounded shape sits just inside another with the same or a larger radius, "
                      "so the gap bulges at the corners.",
-                     f"inner radius = outer radius - gap (here about {expected:.0f}px).")
+                     f"inner radius = outer radius - gap: here {outer:.0f} - {gap:.0f}, so use about {expected:.0f}px.")
 
 
 def _rule_fake_gloss(nodes, rep: Report):
@@ -658,21 +675,29 @@ def _rule_colors(spec, nodes, rep: Report, depth: str):
         if max(fc) < 0.012 and bg_alpha(n) > 0.9:
             rep.warn("pure-black", _name(n), "fill is pure #000000.",
                      "Use a near-black tinted toward the palette (e.g. #0E1016, #14110F); it sits in the scene instead of punching a hole.")
-    # merge neighbouring buckets (30 degree bins) into hue families
-    fams = []
-    for b in sorted(buckets):
-        if fams and (b - fams[-1][-1]) <= 1:
-            fams[-1].append(b)
+    hues = []
+    for group in buckets.values():
+        for n in group:
+            if re.search(r"rarit|tier|team|rank", n.name, re.I) or (n.parent is not None and re.search(r"rarit|tier", n.parent.name, re.I)):
+                continue  # rarity ladders and team colours are meant to span hues
+            if has_rect(n) and n.rect[2] * n.rect[3] < 900:
+                continue
+            hues.append((C.to_oklch(fill_color(n))[2], n))
+    hues.sort(key=lambda t: t[0])
+    clusters = []
+    for h, n in hues:
+        if clusters and h - clusters[-1][-1][0] <= 30:
+            clusters[-1].append((h, n))
         else:
-            fams.append([b])
-    if len(fams) >= 2 and fams[0][0] == 0 and fams[-1][-1] == 11:
-        fams[0] = fams.pop() + fams[0]
-    if len(fams) >= 5:
-        names = [buckets[f[0]][0].name for f in fams]
-        rep.warn("hue-rainbow", "colour", f"{len(fams)} unrelated saturated hues are used as fills ({', '.join(names[:6])}...). "
+            clusters.append([(h, n)])
+    if len(clusters) >= 2 and (clusters[0][0][0] + 360 - clusters[-1][-1][0]) <= 30:
+        clusters[0] = clusters.pop() + clusters[0]
+    if len(clusters) >= 5:
+        names = [c[0][1].name for c in clusters]
+        rep.warn("hue-rainbow", "colour", f"{len(clusters)} unrelated saturated hues are used as fills ({', '.join(names[:6])}). "
                  "A different colour on every element is decoration, not a colour system.",
-                 "One dominant hue family, one or two accents, tinted neutrals. Colour by function: e.g. green = buy/confirm, "
-                 "red = close/danger, gold = premium, and nothing else gets those hues. (Rarity ladders are the one exception.)")
+                 "One dominant hue family, one or two accents, tinted neutrals. Colour by function (e.g. green = buy, red = close, "
+                 "gold = premium). Rarity or team colours are exempt when the instance name says so (RarityBand, TeamBar).")
     sat_area = area = 0.0
     for n in nodes:
         if n.cls in GUI_OBJECTS and has_rect(n):
@@ -707,22 +732,30 @@ def _rule_contrast(nodes, rep: Report):
         tshadow = next((s for s in n.children_of("UIShadow") if s.props.get("Mode") == "Text"), None)
         legacy = (effective(n, "TextStrokeTransparency") or 1) < 0.7
         behind, opacity, owner = backdrop_for(n)
-        size = effective(n, "TextSize") or 14
+        x, y, w, h = n.rect
+        pl, pt, pr, pb = L.padding(n, w, h, n.px)
+        size = L.text_layout(n, max(1, w - pl - pr), max(1, h - pt - pb), n.px)["size"]
         if behind is None and owner is not None:
             continue  # an image is behind the text; its colour is unknown here
         if behind is None or opacity < 0.6:
             if not (stroke or tshadow or legacy):
-                rep.warn("text-over-world", _name(n), "text sits directly over the 3D world with no outline, shadow or scrim. "
-                         "It will vanish against some part of every map.",
-                         "Add a text stroke/shadow, or put a dark gradient scrim behind it.")
+                if owner is None:
+                    rep.warn("text-over-world", _name(n), "text sits directly over the 3D world with no outline, shadow or scrim. "
+                             "It will vanish against some part of every map.",
+                             "Add a text stroke/shadow, or put a dark scrim behind it (at least 60% opaque where the text is).")
+                else:
+                    rep.warn("faint-scrim", _name(n), f"the layer behind this text ({owner.name}) is only {opacity * 100:.0f}% opaque there, "
+                             "so the 3D world still shows through and can swallow the text.",
+                             "Make the scrim at least 60% opaque under the text, or give the text a stroke or shadow.")
             continue
         cr = C.contrast(col, behind)
         need = 3.0 if size >= 22 else 4.5
-        if cr < need:
+        if cr < need - 0.05:
             if stroke and C.contrast(col, stroke.props.get("Color", (0, 0, 0))) >= 3.0:
                 continue
             rep.warn("low-contrast", _name(n), f"text {C.to_hex(col)} on {C.to_hex(behind)} has contrast {cr:.1f}:1 (needs {need}:1).",
-                     "Use ink($background) for a readable same-family text colour, or add a dark same-hue stroke.")
+                     "Move the text colour further from the fill (ink($fill) picks the readable side), or darken/lighten the fill: "
+                     "a mid-tone fill suits neither white nor dark text. A dark same-hue text stroke also passes.")
 
 
 def _rule_spacing(nodes, rep: Report):
@@ -810,6 +843,36 @@ def _rule_screen_fit(root, nodes, rep: Report, dev: str):
                          "the top bar and the phone notch, leaving strips of the game visible.",
                          "Set \"ScreenInsets\": \"None\" on the ScreenGui (keep its content clear of the top-left Roblox buttons).")
                 break
+    zones = backdrops.keep_clear_zones(dev)
+    flagged_groups = set()
+    for n in nodes:
+        if n.cls not in GUI_OBJECTS or not has_rect(n) or n.cls in BUTTON_CLASSES:
+            continue
+        inked = bg_alpha(n) > 0.3 or (n.cls in TEXT_CLASSES and (effective(n, "Text") or "").strip()) or (
+            n.cls in IMAGE_CLASSES and effective(n, "Image"))
+        x, y, w, h = n.rect
+        if not inked or w >= vw * 0.9 or w * h < 60:
+            continue
+        for (zx0, zy0, zx1, zy1), why in zones:
+            ix = min(x + w, zx1) - max(x, zx0)
+            iy = min(y + h, zy1) - max(y, zy0)
+            if ix <= 6 or iy <= 6:
+                continue
+            top = n
+            while top.parent is not None and top.parent is not root:
+                top = top.parent
+            if "top bar" in why:
+                if top.name + "tb" not in flagged_groups:
+                    flagged_groups.add(top.name + "tb")
+                    rep.warn("under-topbar", _name(n), f"on {dev} this sits under the Roblox menu/chat buttons (top-left 124x58px), which draw over it.",
+                             "Start content right of or below that corner, or keep the ScreenGui's default insets.")
+            elif touch and not taken and not in_modal(n) and not top.attrs.get("StartHidden") \
+                    and ix * iy > 0.2 * min(w * h, (zx1 - zx0) * (zy1 - zy0)) and top.name not in flagged_groups:
+                flagged_groups.add(top.name)
+                rep.warn("hud-under-controls", _name(n), f"on {dev} this HUD element sits under the {why}; the control covers it and "
+                         "thumbs will hide the rest.",
+                         "On touch screens keep the bottom-left 190x150px and bottom-right 110x110px empty: lift corner HUD above "
+                         "those zones or move it toward bottom-centre or the top.")
     for n in nodes:
         if n.cls not in GUI_OBJECTS or not has_rect(n):
             continue
@@ -821,9 +884,12 @@ def _rule_screen_fit(root, nodes, rep: Report, dev: str):
             if (over_x > 4 or over_y > 4) and not (full_bleed and w >= vw - 2 and h >= vh - 2) and w * h > 400:
                 size = effective(n, "Size") or (0, 0, 0, 0)
                 offset_only = size[0] == 0 or size[2] == 0
+                scaled = n.attrs.get("AutoScale")
                 rep.error("off-screen", _name(n), f"on {dev} ({vw}x{vh}) this is {w:.0f}x{h:.0f}px and overflows the screen by "
                           f"{over_x:.0f}px horizontally, {over_y:.0f}px vertically."
-                          + (" It is sized in pixels, so it does not shrink on small screens." if offset_only else ""),
+                          + (" It is sized in pixels, so it does not shrink on small screens." if offset_only and not scaled else ""),
+                          ("It already scales as a HUD group, which never shrinks below about 0.66x: make it smaller, anchor it so it "
+                           "grows inward from its edge, or use \"autoscale\": \"modal\" if it is a centred panel.") if scaled else
                           "Add \"autoscale\": \"modal\" to a centred panel (or \"hud\" to an edge-anchored HUD group): you design in "
                           "1080p pixels and it is scaled per device.")
         if n.cls in BUTTON_CLASSES and touch:
@@ -875,6 +941,9 @@ def _rule_engine_misc(nodes, rep: Report):
             rep.warn("motion-in-layout", _name(n), "a hover-scaled button is a direct child of a list/grid, so scaling it will "
                      "push its neighbours around.",
                      "Wrap it: a fixed-size Frame holder in the layout, with the button inside at Size [1,0,1,0].")
+        if n.cls == "CanvasGroup" and n.child("UIGradient") and any(c.cls in GUI_OBJECTS for c in n.children):
+            rep.warn("group-gradient", _name(n), "a UIGradient on a CanvasGroup tints every descendant, text and icons included.",
+                     "Put the gradient on a background Frame inside the group instead.")
         if n.cls == "TextBox" and n.child("UIGradient"):
             rep.warn("textbox-gradient", _name(n), "UIGradient is not supported on TextBox.", "Put the gradient on a parent Frame.")
         if n.cls in IMAGE_CLASSES:

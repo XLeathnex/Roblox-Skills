@@ -353,7 +353,7 @@ class Renderer:
         if w <= 0 or h <= 0:
             return
         tmp = Layer(x, y, w, h)
-        self._paint_self(node, tmp, (x, y, x + w, y + h), strokes=False, shadows=False)
+        self._paint_self(node, tmp, (x, y, x + w, y + h), strokes=False, shadows=False, use_gradient=False)
         self.paint_children(node, tmp, (x, y, x + w, y + h))
         radii = L.corner_radii(node, w, h, node.px)
         mask = cov(sdf_box(w, h, radii, 0))
@@ -370,7 +370,7 @@ class Renderer:
         layer.composite(tmp, opacity=opacity, mask=mask, tint=tint, clip=clip)
         self._paint_strokes(node, layer, clip)
 
-    def _paint_self(self, node: Node, layer: Layer, clip, strokes=True, shadows=True):
+    def _paint_self(self, node: Node, layer: Layer, clip, strokes=True, shadows=True, use_gradient=True):
         x, y, w, h = self._irect(node)
         if w <= 0 or h <= 0:
             if node.cls in TEXT_CLASSES:
@@ -378,7 +378,7 @@ class Renderer:
             return
         px = node.px
         radii = L.corner_radii(node, w, h, px)
-        grad = node.child("UIGradient")
+        grad = node.child("UIGradient") if use_gradient else None
         if shadows:
             self._paint_shadows(node, layer, clip, inset=False)
         bt = effective(node, "BackgroundTransparency")
@@ -602,18 +602,26 @@ class Renderer:
         bw, bh = bx1 - bx0, by1 - by0
         if bw <= 0 or bh <= 0 or bw * bh > 40_000_000:
             return
-        ascent, descent = font.getmetrics()
-        base_scale = tl["size"] / max(1, ascent + descent)
+        # Small text is drawn 3x larger and scaled down: at tiny pixel sizes hinting rounds each glyph
+        # advance to whole pixels and opens random gaps inside words.
+        ss = 3 if tl["size"] < 30 else 1
+        draw_font = fonts.get(tl["face"], tl["size"] * ss) if ss > 1 else font
+        ascent, descent = draw_font.getmetrics()
+        base_scale = tl["size"] * ss / max(1, ascent + descent)
+        if ss > 1:
+            widths = [draw_font.getlength(l) / ss for l in lines]
 
-        def mask(stroke_w: int):
-            img = Image.new("L", (bw, bh), 0)
+        def mask(stroke_w: float):
+            img = Image.new("L", (bw * ss, bh * ss), 0)
             dr = ImageDraw.Draw(img)
             for i, (line, lw) in enumerate(zip(lines, widths)):
                 lx = tx + (tw - lw) * xa - bx0
                 top = ty + (th - block_h) * ya + i * lh - by0
-                baseline = top + (lh - tl["size"]) / 2 + ascent * base_scale
-                dr.text((lx, baseline), line, font=font, fill=255, anchor="ls",
-                        stroke_width=stroke_w, stroke_fill=255)
+                baseline = top * ss + (lh - tl["size"]) * ss / 2 + ascent * base_scale
+                dr.text((lx * ss, baseline), line, font=draw_font, fill=255, anchor="ls",
+                        stroke_width=int(round(stroke_w * ss)), stroke_fill=255)
+            if ss > 1:
+                img = img.resize((bw, bh), Image.LANCZOS)
             return np.asarray(img, dtype=F) / 255
 
         fill_mask = mask(0)
@@ -637,7 +645,7 @@ class Renderer:
             blur = max(0.0, bu[0] * min(w, h) + bu[1] * px)
             o = s.props.get("Offset", (0, 0, 0, 0))
             ox, oy = int(round(o[0] * w + o[1] * px)), int(round(o[2] * h + o[3] * px))
-            base_mask = mask(int(round(stroke_px))) if stroke_px >= 1 else fill_mask
+            base_mask = mask(stroke_px) if stroke_px >= 1 else fill_mask
             sm = base_mask
             if blur > 0.75:
                 sm = np.asarray(Image.fromarray((base_mask * 255).astype(np.uint8), "L").filter(
@@ -645,12 +653,11 @@ class Renderer:
             rgb, am = paint_for(s.props.get("Color", (0, 0, 0)), s.child("UIGradient"))
             layer.blend(bx0 + ox, by0 + oy, rgb, sm * am * (1 - s.props.get("Transparency", 0.0)), clip)
         if stroke and stroke_px >= 0.5:
-            sw = max(1, int(round(stroke_px)))
-            sm = mask(sw)
+            sm = mask(max(1.0, stroke_px))
             rgb, am = paint_for(stroke.props.get("Color", (0, 0, 0)), stroke.child("UIGradient"))
             layer.blend(bx0, by0, rgb, sm * am * (1 - stroke.props.get("Transparency", 0.0)), clip)
         elif legacy:
-            sm = mask(max(1, int(round(px))))
+            sm = mask(max(1.0, px))
             layer.blend(bx0, by0, effective(node, "TextStrokeColor3") or (0, 0, 0), sm * (1 - legacy_t), clip)
         if tt < 1:
             rgb, am = paint_for(color, grad)

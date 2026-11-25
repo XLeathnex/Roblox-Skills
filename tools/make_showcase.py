@@ -48,11 +48,30 @@ def one(folder: Path):
             "instances": sum(1 for _ in spec.root.walk()), "spec_bytes": spec_path.stat().st_size,
             "direction": spec.meta.get("direction", ""), "depth": spec.meta.get("depth", ""),
             "images": len(list((folder / "assets").glob("*.png"))) if (folder / "assets").exists() else 0}
+    import layout as L
+    # Show the first startHidden panel open, unless it would cover the always-visible UI (then show the start state).
+    hidden = [n for n in spec.root.walk() if n.attrs.get("StartHidden")]
+    show = None
+    if hidden:
+        L.layout_tree(spec.root, "pc", 1.0)
+        show = hidden[0].name
+        hx, hy, hw, hh = getattr(hidden[0], "rect", (0, 0, 0, 0))
+        for n in spec.root.children:
+            if n is hidden[0] or n.cls not in S.GUI_OBJECTS or n.attrs.get("StartHidden") or not hasattr(n, "rect"):
+                continue
+            x, y, w, h = n.rect
+            if w * h > 1920 * 1080 * 0.6 or not linter._has_ink(n):
+                continue
+            ix, iy = min(hx + hw, x + w) - max(hx, x), min(hy + hh, y + h) - max(hy, y)
+            if ix > 0 and iy > 0 and ix * iy > 0.3 * min(hw * hh, w * h):
+                show = None
+    L.HIDE_START_HIDDEN.update({"on": bool(hidden), "except": show})
     pc, _ = render.render(spec, "pc", 1.0)
     pc = pc.resize((1280, 720), Image.LANCZOS)
     pc.save(folder / "preview.png", optimize=True)
     phone, _ = render.render(spec, "phone", 1.0)
     phone.save(folder / "preview.phone.png", optimize=True)
+    L.HIDE_START_HIDDEN.update({"on": False, "except": None})
     info["pc"] = pc
     return info
 

@@ -753,7 +753,14 @@ def _build(raw: dict, tokens: Tokens, path: str, base_dir: Path | None, problems
             continue
         ppath = f"{path}.{key}"
         try:
-            value = tokens.resolve(value, ppath)
+            literal_text = (key in schema_props and schema_props[key]["type"] == "string" and isinstance(value, str))
+            if literal_text:
+                # player-facing text may legitimately start with "$" ("$250"); only a defined token is substituted
+                m = re.fullmatch(r"\$([A-Za-z0-9_.\-]+)", value.strip())
+                if m and m.group(1) in tokens.flat():
+                    value = tokens.resolve(value, ppath)
+            else:
+                value = tokens.resolve(value, ppath)
             if key in SUGAR_KEYS:
                 if key == "tags":
                     node.tags = [str(t) for t in (value if isinstance(value, list) else [value])]
@@ -821,7 +828,7 @@ def _build(raw: dict, tokens: Tokens, path: str, base_dir: Path | None, problems
     if cls in GUI_OBJECTS and any(isinstance(k, dict) and k.get("class") == "UIGradient" and ("Color" in k) for k in kids):
         has_image = cls in IMAGE_CLASSES and bool(str(raw.get("Image", "")).strip())
         has_text = cls in TEXT_CLASSES and bool(str(raw.get("Text", "")).strip())
-        if has_text and "BackgroundColor3" not in node.explicit:
+        if has_text and cls == "TextLabel" and "BackgroundColor3" not in node.explicit:
             if "TextColor3" not in node.explicit:
                 node.props["TextColor3"] = (1.0, 1.0, 1.0)
                 node.explicit.add("TextColor3")
