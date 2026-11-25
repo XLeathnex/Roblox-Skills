@@ -8,7 +8,7 @@ A solid object you could pick up: dark outline, lit face, hard bottom lip.
 
 ```json
 "Btn": {"params": {"text": "BUY", "color": "$c.go"},
- "node": {"class": "TextButton", "Size": [0, 200, 0, 66], "BackgroundColor3": "#FFFFFF", "motion": "button", "corner": "$r.md",
+ "node": {"class": "TextButton", "Size": [0, 200, 0, 66], "motion": "button", "corner": "$r.md",
   "gradient": ["shade({{color}},1.2)", "{{color}}", "shade({{color}},-0.8)"],
   "stroke": {"color": "$c.line", "thickness": 3, "mode": "Border"},
   "children": [
@@ -33,7 +33,7 @@ A solid object you could pick up: dark outline, lit face, hard bottom lip.
 Paper and light: no outlines, shallow gradients, a soft shadow that lifts the card.
 
 ```json
-"Card": {"node": {"class": "Frame", "BackgroundColor3": "#FFFFFF", "corner": "$r.lg",
+"Card": {"node": {"class": "Frame", "corner": "$r.lg",
   "gradient": ["shade($c.surface,0.3)", "shade($c.surface,-0.3)"],
   "children": [
    {"class": "UIShadow", "name": "Lift", "Color": "shade($c.surface,-6)", "Offset": [0,0,0,8], "BlurRadius": [0,24], "Transparency": 0.72, "ZIndex": -1},

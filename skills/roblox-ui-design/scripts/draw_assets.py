@@ -13,6 +13,7 @@ that uses each one.
     python3 scripts/draw_assets.py material wood  -o ui/assets/wood.png --color "#8A5A34"
     python3 scripts/draw_assets.py icon coin      -o ui/assets/coin.png --style toon --color "#FFC531"
     python3 scripts/draw_assets.py overlay vignette -o ui/assets/vignette.png
+    python3 scripts/draw_assets.py batch ui/assets "icon coin --style toon --color #FFC531" "texture stripes" "icon gem --style toon --color #B66BFF --name gem-purple"
     python3 scripts/draw_assets.py sheet -o ui/assets/contact.png      # look at everything this dir holds
 
 White / greyscale assets are meant to be tinted with ImageColor3, so one upload
@@ -52,11 +53,18 @@ def record(out: Path, kind: str, **info):
     manifest.write_text(json.dumps(data, indent=2) + "\n")
 
 
+QUIET = False  # batch mode: one line per asset
+
+
 def save(img: Image.Image, out: Path, kind: str, snippet: dict, note: str = "", **info):
     out.parent.mkdir(parents=True, exist_ok=True)
     img = alpha_bleed(img)
     img.save(out)
     record(out, kind, size=list(img.size), **info)
+    if QUIET:
+        keep = {k: v for k, v in snippet.items() if k in ("Image", "ScaleType", "SliceCenter", "TileSize")}
+        print(f"{out.name} {img.width}x{img.height}  " + json.dumps(keep))
+        return
     print(f"wrote {out}  ({img.width}x{img.height})")
     if note:
         print(f"  {note}")
@@ -881,7 +889,32 @@ def main(argv=None):
     p.add_argument("-o", "--out", required=True)
     p.add_argument("--dir")
 
+    p = sub.add_parser("batch", help="draw several assets in one call")
+    p.add_argument("dir", help="output folder, e.g. ui/assets")
+    p.add_argument("items", nargs="+", help='each item is one quoted command without -o, e.g. "icon coin --style toon --color #FFC531 --name coin"')
+
     a = ap.parse_args(argv)
+    if a.cmd == "batch":
+        import shlex
+
+        global QUIET
+        QUIET = True
+        for item in a.items:
+            parts = shlex.split(item)
+            name = None
+            if "--name" in parts:
+                i = parts.index("--name")
+                name = parts[i + 1]
+                del parts[i:i + 2]
+            if len(parts) < 2:
+                print(f"skipped {item!r}: expected '<texture|overlay|shape|material|icon> <kind> [options]'")
+                continue
+            name = name or parts[1]
+            try:
+                main(parts + ["-o", str(Path(a.dir) / f"{name}.png")])
+            except SystemExit as e:
+                print(f"failed {item!r}: {e}")
+        return 0
     if a.cmd == "list":
         print("texture :", ", ".join(TEXTURES), " (tileable, white + alpha, tint with ImageColor3)")
         print("overlay :", ", ".join(OVERLAYS))

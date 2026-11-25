@@ -14,6 +14,12 @@ python3 <skill>/scripts/draw_assets.py icon cart -o ui/assets/cart.png          
 python3 <skill>/scripts/draw_assets.py icon gem -o ui/assets/gem.png --style toon --color "#4FC3FF"
 ```
 
+Draw everything in ONE call with `batch` (each quoted item is a command without `-o`; `--name` sets the file name):
+
+```bash
+python3 <skill>/scripts/draw_assets.py batch ui/assets "icon coin --style toon --color #FFC531" "icon egg --style toon --color #7AD7FF --name egg-ice" "texture stripes" "shape ribbon --cut 20"
+```
+
 Each call prints the spec snippet to paste (with `SliceCenter` / `TileSize` filled in) and records the file in `assets/assets.json`. Put assets in an `assets/` folder beside the spec and reference them as `"Image": "asset:name"`; the preview loads them from there.
 
 - **Textures** (noise, stripes, dots, studs, grid, scanlines, hex, checker) are white with alpha: tile them over a surface at `ImageTransparency` 0.85-0.96 and tint with `ImageColor3`. They break up flat fills and blend a panel into one material.

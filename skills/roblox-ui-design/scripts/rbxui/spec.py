@@ -817,6 +817,17 @@ def _build(raw: dict, tokens: Tokens, path: str, base_dir: Path | None, problems
         sugar_children.append(c)
 
     kids = sugar_children + list(raw.get("children", []) or [])
+    # A gradient multiplies the colour under it, so a gradient with no stated base gets a white one.
+    if cls in GUI_OBJECTS and any(isinstance(k, dict) and k.get("class") == "UIGradient" and ("Color" in k) for k in kids):
+        has_image = cls in IMAGE_CLASSES and bool(str(raw.get("Image", "")).strip())
+        has_text = cls in TEXT_CLASSES and bool(str(raw.get("Text", "")).strip())
+        if has_text and "BackgroundColor3" not in node.explicit:
+            if "TextColor3" not in node.explicit:
+                node.props["TextColor3"] = (1.0, 1.0, 1.0)
+                node.explicit.add("TextColor3")
+        elif not has_image and "BackgroundColor3" not in node.explicit:
+            node.props["BackgroundColor3"] = (1.0, 1.0, 1.0)
+            node.explicit.add("BackgroundColor3")
     for i, ch in enumerate(kids):
         label = (ch.get("name") or ch.get("class") or "?") if isinstance(ch, dict) else "?"
         cpath = f"{path}/{label}"

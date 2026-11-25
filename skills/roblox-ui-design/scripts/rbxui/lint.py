@@ -144,19 +144,22 @@ def _covers(outer: Node, inner: Node) -> bool:
 
 def backdrop_for(node: Node):
     """(colour, opacity, owner) of what is painted behind `node`: the nearest filled ancestor, or an
-    earlier sibling of it (a scrim, a panel plate) that covers the node."""
+    earlier sibling of it (a scrim, a panel plate) that covers the node. Colour is None when only an
+    image sits behind it (unknown colour) or nothing does (owner None: the 3D world)."""
     cur = node
+    image_owner = None
     while cur is not None:
         if cur.cls in GUI_OBJECTS:
             c = fill_color(cur)
             if c is not None and bg_alpha(cur) >= 0.35:
                 return c, bg_alpha(cur), cur
             if cur.cls in IMAGE_CLASSES and (effective(cur, "Image") or "") and cur is not node:
-                return None, 0.6, cur
+                image_owner = image_owner or cur
         parent = cur.parent
         if parent is not None:
-            z = effective(cur, "ZIndex") or 1 if cur.cls in GUI_OBJECTS else 1
+            z = (effective(cur, "ZIndex") or 1) if cur.cls in GUI_OBJECTS else 1
             idx = parent.children.index(cur)
+            best = None
             for i, sib in enumerate(parent.children):
                 if sib is cur or sib.cls not in GUI_OBJECTS or effective(sib, "Visible") is False:
                     continue
@@ -165,10 +168,14 @@ def backdrop_for(node: Node):
                     continue
                 c = fill_color(sib)
                 if c is not None and bg_alpha(sib) >= 0.35:
-                    return c, bg_alpha(sib), sib
-                if sib.cls in IMAGE_CLASSES and (effective(sib, "Image") or ""):
-                    return None, 0.6, sib
+                    best = (c, bg_alpha(sib), sib)
+                elif sib.cls in IMAGE_CLASSES and (effective(sib, "Image") or ""):
+                    image_owner = image_owner or sib
+            if best:
+                return best
         cur = parent
+    if image_owner is not None:
+        return None, 1.0, image_owner
     return None, 0.0, None
 
 
@@ -701,6 +708,8 @@ def _rule_contrast(nodes, rep: Report):
         legacy = (effective(n, "TextStrokeTransparency") or 1) < 0.7
         behind, opacity, owner = backdrop_for(n)
         size = effective(n, "TextSize") or 14
+        if behind is None and owner is not None:
+            continue  # an image is behind the text; its colour is unknown here
         if behind is None or opacity < 0.6:
             if not (stroke or tshadow or legacy):
                 rep.warn("text-over-world", _name(n), "text sits directly over the 3D world with no outline, shadow or scrim. "
@@ -738,10 +747,69 @@ def _rule_spacing(nodes, rep: Report):
                      "Give every container padding from the spacing scale (8-16px in cards, 16-24px in panels).")
 
 
+def _has_ink(n: Node) -> bool:
+    """Does this subtree draw anything (fill, text, image)?"""
+    for d in n.walk():
+        if d.cls in GUI_OBJECTS and has_rect(d) and (bg_alpha(d) > 0.1 or (d.cls in TEXT_CLASSES and (effective(d, "Text") or "").strip())
+                                                      or (d.cls in IMAGE_CLASSES and effective(d, "Image"))):
+            return True
+    return False
+
+
+def screen_taken(root: Node) -> bool:
+    """True when an opaque full-screen layer (menu scrim, loading screen) hides the game and its controls."""
+    if not hasattr(root, "rect"):
+        return False
+    rw, rh = root.rect[2], root.rect[3]
+    for n in root.walk():
+        if n.cls in GUI_OBJECTS and has_rect(n) and n.rect[2] >= rw * 0.95 and n.rect[3] >= rh * 0.95:
+            if bg_alpha(n) >= 0.5 or (n.cls in IMAGE_CLASSES and effective(n, "Image")):
+                return True
+    return False
+
+
+def _rule_hud_overlap(root, rep: Report, dev: str):
+    """Always-on HUD groups must not land on top of each other when the screen shrinks."""
+    vw, vh = L.DEVICES[dev][:2]
+    if screen_taken(root):
+        return
+    groups = []
+    for n in L.visible_gui_children(root) if root.cls not in GUI_OBJECTS else []:
+        if not has_rect(n) or in_modal(n) or n.attrs.get("StartHidden") or not _has_ink(n):
+            continue
+        x, y, w, h = n.rect
+        if w * h > vw * vh * 0.6:
+            continue
+        groups.append(n)
+    for i, a in enumerate(groups):
+        for b in groups[i + 1:]:
+            ax, ay, aw, ah = a.rect
+            bx, by, bw, bh = b.rect
+            ix = min(ax + aw, bx + bw) - max(ax, bx)
+            iy = min(ay + ah, by + bh) - max(ay, by)
+            if ix * iy > 0.9 * min(aw * ah, bw * bh):
+                continue  # one sits wholly inside the other: a backing plate, not a collision
+            if ix > 8 and iy > 8 and ix * iy > 0.12 * min(aw * ah, bw * bh):
+                rep.error("hud-overlap", f"{a.path} + {b.name}", f"these HUD groups overlap on {dev} ({vw}x{vh}): a phone is only "
+                          "about 590 design-pixels tall, so groups that are far apart at 1080p collide.",
+                          "Anchor each group to its own corner or edge (top-left, left-middle, bottom-centre...), keep left-edge "
+                          "stacks under about 300px total, or merge them into one group with a list layout.")
+
+
 def _rule_screen_fit(root, nodes, rep: Report, dev: str):
     vw, vh, topbar, safe, touch = L.DEVICES[dev]
+    _rule_hud_overlap(root, rep, dev)
+    taken = screen_taken(root)
     tops = [n for n in L.visible_gui_children(root)] if root.cls not in GUI_OBJECTS else [root]
     full_bleed = (effective(root, "ScreenInsets") or "CoreUISafeInsets") == "None"
+    if dev == "pc" and not full_bleed and root.props.get("IgnoreGuiInset") is not True:
+        for n in tops:
+            size = effective(n, "Size") or (0, 0, 0, 0)
+            if size[0] >= 1 and size[2] >= 1 and (bg_alpha(n) > 0.1 or (n.cls in IMAGE_CLASSES and effective(n, "Image"))):
+                rep.warn("full-bleed-insets", _name(n), "a full-screen layer in a ScreenGui that keeps the default insets stops short of "
+                         "the top bar and the phone notch, leaving strips of the game visible.",
+                         "Set \"ScreenInsets\": \"None\" on the ScreenGui (keep its content clear of the top-left Roblox buttons).")
+                break
     for n in nodes:
         if n.cls not in GUI_OBJECTS or not has_rect(n):
             continue
@@ -765,11 +833,12 @@ def _rule_screen_fit(root, nodes, rep: Report, dev: str):
             for (zx0, zy0, zx1, zy1), why in backdrops.keep_clear_zones(dev):
                 ix = min(x + w, zx1) - max(x, zx0)
                 iy = min(y + h, zy1) - max(y, zy0)
-                if "top bar" not in why and in_modal(n):
+                if "top bar" not in why and (taken or in_modal(n)):
                     continue
                 if ix > 6 and iy > 6:
                     rep.error("blocked-control", _name(n), f"on {dev} this button overlaps the {why}.",
-                              "Move it: side menus sit left-middle (35-60% height), action buttons cluster above/left of jump, currency goes top-centre or top-right.")
+                              "On a phone keep buttons out of the bottom-left 190x150px (thumbstick) and bottom-right 110x110px (jump). "
+                              "HUD menus go on the left edge above the stick or along the top; a menu that takes over the screen needs an opaque full-screen layer behind it.")
         elif n.cls in BUTTON_CLASSES and not touch:
             for (zx0, zy0, zx1, zy1), why in backdrops.keep_clear_zones(dev):
                 if min(x + w, zx1) - max(x, zx0) > 6 and min(y + h, zy1) - max(y, zy0) > 6:

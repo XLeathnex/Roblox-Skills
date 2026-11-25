@@ -7,7 +7,8 @@ Design in 1080p pixels (offsets) inside a group marked `autoscale`. The bundled 
 - `"autoscale": "hud"`: an edge-anchored group. Anchor it with scale + anchor point (`"AnchorPoint": [0, 0.5], "Position": [0, 16, 0.5, 0]`), size it in offsets.
 - `"autoscale": "modal"`: a centred panel. It also shrinks to fit the safe area, so on a phone a panel taller than about 470px or wider than about 1070px gets smaller than the HUD scale. Keep modals landscape (roughly 800-1000 x 440-520) and their body text 22px or larger; scroll instead of growing taller.
 - Full-screen layers (scrims, vignettes) use scale `[1,0,1,0]` and no autoscale. A ScreenGui that must cover the notch and top bar sets `"ScreenInsets": "None"`.
-- Buttons: 60px tall or more at 1080p (primary 64-76). Icons in HUD buttons 44-56.
+- Sizes at 1080p: buttons 60px tall or more (primary 64-76); HUD side buttons and hotbar slots 76-92 square with 44-56 icons; bars 320-440 wide and 24-32 tall; HUD text 22 or larger. Anything smaller is unreadable on a phone.
+- A phone in landscape is only about 590 design-pixels tall and 1270 wide after scaling. Give every HUD group its own corner or edge and keep a left or right edge stack under about 300px tall, or groups that look far apart at 1080p will collide (the linter checks this).
 
 ## HUD zones
 

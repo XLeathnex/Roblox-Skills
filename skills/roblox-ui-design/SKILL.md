@@ -19,7 +19,7 @@ Three rules decide whether UI reads as designed or as AI slop:
 4. **Check.** `python3 <skill>/scripts/rbxui check ui.json`. Fix every ERROR. Fix each WARN or decide it is intended. Use `--no-image` while fixing; open the review image once lint is clean and judge it with the list below.
 5. **Build and deliver.** `python3 <skill>/scripts/rbxui check ui.json --build out/`, then get it into Studio with `references/studio.md`.
 
-Stay cheap: read only the references the task needs, never re-read one, and look at the image at most twice.
+Stay cheap: steps 1-3 need exactly two reads (one style card, your depth section). Open another reference only when the task calls for it (a HUD: `layout.md`; images or icons: `assets.md`). Never re-read one, batch your fixes so the check runs three or four times, and look at the image at most twice.
 
 ## Spec format
 
@@ -29,7 +29,7 @@ Stay cheap: read only the references the task needs, never re-read one, and look
  "tokens": {"c": {"brand": "#FF5FA2", "ink": "#4A2618"}, "r": {"md": 16}, "font": {"display": "FredokaOne"}},
  "components": {
   "Btn": {"params": {"text": "OK", "color": "$c.brand"},
-   "node": {"class": "TextButton", "Size": [0, 200, 0, 64], "BackgroundColor3": "#FFFFFF", "corner": "$r.md",
+   "node": {"class": "TextButton", "Size": [0, 200, 0, 64], "corner": "$r.md",
             "gradient": ["shade({{color}},1)", "shade({{color}},-1)"],
             "children": [{"class": "TextLabel", "Size": [1, 0, 1, 0], "Text": "{{text}}", "FontFace": "$font.display", "TextSize": 28, "TextColor3": "#FFFFFF"}]}}
  },
@@ -46,9 +46,9 @@ Stay cheap: read only the references the task needs, never re-read one, and look
 - **Sugar** (each becomes a real child instance):
   - `corner`: `12` | `[scale, offset]` | `{"tl":..,"tr":..,"bl":..,"br":..}`
   - `stroke`: `{color, thickness, transparency, position: "Inner|Center|Outer", mode: "Border|Contextual", gradient}`; `strokes`: a list. On text with content a stroke outlines the glyphs.
-  - `gradient`: `[top, ..., bottom]` or `{colors, rotation, transparency: [..], type: "Radial"}`. Gradients MULTIPLY the base colour, so put `"BackgroundColor3": "#FFFFFF"` under one.
+  - `gradient`: `[top, ..., bottom]` or `{colors, rotation, transparency: [..], type: "Radial"}`. A gradient multiplies the colour under it, so it supplies its own white base: do not also set `BackgroundColor3` on that node.
   - `shadow`: `{color, offset: [x, y], blur, spread, transparency, inset}` (UIShadow). Add several as `{"class": "UIShadow", ...}` children with negative `ZIndex`.
-  - `padding`: `12` | `[v, h]` | `[t, r, b, l]`. `list`: `{dir: "H|V", gap, align, valign, wraps, hflex}`. `grid`: `{cell: [..], gap, max}`. `aspect`, `maxText`, `minText`, `flex`.
+  - `padding`: `12` | `[v, h]` | `[t, r, b, l]`. `list`: `{dir: "H|V", gap, align, valign, wraps, hflex}`. `grid`: `{cell: [0, 200, 0, 240], gap: 12, max: 3}`. `aspect`, `maxText`, `minText`, `flex`.
   - `autoscale`: `"modal"` (centred panel) or `"hud"` (edge-anchored group). Design in 1080p pixels inside it; it is scaled per device.
   - `motion`: `"button"` | `"panel"`. `opens` / `closes` / `toggles`: `"PanelName"`. `startHidden`: `true`.
 - **Defaults here** (unlike raw Studio): no background unless you give `BackgroundColor3`; no border; empty text; gradient runs top to bottom.
