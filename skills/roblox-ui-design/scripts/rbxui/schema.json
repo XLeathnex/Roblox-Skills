@@ -1,0 +1,3178 @@
+{
+ "classes": {
+  "BillboardGui": {
+   "props": {
+    "Active": {
+     "default": "false",
+     "save": true,
+     "type": "bool"
+    },
+    "Adornee": {
+     "default": null,
+     "save": true,
+     "type": "Ref"
+    },
+    "AlwaysOnTop": {
+     "default": "false",
+     "save": true,
+     "type": "bool"
+    },
+    "AutoLocalize": {
+     "default": "true",
+     "save": true,
+     "type": "bool"
+    },
+    "Brightness": {
+     "default": "1",
+     "save": true,
+     "type": "float"
+    },
+    "ClipsDescendants": {
+     "default": "false",
+     "save": true,
+     "type": "bool"
+    },
+    "DistanceStep": {
+     "default": "0",
+     "save": false,
+     "type": "float"
+    },
+    "Enabled": {
+     "default": "true",
+     "save": true,
+     "type": "bool"
+    },
+    "ExtentsOffset": {
+     "default": "0, 0, 0",
+     "save": true,
+     "type": "Vector3"
+    },
+    "ExtentsOffsetWorldSpace": {
+     "default": "0, 0, 0",
+     "save": true,
+     "type": "Vector3"
+    },
+    "LightInfluence": {
+     "default": "0",
+     "save": true,
+     "type": "float"
+    },
+    "MaxDistance": {
+     "default": "INF",
+     "save": true,
+     "type": "float"
+    },
+    "PlayerToHideFrom": {
+     "default": null,
+     "save": true,
+     "type": "Ref"
+    },
+    "ResetOnSpawn": {
+     "default": "true",
+     "save": true,
+     "type": "bool"
+    },
+    "SelectionGroup": {
+     "default": "false",
+     "save": true,
+     "type": "bool"
+    },
+    "Size": {
+     "default": "{0, 0}, {0, 0}",
+     "save": true,
+     "type": "UDim2"
+    },
+    "SizeOffset": {
+     "default": "0, 0",
+     "save": true,
+     "type": "Vector2"
+    },
+    "StudsOffset": {
+     "default": "0, 0, 0",
+     "save": true,
+     "type": "Vector3"
+    },
+    "StudsOffsetWorldSpace": {
+     "default": "0, 0, 0",
+     "save": true,
+     "type": "Vector3"
+    },
+    "ZIndexBehavior": {
+     "default": "Global",
+     "save": true,
+     "type": "Enum:ZIndexBehavior"
+    }
+   },
+   "superclass": "LayerCollector"
+  },
+  "CanvasGroup": {
+   "props": {
+    "Active": {
+     "default": "false",
+     "save": true,
+     "type": "bool"
+    },
+    "AnchorPoint": {
+     "default": "0, 0",
+     "save": true,
+     "type": "Vector2"
+    },
+    "AutoLocalize": {
+     "default": "true",
+     "save": true,
+     "type": "bool"
+    },
+    "AutomaticSize": {
+     "default": "None",
+     "save": true,
+     "type": "Enum:AutomaticSize"
+    },
+    "BackgroundColor3": {
+     "default": "0.639216, 0.635294, 0.647059",
+     "save": true,
+     "type": "Color3"
+    },
+    "BackgroundTransparency": {
+     "default": "0",
+     "save": true,
+     "type": "float"
+    },
+    "BorderColor3": {
+     "default": "0.105882, 0.164706, 0.207843",
+     "save": true,
+     "type": "Color3"
+    },
+    "BorderMode": {
+     "default": "Outline",
+     "save": true,
+     "type": "Enum:BorderMode"
+    },
+    "BorderSizePixel": {
+     "default": "1",
+     "save": true,
+     "type": "int"
+    },
+    "ClipsDescendants": {
+     "default": "false",
+     "save": true,
+     "type": "bool"
+    },
+    "GroupColor3": {
+     "default": "1, 1, 1",
+     "save": true,
+     "type": "Color3"
+    },
+    "GroupTransparency": {
+     "default": "0",
+     "save": true,
+     "type": "float"
+    },
+    "Interactable": {
+     "default": "true",
+     "save": true,
+     "type": "bool"
+    },
+    "LayoutOrder": {
+     "default": "0",
+     "save": true,
+     "type": "int"
+    },
+    "NextSelectionDown": {
+     "default": null,
+     "save": true,
+     "type": "Ref"
+    },
+    "NextSelectionLeft": {
+     "default": null,
+     "save": true,
+     "type": "Ref"
+    },
+    "NextSelectionRight": {
+     "default": null,
+     "save": true,
+     "type": "Ref"
+    },
+    "NextSelectionUp": {
+     "default": null,
+     "save": true,
+     "type": "Ref"
+    },
+    "Position": {
+     "default": "{0, 0}, {0, 0}",
+     "save": true,
+     "type": "UDim2"
+    },
+    "Rotation": {
+     "default": "0",
+     "save": true,
+     "type": "float"
+    },
+    "Selectable": {
+     "default": "false",
+     "save": true,
+     "type": "bool"
+    },
+    "SelectionGroup": {
+     "default": "false",
+     "save": true,
+     "type": "bool"
+    },
+    "SelectionImageObject": {
+     "default": null,
+     "save": true,
+     "type": "Ref"
+    },
+    "SelectionOrder": {
+     "default": "0",
+     "save": true,
+     "type": "int"
+    },
+    "Size": {
+     "default": "{0, 0}, {0, 0}",
+     "save": true,
+     "type": "UDim2"
+    },
+    "SizeConstraint": {
+     "default": "RelativeXY",
+     "save": true,
+     "type": "Enum:SizeConstraint"
+    },
+    "Visible": {
+     "default": "true",
+     "save": true,
+     "type": "bool"
+    },
+    "ZIndex": {
+     "default": "1",
+     "save": true,
+     "type": "int"
+    }
+   },
+   "superclass": "GuiObject"
+  },
+  "Folder": {
+   "props": {
+    "ExplorerIconContent": {
+     "default": null,
+     "save": true,
+     "type": "Content"
+    },
+    "IconTint": {
+     "default": "0, 0, 0",
+     "save": true,
+     "type": "Color3"
+    }
+   },
+   "superclass": "Instance"
+  },
+  "Frame": {
+   "props": {
+    "Active": {
+     "default": "false",
+     "save": true,
+     "type": "bool"
+    },
+    "AnchorPoint": {
+     "default": "0, 0",
+     "save": true,
+     "type": "Vector2"
+    },
+    "AutoLocalize": {
+     "default": "true",
+     "save": true,
+     "type": "bool"
+    },
+    "AutomaticSize": {
+     "default": "None",
+     "save": true,
+     "type": "Enum:AutomaticSize"
+    },
+    "BackgroundColor3": {
+     "default": "0.639216, 0.635294, 0.647059",
+     "save": true,
+     "type": "Color3"
+    },
+    "BackgroundTransparency": {
+     "default": "0",
+     "save": true,
+     "type": "float"
+    },
+    "BorderColor3": {
+     "default": "0.105882, 0.164706, 0.207843",
+     "save": true,
+     "type": "Color3"
+    },
+    "BorderMode": {
+     "default": "Outline",
+     "save": true,
+     "type": "Enum:BorderMode"
+    },
+    "BorderSizePixel": {
+     "default": "1",
+     "save": true,
+     "type": "int"
+    },
+    "ClipsDescendants": {
+     "default": "false",
+     "save": true,
+     "type": "bool"
+    },
+    "Interactable": {
+     "default": "true",
+     "save": true,
+     "type": "bool"
+    },
+    "LayoutOrder": {
+     "default": "0",
+     "save": true,
+     "type": "int"
+    },
+    "NextSelectionDown": {
+     "default": null,
+     "save": true,
+     "type": "Ref"
+    },
+    "NextSelectionLeft": {
+     "default": null,
+     "save": true,
+     "type": "Ref"
+    },
+    "NextSelectionRight": {
+     "default": null,
+     "save": true,
+     "type": "Ref"
+    },
+    "NextSelectionUp": {
+     "default": null,
+     "save": true,
+     "type": "Ref"
+    },
+    "Position": {
+     "default": "{0, 0}, {0, 0}",
+     "save": true,
+     "type": "UDim2"
+    },
+    "Rotation": {
+     "default": "0",
+     "save": true,
+     "type": "float"
+    },
+    "Selectable": {
+     "default": "false",
+     "save": true,
+     "type": "bool"
+    },
+    "SelectionGroup": {
+     "default": "false",
+     "save": true,
+     "type": "bool"
+    },
+    "SelectionImageObject": {
+     "default": null,
+     "save": true,
+     "type": "Ref"
+    },
+    "SelectionOrder": {
+     "default": "0",
+     "save": true,
+     "type": "int"
+    },
+    "Size": {
+     "default": "{0, 0}, {0, 0}",
+     "save": true,
+     "type": "UDim2"
+    },
+    "SizeConstraint": {
+     "default": "RelativeXY",
+     "save": true,
+     "type": "Enum:SizeConstraint"
+    },
+    "Visible": {
+     "default": "true",
+     "save": true,
+     "type": "bool"
+    },
+    "ZIndex": {
+     "default": "1",
+     "save": true,
+     "type": "int"
+    }
+   },
+   "superclass": "GuiObject"
+  },
+  "ImageButton": {
+   "props": {
+    "Active": {
+     "default": "false",
+     "save": true,
+     "type": "bool"
+    },
+    "AnchorPoint": {
+     "default": "0, 0",
+     "save": true,
+     "type": "Vector2"
+    },
+    "AutoButtonColor": {
+     "default": "true",
+     "save": true,
+     "type": "bool"
+    },
+    "AutoLocalize": {
+     "default": "true",
+     "save": true,
+     "type": "bool"
+    },
+    "AutomaticSize": {
+     "default": "None",
+     "save": true,
+     "type": "Enum:AutomaticSize"
+    },
+    "BackgroundColor3": {
+     "default": "0.639216, 0.635294, 0.647059",
+     "save": true,
+     "type": "Color3"
+    },
+    "BackgroundTransparency": {
+     "default": "0",
+     "save": true,
+     "type": "float"
+    },
+    "BorderColor3": {
+     "default": "0.105882, 0.164706, 0.207843",
+     "save": true,
+     "type": "Color3"
+    },
+    "BorderMode": {
+     "default": "Outline",
+     "save": true,
+     "type": "Enum:BorderMode"
+    },
+    "BorderSizePixel": {
+     "default": "1",
+     "save": true,
+     "type": "int"
+    },
+    "ClipsDescendants": {
+     "default": "false",
+     "save": true,
+     "type": "bool"
+    },
+    "HoverImage": {
+     "default": "",
+     "save": true,
+     "type": "ContentId"
+    },
+    "HoverImageContent": {
+     "default": null,
+     "save": true,
+     "type": "Content"
+    },
+    "Image": {
+     "default": "",
+     "save": true,
+     "type": "ContentId"
+    },
+    "ImageColor3": {
+     "default": "1, 1, 1",
+     "save": true,
+     "type": "Color3"
+    },
+    "ImageContent": {
+     "default": null,
+     "save": true,
+     "type": "Content"
+    },
+    "ImageRectOffset": {
+     "default": "0, 0",
+     "save": true,
+     "type": "Vector2"
+    },
+    "ImageRectSize": {
+     "default": "0, 0",
+     "save": true,
+     "type": "Vector2"
+    },
+    "ImageTransparency": {
+     "default": "0",
+     "save": true,
+     "type": "float"
+    },
+    "Interactable": {
+     "default": "true",
+     "save": true,
+     "type": "bool"
+    },
+    "LayoutOrder": {
+     "default": "0",
+     "save": true,
+     "type": "int"
+    },
+    "Modal": {
+     "default": "false",
+     "save": true,
+     "type": "bool"
+    },
+    "NextSelectionDown": {
+     "default": null,
+     "save": true,
+     "type": "Ref"
+    },
+    "NextSelectionLeft": {
+     "default": null,
+     "save": true,
+     "type": "Ref"
+    },
+    "NextSelectionRight": {
+     "default": null,
+     "save": true,
+     "type": "Ref"
+    },
+    "NextSelectionUp": {
+     "default": null,
+     "save": true,
+     "type": "Ref"
+    },
+    "Position": {
+     "default": "{0, 0}, {0, 0}",
+     "save": true,
+     "type": "UDim2"
+    },
+    "PressedImage": {
+     "default": "",
+     "save": true,
+     "type": "ContentId"
+    },
+    "PressedImageContent": {
+     "default": null,
+     "save": true,
+     "type": "Content"
+    },
+    "ResampleMode": {
+     "default": "Default",
+     "save": true,
+     "type": "Enum:ResamplerMode"
+    },
+    "Rotation": {
+     "default": "0",
+     "save": true,
+     "type": "float"
+    },
+    "ScaleType": {
+     "default": "Stretch",
+     "save": true,
+     "type": "Enum:ScaleType"
+    },
+    "Selectable": {
+     "default": "false",
+     "save": true,
+     "type": "bool"
+    },
+    "Selected": {
+     "default": "false",
+     "save": true,
+     "type": "bool"
+    },
+    "SelectionGroup": {
+     "default": "false",
+     "save": true,
+     "type": "bool"
+    },
+    "SelectionImageObject": {
+     "default": null,
+     "save": true,
+     "type": "Ref"
+    },
+    "SelectionOrder": {
+     "default": "0",
+     "save": true,
+     "type": "int"
+    },
+    "Size": {
+     "default": "{0, 0}, {0, 0}",
+     "save": true,
+     "type": "UDim2"
+    },
+    "SizeConstraint": {
+     "default": "RelativeXY",
+     "save": true,
+     "type": "Enum:SizeConstraint"
+    },
+    "SliceCenter": {
+     "default": "0, 0, 0, 0",
+     "save": true,
+     "type": "Rect"
+    },
+    "SliceScale": {
+     "default": "1",
+     "save": true,
+     "type": "float"
+    },
+    "TileSize": {
+     "default": "{1, 0}, {1, 0}",
+     "save": true,
+     "type": "UDim2"
+    },
+    "Visible": {
+     "default": "true",
+     "save": true,
+     "type": "bool"
+    },
+    "ZIndex": {
+     "default": "1",
+     "save": true,
+     "type": "int"
+    }
+   },
+   "superclass": "GuiButton"
+  },
+  "ImageLabel": {
+   "props": {
+    "Active": {
+     "default": "false",
+     "save": true,
+     "type": "bool"
+    },
+    "AnchorPoint": {
+     "default": "0, 0",
+     "save": true,
+     "type": "Vector2"
+    },
+    "AutoLocalize": {
+     "default": "true",
+     "save": true,
+     "type": "bool"
+    },
+    "AutomaticSize": {
+     "default": "None",
+     "save": true,
+     "type": "Enum:AutomaticSize"
+    },
+    "BackgroundColor3": {
+     "default": "0.639216, 0.635294, 0.647059",
+     "save": true,
+     "type": "Color3"
+    },
+    "BackgroundTransparency": {
+     "default": "0",
+     "save": true,
+     "type": "float"
+    },
+    "BorderColor3": {
+     "default": "0.105882, 0.164706, 0.207843",
+     "save": true,
+     "type": "Color3"
+    },
+    "BorderMode": {
+     "default": "Outline",
+     "save": true,
+     "type": "Enum:BorderMode"
+    },
+    "BorderSizePixel": {
+     "default": "1",
+     "save": true,
+     "type": "int"
+    },
+    "ClipsDescendants": {
+     "default": "false",
+     "save": true,
+     "type": "bool"
+    },
+    "Image": {
+     "default": "",
+     "save": true,
+     "type": "ContentId"
+    },
+    "ImageColor3": {
+     "default": "1, 1, 1",
+     "save": true,
+     "type": "Color3"
+    },
+    "ImageContent": {
+     "default": null,
+     "save": true,
+     "type": "Content"
+    },
+    "ImageRectOffset": {
+     "default": "0, 0",
+     "save": true,
+     "type": "Vector2"
+    },
+    "ImageRectSize": {
+     "default": "0, 0",
+     "save": true,
+     "type": "Vector2"
+    },
+    "ImageTransparency": {
+     "default": "0",
+     "save": true,
+     "type": "float"
+    },
+    "Interactable": {
+     "default": "true",
+     "save": true,
+     "type": "bool"
+    },
+    "LayoutOrder": {
+     "default": "0",
+     "save": true,
+     "type": "int"
+    },
+    "NextSelectionDown": {
+     "default": null,
+     "save": true,
+     "type": "Ref"
+    },
+    "NextSelectionLeft": {
+     "default": null,
+     "save": true,
+     "type": "Ref"
+    },
+    "NextSelectionRight": {
+     "default": null,
+     "save": true,
+     "type": "Ref"
+    },
+    "NextSelectionUp": {
+     "default": null,
+     "save": true,
+     "type": "Ref"
+    },
+    "Position": {
+     "default": "{0, 0}, {0, 0}",
+     "save": true,
+     "type": "UDim2"
+    },
+    "ResampleMode": {
+     "default": "Default",
+     "save": true,
+     "type": "Enum:ResamplerMode"
+    },
+    "Rotation": {
+     "default": "0",
+     "save": true,
+     "type": "float"
+    },
+    "ScaleType": {
+     "default": "Stretch",
+     "save": true,
+     "type": "Enum:ScaleType"
+    },
+    "Selectable": {
+     "default": "false",
+     "save": true,
+     "type": "bool"
+    },
+    "SelectionGroup": {
+     "default": "false",
+     "save": true,
+     "type": "bool"
+    },
+    "SelectionImageObject": {
+     "default": null,
+     "save": true,
+     "type": "Ref"
+    },
+    "SelectionOrder": {
+     "default": "0",
+     "save": true,
+     "type": "int"
+    },
+    "Size": {
+     "default": "{0, 0}, {0, 0}",
+     "save": true,
+     "type": "UDim2"
+    },
+    "SizeConstraint": {
+     "default": "RelativeXY",
+     "save": true,
+     "type": "Enum:SizeConstraint"
+    },
+    "SliceCenter": {
+     "default": "0, 0, 0, 0",
+     "save": true,
+     "type": "Rect"
+    },
+    "SliceScale": {
+     "default": "1",
+     "save": true,
+     "type": "float"
+    },
+    "TileSize": {
+     "default": "{1, 0}, {1, 0}",
+     "save": true,
+     "type": "UDim2"
+    },
+    "Visible": {
+     "default": "true",
+     "save": true,
+     "type": "bool"
+    },
+    "ZIndex": {
+     "default": "1",
+     "save": true,
+     "type": "int"
+    }
+   },
+   "superclass": "GuiLabel"
+  },
+  "LocalScript": {
+   "props": {
+    "Disabled": {
+     "default": null,
+     "save": true,
+     "type": "bool"
+    },
+    "Enabled": {
+     "default": "true",
+     "save": false,
+     "type": "bool"
+    },
+    "RunContext": {
+     "default": null,
+     "save": true,
+     "type": "Enum:RunContext"
+    },
+    "Source": {
+     "default": "",
+     "save": true,
+     "type": "ProtectedString"
+    }
+   },
+   "superclass": "Script"
+  },
+  "ModuleScript": {
+   "props": {
+    "Source": {
+     "default": "",
+     "save": true,
+     "type": "ProtectedString"
+    }
+   },
+   "superclass": "LuaSourceContainer"
+  },
+  "ScreenGui": {
+   "props": {
+    "AutoLocalize": {
+     "default": "true",
+     "save": true,
+     "type": "bool"
+    },
+    "ClipToDeviceSafeArea": {
+     "default": "true",
+     "save": true,
+     "type": "bool"
+    },
+    "DisplayOrder": {
+     "default": "0",
+     "save": true,
+     "type": "int"
+    },
+    "Enabled": {
+     "default": "true",
+     "save": true,
+     "type": "bool"
+    },
+    "IgnoreGuiInset": {
+     "default": "false",
+     "save": false,
+     "type": "bool"
+    },
+    "ResetOnSpawn": {
+     "default": "true",
+     "save": true,
+     "type": "bool"
+    },
+    "SafeAreaCompatibility": {
+     "default": "FullscreenExtension",
+     "save": true,
+     "type": "Enum:SafeAreaCompatibility"
+    },
+    "ScreenInsets": {
+     "default": "CoreUISafeInsets",
+     "save": true,
+     "type": "Enum:ScreenInsets"
+    },
+    "SelectionGroup": {
+     "default": "false",
+     "save": true,
+     "type": "bool"
+    },
+    "ZIndexBehavior": {
+     "default": "Global",
+     "save": true,
+     "type": "Enum:ZIndexBehavior"
+    }
+   },
+   "superclass": "LayerCollector"
+  },
+  "Script": {
+   "props": {
+    "Disabled": {
+     "default": null,
+     "save": true,
+     "type": "bool"
+    },
+    "Enabled": {
+     "default": "true",
+     "save": false,
+     "type": "bool"
+    },
+    "RunContext": {
+     "default": null,
+     "save": true,
+     "type": "Enum:RunContext"
+    },
+    "Source": {
+     "default": "",
+     "save": true,
+     "type": "ProtectedString"
+    }
+   },
+   "superclass": "BaseScript"
+  },
+  "ScrollingFrame": {
+   "props": {
+    "Active": {
+     "default": "false",
+     "save": true,
+     "type": "bool"
+    },
+    "AnchorPoint": {
+     "default": "0, 0",
+     "save": true,
+     "type": "Vector2"
+    },
+    "AutoLocalize": {
+     "default": "true",
+     "save": true,
+     "type": "bool"
+    },
+    "AutomaticCanvasSize": {
+     "default": "None",
+     "save": true,
+     "type": "Enum:AutomaticSize"
+    },
+    "AutomaticSize": {
+     "default": "None",
+     "save": true,
+     "type": "Enum:AutomaticSize"
+    },
+    "BackgroundColor3": {
+     "default": "0.639216, 0.635294, 0.647059",
+     "save": true,
+     "type": "Color3"
+    },
+    "BackgroundTransparency": {
+     "default": "0",
+     "save": true,
+     "type": "float"
+    },
+    "BorderColor3": {
+     "default": "0.105882, 0.164706, 0.207843",
+     "save": true,
+     "type": "Color3"
+    },
+    "BorderMode": {
+     "default": "Outline",
+     "save": true,
+     "type": "Enum:BorderMode"
+    },
+    "BorderSizePixel": {
+     "default": "1",
+     "save": true,
+     "type": "int"
+    },
+    "BottomImage": {
+     "default": "rbxasset://textures/ui/Scroll/scroll-bottom.png",
+     "save": true,
+     "type": "ContentId"
+    },
+    "BottomImageContent": {
+     "default": null,
+     "save": true,
+     "type": "Content"
+    },
+    "CanvasPosition": {
+     "default": "0, 0",
+     "save": true,
+     "type": "Vector2"
+    },
+    "CanvasSize": {
+     "default": "{0, 0}, {2, 0}",
+     "save": true,
+     "type": "UDim2"
+    },
+    "ClipsDescendants": {
+     "default": "false",
+     "save": true,
+     "type": "bool"
+    },
+    "ElasticBehavior": {
+     "default": "WhenScrollable",
+     "save": true,
+     "type": "Enum:ElasticBehavior"
+    },
+    "HorizontalScrollBarInset": {
+     "default": "None",
+     "save": true,
+     "type": "Enum:ScrollBarInset"
+    },
+    "Interactable": {
+     "default": "true",
+     "save": true,
+     "type": "bool"
+    },
+    "LayoutOrder": {
+     "default": "0",
+     "save": true,
+     "type": "int"
+    },
+    "MidImage": {
+     "default": "rbxasset://textures/ui/Scroll/scroll-middle.png",
+     "save": true,
+     "type": "ContentId"
+    },
+    "MidImageContent": {
+     "default": null,
+     "save": true,
+     "type": "Content"
+    },
+    "NextSelectionDown": {
+     "default": null,
+     "save": true,
+     "type": "Ref"
+    },
+    "NextSelectionLeft": {
+     "default": null,
+     "save": true,
+     "type": "Ref"
+    },
+    "NextSelectionRight": {
+     "default": null,
+     "save": true,
+     "type": "Ref"
+    },
+    "NextSelectionUp": {
+     "default": null,
+     "save": true,
+     "type": "Ref"
+    },
+    "Position": {
+     "default": "{0, 0}, {0, 0}",
+     "save": true,
+     "type": "UDim2"
+    },
+    "Rotation": {
+     "default": "0",
+     "save": true,
+     "type": "float"
+    },
+    "ScrollBarImageColor3": {
+     "default": "1, 1, 1",
+     "save": true,
+     "type": "Color3"
+    },
+    "ScrollBarImageTransparency": {
+     "default": "0",
+     "save": true,
+     "type": "float"
+    },
+    "ScrollBarThickness": {
+     "default": "12",
+     "save": true,
+     "type": "int"
+    },
+    "ScrollingDirection": {
+     "default": "XY",
+     "save": true,
+     "type": "Enum:ScrollingDirection"
+    },
+    "ScrollingEnabled": {
+     "default": "true",
+     "save": true,
+     "type": "bool"
+    },
+    "Selectable": {
+     "default": "false",
+     "save": true,
+     "type": "bool"
+    },
+    "SelectionGroup": {
+     "default": "false",
+     "save": true,
+     "type": "bool"
+    },
+    "SelectionImageObject": {
+     "default": null,
+     "save": true,
+     "type": "Ref"
+    },
+    "SelectionOrder": {
+     "default": "0",
+     "save": true,
+     "type": "int"
+    },
+    "Size": {
+     "default": "{0, 0}, {0, 0}",
+     "save": true,
+     "type": "UDim2"
+    },
+    "SizeConstraint": {
+     "default": "RelativeXY",
+     "save": true,
+     "type": "Enum:SizeConstraint"
+    },
+    "TopImage": {
+     "default": "rbxasset://textures/ui/Scroll/scroll-top.png",
+     "save": true,
+     "type": "ContentId"
+    },
+    "TopImageContent": {
+     "default": null,
+     "save": true,
+     "type": "Content"
+    },
+    "VerticalScrollBarInset": {
+     "default": "None",
+     "save": true,
+     "type": "Enum:ScrollBarInset"
+    },
+    "VerticalScrollBarPosition": {
+     "default": "Right",
+     "save": true,
+     "type": "Enum:VerticalScrollBarPosition"
+    },
+    "Visible": {
+     "default": "true",
+     "save": true,
+     "type": "bool"
+    },
+    "ZIndex": {
+     "default": "1",
+     "save": true,
+     "type": "int"
+    }
+   },
+   "superclass": "GuiObject"
+  },
+  "SurfaceGui": {
+   "props": {
+    "Active": {
+     "default": "false",
+     "save": true,
+     "type": "bool"
+    },
+    "Adornee": {
+     "default": null,
+     "save": true,
+     "type": "Ref"
+    },
+    "AlwaysOnTop": {
+     "default": "false",
+     "save": true,
+     "type": "bool"
+    },
+    "AutoLocalize": {
+     "default": "true",
+     "save": true,
+     "type": "bool"
+    },
+    "Brightness": {
+     "default": "1",
+     "save": true,
+     "type": "float"
+    },
+    "CanvasSize": {
+     "default": "800, 600",
+     "save": true,
+     "type": "Vector2"
+    },
+    "ClipsDescendants": {
+     "default": "false",
+     "save": true,
+     "type": "bool"
+    },
+    "Enabled": {
+     "default": "true",
+     "save": true,
+     "type": "bool"
+    },
+    "Face": {
+     "default": null,
+     "save": true,
+     "type": "Enum:NormalId"
+    },
+    "LightInfluence": {
+     "default": "0",
+     "save": true,
+     "type": "float"
+    },
+    "MaxDistance": {
+     "default": "0",
+     "save": true,
+     "type": "float"
+    },
+    "PixelsPerStud": {
+     "default": "50",
+     "save": true,
+     "type": "float"
+    },
+    "ResetOnSpawn": {
+     "default": "true",
+     "save": true,
+     "type": "bool"
+    },
+    "SelectionGroup": {
+     "default": "false",
+     "save": true,
+     "type": "bool"
+    },
+    "SizingMode": {
+     "default": "FixedSize",
+     "save": true,
+     "type": "Enum:SurfaceGuiSizingMode"
+    },
+    "ToolPunchThroughDistance": {
+     "default": "0",
+     "save": true,
+     "type": "float"
+    },
+    "ZIndexBehavior": {
+     "default": "Global",
+     "save": true,
+     "type": "Enum:ZIndexBehavior"
+    },
+    "ZOffset": {
+     "default": "0",
+     "save": true,
+     "type": "float"
+    }
+   },
+   "superclass": "SurfaceGuiBase"
+  },
+  "TextBox": {
+   "props": {
+    "Active": {
+     "default": "false",
+     "save": true,
+     "type": "bool"
+    },
+    "AnchorPoint": {
+     "default": "0, 0",
+     "save": true,
+     "type": "Vector2"
+    },
+    "AutoLocalize": {
+     "default": "true",
+     "save": true,
+     "type": "bool"
+    },
+    "AutomaticSize": {
+     "default": "None",
+     "save": true,
+     "type": "Enum:AutomaticSize"
+    },
+    "BackgroundColor3": {
+     "default": "0.639216, 0.635294, 0.647059",
+     "save": true,
+     "type": "Color3"
+    },
+    "BackgroundTransparency": {
+     "default": "0",
+     "save": true,
+     "type": "float"
+    },
+    "BorderColor3": {
+     "default": "0.105882, 0.164706, 0.207843",
+     "save": true,
+     "type": "Color3"
+    },
+    "BorderMode": {
+     "default": "Outline",
+     "save": true,
+     "type": "Enum:BorderMode"
+    },
+    "BorderSizePixel": {
+     "default": "1",
+     "save": true,
+     "type": "int"
+    },
+    "ClearTextOnFocus": {
+     "default": "true",
+     "save": true,
+     "type": "bool"
+    },
+    "ClipsDescendants": {
+     "default": "false",
+     "save": true,
+     "type": "bool"
+    },
+    "CursorPosition": {
+     "default": "1",
+     "save": false,
+     "type": "int"
+    },
+    "FontFace": {
+     "default": null,
+     "save": true,
+     "type": "Font"
+    },
+    "Interactable": {
+     "default": "true",
+     "save": true,
+     "type": "bool"
+    },
+    "LayoutOrder": {
+     "default": "0",
+     "save": true,
+     "type": "int"
+    },
+    "LineHeight": {
+     "default": "1",
+     "save": true,
+     "type": "float"
+    },
+    "MaxVisibleGraphemes": {
+     "default": "-1",
+     "save": true,
+     "type": "int"
+    },
+    "MultiLine": {
+     "default": "false",
+     "save": true,
+     "type": "bool"
+    },
+    "NextSelectionDown": {
+     "default": null,
+     "save": true,
+     "type": "Ref"
+    },
+    "NextSelectionLeft": {
+     "default": null,
+     "save": true,
+     "type": "Ref"
+    },
+    "NextSelectionRight": {
+     "default": null,
+     "save": true,
+     "type": "Ref"
+    },
+    "NextSelectionUp": {
+     "default": null,
+     "save": true,
+     "type": "Ref"
+    },
+    "OpenTypeFeatures": {
+     "default": "",
+     "save": true,
+     "type": "string"
+    },
+    "PlaceholderColor3": {
+     "default": "0.5, 0.5, 0.5",
+     "save": true,
+     "type": "Color3"
+    },
+    "PlaceholderText": {
+     "default": "",
+     "save": true,
+     "type": "string"
+    },
+    "Position": {
+     "default": "{0, 0}, {0, 0}",
+     "save": true,
+     "type": "UDim2"
+    },
+    "RichText": {
+     "default": "false",
+     "save": true,
+     "type": "bool"
+    },
+    "Rotation": {
+     "default": "0",
+     "save": true,
+     "type": "float"
+    },
+    "Selectable": {
+     "default": "false",
+     "save": true,
+     "type": "bool"
+    },
+    "SelectionGroup": {
+     "default": "false",
+     "save": true,
+     "type": "bool"
+    },
+    "SelectionImageObject": {
+     "default": null,
+     "save": true,
+     "type": "Ref"
+    },
+    "SelectionOrder": {
+     "default": "0",
+     "save": true,
+     "type": "int"
+    },
+    "SelectionStart": {
+     "default": "-1",
+     "save": false,
+     "type": "int"
+    },
+    "ShowNativeInput": {
+     "default": "true",
+     "save": true,
+     "type": "bool"
+    },
+    "Size": {
+     "default": "{0, 0}, {0, 0}",
+     "save": true,
+     "type": "UDim2"
+    },
+    "SizeConstraint": {
+     "default": "RelativeXY",
+     "save": true,
+     "type": "Enum:SizeConstraint"
+    },
+    "Text": {
+     "default": "TextBox",
+     "save": true,
+     "type": "string"
+    },
+    "TextColor3": {
+     "default": "0.105882, 0.164706, 0.207843",
+     "save": true,
+     "type": "Color3"
+    },
+    "TextEditable": {
+     "default": "true",
+     "save": true,
+     "type": "bool"
+    },
+    "TextScaled": {
+     "default": "false",
+     "save": true,
+     "type": "bool"
+    },
+    "TextSize": {
+     "default": "8",
+     "save": true,
+     "type": "float"
+    },
+    "TextStrokeColor3": {
+     "default": "0, 0, 0",
+     "save": true,
+     "type": "Color3"
+    },
+    "TextStrokeTransparency": {
+     "default": "1",
+     "save": true,
+     "type": "float"
+    },
+    "TextTransparency": {
+     "default": "0",
+     "save": true,
+     "type": "float"
+    },
+    "TextTruncate": {
+     "default": "None",
+     "save": true,
+     "type": "Enum:TextTruncate"
+    },
+    "TextWrapped": {
+     "default": "false",
+     "save": true,
+     "type": "bool"
+    },
+    "TextXAlignment": {
+     "default": "Center",
+     "save": true,
+     "type": "Enum:TextXAlignment"
+    },
+    "TextYAlignment": {
+     "default": "Center",
+     "save": true,
+     "type": "Enum:TextYAlignment"
+    },
+    "Visible": {
+     "default": "true",
+     "save": true,
+     "type": "bool"
+    },
+    "ZIndex": {
+     "default": "1",
+     "save": true,
+     "type": "int"
+    }
+   },
+   "superclass": "GuiObject"
+  },
+  "TextButton": {
+   "props": {
+    "Active": {
+     "default": "false",
+     "save": true,
+     "type": "bool"
+    },
+    "AnchorPoint": {
+     "default": "0, 0",
+     "save": true,
+     "type": "Vector2"
+    },
+    "AutoButtonColor": {
+     "default": "true",
+     "save": true,
+     "type": "bool"
+    },
+    "AutoLocalize": {
+     "default": "true",
+     "save": true,
+     "type": "bool"
+    },
+    "AutomaticSize": {
+     "default": "None",
+     "save": true,
+     "type": "Enum:AutomaticSize"
+    },
+    "BackgroundColor3": {
+     "default": "0.639216, 0.635294, 0.647059",
+     "save": true,
+     "type": "Color3"
+    },
+    "BackgroundTransparency": {
+     "default": "0",
+     "save": true,
+     "type": "float"
+    },
+    "BorderColor3": {
+     "default": "0.105882, 0.164706, 0.207843",
+     "save": true,
+     "type": "Color3"
+    },
+    "BorderMode": {
+     "default": "Outline",
+     "save": true,
+     "type": "Enum:BorderMode"
+    },
+    "BorderSizePixel": {
+     "default": "1",
+     "save": true,
+     "type": "int"
+    },
+    "ClipsDescendants": {
+     "default": "false",
+     "save": true,
+     "type": "bool"
+    },
+    "FontFace": {
+     "default": null,
+     "save": true,
+     "type": "Font"
+    },
+    "Interactable": {
+     "default": "true",
+     "save": true,
+     "type": "bool"
+    },
+    "LayoutOrder": {
+     "default": "0",
+     "save": true,
+     "type": "int"
+    },
+    "LineHeight": {
+     "default": "1",
+     "save": true,
+     "type": "float"
+    },
+    "MaxVisibleGraphemes": {
+     "default": "-1",
+     "save": true,
+     "type": "int"
+    },
+    "Modal": {
+     "default": "false",
+     "save": true,
+     "type": "bool"
+    },
+    "NextSelectionDown": {
+     "default": null,
+     "save": true,
+     "type": "Ref"
+    },
+    "NextSelectionLeft": {
+     "default": null,
+     "save": true,
+     "type": "Ref"
+    },
+    "NextSelectionRight": {
+     "default": null,
+     "save": true,
+     "type": "Ref"
+    },
+    "NextSelectionUp": {
+     "default": null,
+     "save": true,
+     "type": "Ref"
+    },
+    "OpenTypeFeatures": {
+     "default": "",
+     "save": true,
+     "type": "string"
+    },
+    "Position": {
+     "default": "{0, 0}, {0, 0}",
+     "save": true,
+     "type": "UDim2"
+    },
+    "RichText": {
+     "default": "false",
+     "save": true,
+     "type": "bool"
+    },
+    "Rotation": {
+     "default": "0",
+     "save": true,
+     "type": "float"
+    },
+    "Selectable": {
+     "default": "false",
+     "save": true,
+     "type": "bool"
+    },
+    "Selected": {
+     "default": "false",
+     "save": true,
+     "type": "bool"
+    },
+    "SelectionGroup": {
+     "default": "false",
+     "save": true,
+     "type": "bool"
+    },
+    "SelectionImageObject": {
+     "default": null,
+     "save": true,
+     "type": "Ref"
+    },
+    "SelectionOrder": {
+     "default": "0",
+     "save": true,
+     "type": "int"
+    },
+    "Size": {
+     "default": "{0, 0}, {0, 0}",
+     "save": true,
+     "type": "UDim2"
+    },
+    "SizeConstraint": {
+     "default": "RelativeXY",
+     "save": true,
+     "type": "Enum:SizeConstraint"
+    },
+    "Text": {
+     "default": "Button",
+     "save": true,
+     "type": "string"
+    },
+    "TextColor3": {
+     "default": "0.105882, 0.164706, 0.207843",
+     "save": true,
+     "type": "Color3"
+    },
+    "TextScaled": {
+     "default": "false",
+     "save": true,
+     "type": "bool"
+    },
+    "TextSize": {
+     "default": "8",
+     "save": true,
+     "type": "float"
+    },
+    "TextStrokeColor3": {
+     "default": "0, 0, 0",
+     "save": true,
+     "type": "Color3"
+    },
+    "TextStrokeTransparency": {
+     "default": "1",
+     "save": true,
+     "type": "float"
+    },
+    "TextTransparency": {
+     "default": "0",
+     "save": true,
+     "type": "float"
+    },
+    "TextTruncate": {
+     "default": "None",
+     "save": true,
+     "type": "Enum:TextTruncate"
+    },
+    "TextWrapped": {
+     "default": "false",
+     "save": true,
+     "type": "bool"
+    },
+    "TextXAlignment": {
+     "default": "Center",
+     "save": true,
+     "type": "Enum:TextXAlignment"
+    },
+    "TextYAlignment": {
+     "default": "Center",
+     "save": true,
+     "type": "Enum:TextYAlignment"
+    },
+    "Visible": {
+     "default": "true",
+     "save": true,
+     "type": "bool"
+    },
+    "ZIndex": {
+     "default": "1",
+     "save": true,
+     "type": "int"
+    }
+   },
+   "superclass": "GuiButton"
+  },
+  "TextLabel": {
+   "props": {
+    "Active": {
+     "default": "false",
+     "save": true,
+     "type": "bool"
+    },
+    "AnchorPoint": {
+     "default": "0, 0",
+     "save": true,
+     "type": "Vector2"
+    },
+    "AutoLocalize": {
+     "default": "true",
+     "save": true,
+     "type": "bool"
+    },
+    "AutomaticSize": {
+     "default": "None",
+     "save": true,
+     "type": "Enum:AutomaticSize"
+    },
+    "BackgroundColor3": {
+     "default": "0.639216, 0.635294, 0.647059",
+     "save": true,
+     "type": "Color3"
+    },
+    "BackgroundTransparency": {
+     "default": "0",
+     "save": true,
+     "type": "float"
+    },
+    "BorderColor3": {
+     "default": "0.105882, 0.164706, 0.207843",
+     "save": true,
+     "type": "Color3"
+    },
+    "BorderMode": {
+     "default": "Outline",
+     "save": true,
+     "type": "Enum:BorderMode"
+    },
+    "BorderSizePixel": {
+     "default": "1",
+     "save": true,
+     "type": "int"
+    },
+    "ClipsDescendants": {
+     "default": "false",
+     "save": true,
+     "type": "bool"
+    },
+    "FontFace": {
+     "default": null,
+     "save": true,
+     "type": "Font"
+    },
+    "Interactable": {
+     "default": "true",
+     "save": true,
+     "type": "bool"
+    },
+    "LayoutOrder": {
+     "default": "0",
+     "save": true,
+     "type": "int"
+    },
+    "LineHeight": {
+     "default": "1",
+     "save": true,
+     "type": "float"
+    },
+    "MaxVisibleGraphemes": {
+     "default": "-1",
+     "save": true,
+     "type": "int"
+    },
+    "NextSelectionDown": {
+     "default": null,
+     "save": true,
+     "type": "Ref"
+    },
+    "NextSelectionLeft": {
+     "default": null,
+     "save": true,
+     "type": "Ref"
+    },
+    "NextSelectionRight": {
+     "default": null,
+     "save": true,
+     "type": "Ref"
+    },
+    "NextSelectionUp": {
+     "default": null,
+     "save": true,
+     "type": "Ref"
+    },
+    "OpenTypeFeatures": {
+     "default": "",
+     "save": true,
+     "type": "string"
+    },
+    "Position": {
+     "default": "{0, 0}, {0, 0}",
+     "save": true,
+     "type": "UDim2"
+    },
+    "RichText": {
+     "default": "false",
+     "save": true,
+     "type": "bool"
+    },
+    "Rotation": {
+     "default": "0",
+     "save": true,
+     "type": "float"
+    },
+    "Selectable": {
+     "default": "false",
+     "save": true,
+     "type": "bool"
+    },
+    "SelectionGroup": {
+     "default": "false",
+     "save": true,
+     "type": "bool"
+    },
+    "SelectionImageObject": {
+     "default": null,
+     "save": true,
+     "type": "Ref"
+    },
+    "SelectionOrder": {
+     "default": "0",
+     "save": true,
+     "type": "int"
+    },
+    "Size": {
+     "default": "{0, 0}, {0, 0}",
+     "save": true,
+     "type": "UDim2"
+    },
+    "SizeConstraint": {
+     "default": "RelativeXY",
+     "save": true,
+     "type": "Enum:SizeConstraint"
+    },
+    "Text": {
+     "default": "Label",
+     "save": true,
+     "type": "string"
+    },
+    "TextColor3": {
+     "default": "0.105882, 0.164706, 0.207843",
+     "save": true,
+     "type": "Color3"
+    },
+    "TextScaled": {
+     "default": "false",
+     "save": true,
+     "type": "bool"
+    },
+    "TextSize": {
+     "default": "8",
+     "save": true,
+     "type": "float"
+    },
+    "TextStrokeColor3": {
+     "default": "0, 0, 0",
+     "save": true,
+     "type": "Color3"
+    },
+    "TextStrokeTransparency": {
+     "default": "1",
+     "save": true,
+     "type": "float"
+    },
+    "TextTransparency": {
+     "default": "0",
+     "save": true,
+     "type": "float"
+    },
+    "TextTruncate": {
+     "default": "None",
+     "save": true,
+     "type": "Enum:TextTruncate"
+    },
+    "TextWrapped": {
+     "default": "false",
+     "save": true,
+     "type": "bool"
+    },
+    "TextXAlignment": {
+     "default": "Center",
+     "save": true,
+     "type": "Enum:TextXAlignment"
+    },
+    "TextYAlignment": {
+     "default": "Center",
+     "save": true,
+     "type": "Enum:TextYAlignment"
+    },
+    "Visible": {
+     "default": "true",
+     "save": true,
+     "type": "bool"
+    },
+    "ZIndex": {
+     "default": "1",
+     "save": true,
+     "type": "int"
+    }
+   },
+   "superclass": "GuiLabel"
+  },
+  "UIAspectRatioConstraint": {
+   "props": {
+    "AspectRatio": {
+     "default": "1",
+     "save": true,
+     "type": "float"
+    },
+    "AspectType": {
+     "default": "FitWithinMaxSize",
+     "save": true,
+     "type": "Enum:AspectType"
+    },
+    "DominantAxis": {
+     "default": "Width",
+     "save": true,
+     "type": "Enum:DominantAxis"
+    }
+   },
+   "superclass": "UIConstraint"
+  },
+  "UICorner": {
+   "props": {
+    "BottomLeftRadius": {
+     "default": "0, 8",
+     "save": true,
+     "type": "UDim"
+    },
+    "BottomRightRadius": {
+     "default": "0, 8",
+     "save": true,
+     "type": "UDim"
+    },
+    "CornerRadius": {
+     "default": "0, 8",
+     "save": false,
+     "type": "UDim"
+    },
+    "TopLeftRadius": {
+     "default": "0, 8",
+     "save": true,
+     "type": "UDim"
+    },
+    "TopRightRadius": {
+     "default": "0, 8",
+     "save": true,
+     "type": "UDim"
+    }
+   },
+   "superclass": "UIComponent"
+  },
+  "UIDragDetector": {
+   "props": {
+    "ActivatedCursorIcon": {
+     "default": "",
+     "save": true,
+     "type": "ContentId"
+    },
+    "ActivatedCursorIconContent": {
+     "default": null,
+     "save": true,
+     "type": "Content"
+    },
+    "BoundingBehavior": {
+     "default": "Automatic",
+     "save": true,
+     "type": "Enum:UIDragDetectorBoundingBehavior"
+    },
+    "BoundingUI": {
+     "default": null,
+     "save": true,
+     "type": "Ref"
+    },
+    "CursorIcon": {
+     "default": "",
+     "save": true,
+     "type": "ContentId"
+    },
+    "CursorIconContent": {
+     "default": null,
+     "save": true,
+     "type": "Content"
+    },
+    "DragAxis": {
+     "default": "1, 0",
+     "save": true,
+     "type": "Vector2"
+    },
+    "DragRelativity": {
+     "default": "Absolute",
+     "save": true,
+     "type": "Enum:UIDragDetectorDragRelativity"
+    },
+    "DragRotation": {
+     "default": "0",
+     "save": true,
+     "type": "float"
+    },
+    "DragSpace": {
+     "default": "Parent",
+     "save": true,
+     "type": "Enum:UIDragDetectorDragSpace"
+    },
+    "DragStyle": {
+     "default": "TranslatePlane",
+     "save": true,
+     "type": "Enum:UIDragDetectorDragStyle"
+    },
+    "DragUDim2": {
+     "default": "{0, 0}, {0, 0}",
+     "save": true,
+     "type": "UDim2"
+    },
+    "Enabled": {
+     "default": "true",
+     "save": true,
+     "type": "bool"
+    },
+    "MaxDragAngle": {
+     "default": "0",
+     "save": true,
+     "type": "float"
+    },
+    "MaxDragTranslation": {
+     "default": "{0, 0}, {0, 0}",
+     "save": true,
+     "type": "UDim2"
+    },
+    "MinDragAngle": {
+     "default": "0",
+     "save": true,
+     "type": "float"
+    },
+    "MinDragTranslation": {
+     "default": "{0, 0}, {0, 0}",
+     "save": true,
+     "type": "UDim2"
+    },
+    "ReferenceUIInstance": {
+     "default": null,
+     "save": true,
+     "type": "Ref"
+    },
+    "ResponseStyle": {
+     "default": "Offset",
+     "save": true,
+     "type": "Enum:UIDragDetectorResponseStyle"
+    },
+    "Selectable": {
+     "default": "true",
+     "save": true,
+     "type": "bool"
+    },
+    "SelectionModeDragSpeed": {
+     "default": "{0, 300}, {0, 300}",
+     "save": true,
+     "type": "UDim2"
+    },
+    "SelectionModeRotateSpeed": {
+     "default": "90",
+     "save": true,
+     "type": "float"
+    },
+    "UIDragSpeedAxisMapping": {
+     "default": "XY",
+     "save": true,
+     "type": "Enum:UIDragSpeedAxisMapping"
+    }
+   },
+   "superclass": "UIComponent"
+  },
+  "UIFlexItem": {
+   "props": {
+    "FlexMode": {
+     "default": "None",
+     "save": true,
+     "type": "Enum:UIFlexMode"
+    },
+    "GrowRatio": {
+     "default": "0",
+     "save": true,
+     "type": "float"
+    },
+    "ItemLineAlignment": {
+     "default": "Automatic",
+     "save": true,
+     "type": "Enum:ItemLineAlignment"
+    },
+    "ShrinkRatio": {
+     "default": "0",
+     "save": true,
+     "type": "float"
+    }
+   },
+   "superclass": "UIComponent"
+  },
+  "UIGradient": {
+   "props": {
+    "Color": {
+     "default": "0 1 1 1 0 1 1 1 1 0 ",
+     "save": true,
+     "type": "ColorSequence"
+    },
+    "Enabled": {
+     "default": "true",
+     "save": true,
+     "type": "bool"
+    },
+    "Offset": {
+     "default": "0, 0",
+     "save": true,
+     "type": "Vector2"
+    },
+    "Rotation": {
+     "default": "0",
+     "save": true,
+     "type": "float"
+    },
+    "Scale": {
+     "default": "1",
+     "save": true,
+     "type": "float"
+    },
+    "TileMode": {
+     "default": "Clamp",
+     "save": true,
+     "type": "Enum:GradientTileMode"
+    },
+    "Transparency": {
+     "default": "0 0 0 1 0 0 ",
+     "save": true,
+     "type": "NumberSequence"
+    },
+    "Type": {
+     "default": "Linear",
+     "save": true,
+     "type": "Enum:GradientType"
+    }
+   },
+   "superclass": "UIComponent"
+  },
+  "UIGridLayout": {
+   "props": {
+    "CellPadding": {
+     "default": "{0, 5}, {0, 5}",
+     "save": true,
+     "type": "UDim2"
+    },
+    "CellSize": {
+     "default": "{0, 100}, {0, 100}",
+     "save": true,
+     "type": "UDim2"
+    },
+    "FillDirection": {
+     "default": "Vertical",
+     "save": true,
+     "type": "Enum:FillDirection"
+    },
+    "FillDirectionMaxCells": {
+     "default": "0",
+     "save": true,
+     "type": "int"
+    },
+    "HorizontalAlignment": {
+     "default": "Left",
+     "save": true,
+     "type": "Enum:HorizontalAlignment"
+    },
+    "SortOrder": {
+     "default": "LayoutOrder",
+     "save": true,
+     "type": "Enum:SortOrder"
+    },
+    "StartCorner": {
+     "default": "TopLeft",
+     "save": true,
+     "type": "Enum:StartCorner"
+    },
+    "VerticalAlignment": {
+     "default": "Top",
+     "save": true,
+     "type": "Enum:VerticalAlignment"
+    }
+   },
+   "superclass": "UIGridStyleLayout"
+  },
+  "UIListLayout": {
+   "props": {
+    "FillDirection": {
+     "default": "Vertical",
+     "save": true,
+     "type": "Enum:FillDirection"
+    },
+    "HorizontalAlignment": {
+     "default": "Left",
+     "save": true,
+     "type": "Enum:HorizontalAlignment"
+    },
+    "HorizontalFlex": {
+     "default": "None",
+     "save": true,
+     "type": "Enum:UIFlexAlignment"
+    },
+    "ItemLineAlignment": {
+     "default": "Automatic",
+     "save": true,
+     "type": "Enum:ItemLineAlignment"
+    },
+    "Padding": {
+     "default": "0, 0",
+     "save": true,
+     "type": "UDim"
+    },
+    "SortOrder": {
+     "default": "LayoutOrder",
+     "save": true,
+     "type": "Enum:SortOrder"
+    },
+    "VerticalAlignment": {
+     "default": "Top",
+     "save": true,
+     "type": "Enum:VerticalAlignment"
+    },
+    "VerticalFlex": {
+     "default": "None",
+     "save": true,
+     "type": "Enum:UIFlexAlignment"
+    },
+    "Wraps": {
+     "default": "false",
+     "save": true,
+     "type": "bool"
+    }
+   },
+   "superclass": "UIGridStyleLayout"
+  },
+  "UIPadding": {
+   "props": {
+    "PaddingBottom": {
+     "default": "0, 0",
+     "save": true,
+     "type": "UDim"
+    },
+    "PaddingLeft": {
+     "default": "0, 0",
+     "save": true,
+     "type": "UDim"
+    },
+    "PaddingRight": {
+     "default": "0, 0",
+     "save": true,
+     "type": "UDim"
+    },
+    "PaddingTop": {
+     "default": "0, 0",
+     "save": true,
+     "type": "UDim"
+    }
+   },
+   "superclass": "UIComponent"
+  },
+  "UIPageLayout": {
+   "props": {
+    "Animated": {
+     "default": "true",
+     "save": true,
+     "type": "bool"
+    },
+    "Circular": {
+     "default": "false",
+     "save": true,
+     "type": "bool"
+    },
+    "EasingDirection": {
+     "default": "Out",
+     "save": true,
+     "type": "Enum:EasingDirection"
+    },
+    "EasingStyle": {
+     "default": "Back",
+     "save": true,
+     "type": "Enum:EasingStyle"
+    },
+    "FillDirection": {
+     "default": "Vertical",
+     "save": true,
+     "type": "Enum:FillDirection"
+    },
+    "GamepadInputEnabled": {
+     "default": "true",
+     "save": true,
+     "type": "bool"
+    },
+    "HorizontalAlignment": {
+     "default": "Left",
+     "save": true,
+     "type": "Enum:HorizontalAlignment"
+    },
+    "Padding": {
+     "default": "0, 0",
+     "save": true,
+     "type": "UDim"
+    },
+    "ScrollWheelInputEnabled": {
+     "default": "true",
+     "save": true,
+     "type": "bool"
+    },
+    "SortOrder": {
+     "default": "LayoutOrder",
+     "save": true,
+     "type": "Enum:SortOrder"
+    },
+    "TouchInputEnabled": {
+     "default": "true",
+     "save": true,
+     "type": "bool"
+    },
+    "TweenTime": {
+     "default": "1",
+     "save": true,
+     "type": "float"
+    },
+    "VerticalAlignment": {
+     "default": "Top",
+     "save": true,
+     "type": "Enum:VerticalAlignment"
+    }
+   },
+   "superclass": "UIGridStyleLayout"
+  },
+  "UIScale": {
+   "props": {
+    "Scale": {
+     "default": "1",
+     "save": true,
+     "type": "float"
+    }
+   },
+   "superclass": "UIComponent"
+  },
+  "UIShadow": {
+   "props": {
+    "BlurRadius": {
+     "default": "0, 0",
+     "save": true,
+     "type": "UDim"
+    },
+    "Color": {
+     "default": "0, 0, 0",
+     "save": true,
+     "type": "Color3"
+    },
+    "Enabled": {
+     "default": "true",
+     "save": true,
+     "type": "bool"
+    },
+    "Inset": {
+     "default": "false",
+     "save": true,
+     "type": "bool"
+    },
+    "Mode": {
+     "default": "Shape",
+     "save": true,
+     "type": "Enum:ApplyShadowMode"
+    },
+    "Offset": {
+     "default": "{0, 0}, {0, 0}",
+     "save": true,
+     "type": "UDim2"
+    },
+    "ShowBehindParent": {
+     "default": "true",
+     "save": true,
+     "type": "bool"
+    },
+    "Spread": {
+     "default": "{0, 0}, {0, 0}",
+     "save": true,
+     "type": "UDim2"
+    },
+    "Transparency": {
+     "default": "0",
+     "save": true,
+     "type": "float"
+    },
+    "ZIndex": {
+     "default": "-1",
+     "save": true,
+     "type": "int"
+    }
+   },
+   "superclass": "UIComponent"
+  },
+  "UISizeConstraint": {
+   "props": {
+    "MaxSize": {
+     "default": "INF, INF",
+     "save": true,
+     "type": "Vector2"
+    },
+    "MinSize": {
+     "default": "0, 0",
+     "save": true,
+     "type": "Vector2"
+    }
+   },
+   "superclass": "UIConstraint"
+  },
+  "UIStroke": {
+   "props": {
+    "ApplyStrokeMode": {
+     "default": "Contextual",
+     "save": true,
+     "type": "Enum:ApplyStrokeMode"
+    },
+    "BorderOffset": {
+     "default": "0, 0",
+     "save": true,
+     "type": "UDim"
+    },
+    "BorderStrokePosition": {
+     "default": "Outer",
+     "save": true,
+     "type": "Enum:BorderStrokePosition"
+    },
+    "Color": {
+     "default": "0, 0, 0",
+     "save": true,
+     "type": "Color3"
+    },
+    "Enabled": {
+     "default": "true",
+     "save": true,
+     "type": "bool"
+    },
+    "LineJoinMode": {
+     "default": "Round",
+     "save": true,
+     "type": "Enum:LineJoinMode"
+    },
+    "StrokeSizingMode": {
+     "default": "FixedSize",
+     "save": true,
+     "type": "Enum:StrokeSizingMode"
+    },
+    "Thickness": {
+     "default": "1",
+     "save": true,
+     "type": "float"
+    },
+    "Transparency": {
+     "default": "0",
+     "save": true,
+     "type": "float"
+    },
+    "ZIndex": {
+     "default": "1",
+     "save": true,
+     "type": "int"
+    }
+   },
+   "superclass": "UIComponent"
+  },
+  "UITableLayout": {
+   "props": {
+    "FillDirection": {
+     "default": "Vertical",
+     "save": true,
+     "type": "Enum:FillDirection"
+    },
+    "FillEmptySpaceColumns": {
+     "default": "false",
+     "save": true,
+     "type": "bool"
+    },
+    "FillEmptySpaceRows": {
+     "default": "false",
+     "save": true,
+     "type": "bool"
+    },
+    "HorizontalAlignment": {
+     "default": "Left",
+     "save": true,
+     "type": "Enum:HorizontalAlignment"
+    },
+    "MajorAxis": {
+     "default": "RowMajor",
+     "save": true,
+     "type": "Enum:TableMajorAxis"
+    },
+    "Padding": {
+     "default": "{0, 0}, {0, 0}",
+     "save": true,
+     "type": "UDim2"
+    },
+    "SortOrder": {
+     "default": "LayoutOrder",
+     "save": true,
+     "type": "Enum:SortOrder"
+    },
+    "VerticalAlignment": {
+     "default": "Top",
+     "save": true,
+     "type": "Enum:VerticalAlignment"
+    }
+   },
+   "superclass": "UIGridStyleLayout"
+  },
+  "UITextSizeConstraint": {
+   "props": {
+    "MaxTextSize": {
+     "default": "100",
+     "save": true,
+     "type": "int"
+    },
+    "MinTextSize": {
+     "default": "1",
+     "save": true,
+     "type": "int"
+    }
+   },
+   "superclass": "UIConstraint"
+  },
+  "VideoFrame": {
+   "props": {
+    "Active": {
+     "default": "false",
+     "save": true,
+     "type": "bool"
+    },
+    "AnchorPoint": {
+     "default": "0, 0",
+     "save": true,
+     "type": "Vector2"
+    },
+    "AutoLocalize": {
+     "default": "true",
+     "save": true,
+     "type": "bool"
+    },
+    "AutomaticSize": {
+     "default": "None",
+     "save": true,
+     "type": "Enum:AutomaticSize"
+    },
+    "BackgroundColor3": {
+     "default": "0.639216, 0.635294, 0.647059",
+     "save": true,
+     "type": "Color3"
+    },
+    "BackgroundTransparency": {
+     "default": "0",
+     "save": true,
+     "type": "float"
+    },
+    "BorderColor3": {
+     "default": "0.105882, 0.164706, 0.207843",
+     "save": true,
+     "type": "Color3"
+    },
+    "BorderMode": {
+     "default": "Outline",
+     "save": true,
+     "type": "Enum:BorderMode"
+    },
+    "BorderSizePixel": {
+     "default": "1",
+     "save": true,
+     "type": "int"
+    },
+    "ClipsDescendants": {
+     "default": "false",
+     "save": true,
+     "type": "bool"
+    },
+    "Interactable": {
+     "default": "true",
+     "save": true,
+     "type": "bool"
+    },
+    "LayoutOrder": {
+     "default": "0",
+     "save": true,
+     "type": "int"
+    },
+    "Looped": {
+     "default": "false",
+     "save": true,
+     "type": "bool"
+    },
+    "NextSelectionDown": {
+     "default": null,
+     "save": true,
+     "type": "Ref"
+    },
+    "NextSelectionLeft": {
+     "default": null,
+     "save": true,
+     "type": "Ref"
+    },
+    "NextSelectionRight": {
+     "default": null,
+     "save": true,
+     "type": "Ref"
+    },
+    "NextSelectionUp": {
+     "default": null,
+     "save": true,
+     "type": "Ref"
+    },
+    "Playing": {
+     "default": "false",
+     "save": true,
+     "type": "bool"
+    },
+    "Position": {
+     "default": "{0, 0}, {0, 0}",
+     "save": true,
+     "type": "UDim2"
+    },
+    "RollOffMaxDistance": {
+     "default": "10000",
+     "save": true,
+     "type": "float"
+    },
+    "RollOffMinDistance": {
+     "default": "1",
+     "save": true,
+     "type": "float"
+    },
+    "RollOffMode": {
+     "default": "Inverse",
+     "save": true,
+     "type": "Enum:RollOffMode"
+    },
+    "Rotation": {
+     "default": "0",
+     "save": true,
+     "type": "float"
+    },
+    "Selectable": {
+     "default": "false",
+     "save": true,
+     "type": "bool"
+    },
+    "SelectionGroup": {
+     "default": "false",
+     "save": true,
+     "type": "bool"
+    },
+    "SelectionImageObject": {
+     "default": null,
+     "save": true,
+     "type": "Ref"
+    },
+    "SelectionOrder": {
+     "default": "0",
+     "save": true,
+     "type": "int"
+    },
+    "Size": {
+     "default": "{0, 0}, {0, 0}",
+     "save": true,
+     "type": "UDim2"
+    },
+    "SizeConstraint": {
+     "default": "RelativeXY",
+     "save": true,
+     "type": "Enum:SizeConstraint"
+    },
+    "TimePosition": {
+     "default": "0",
+     "save": true,
+     "type": "double"
+    },
+    "Video": {
+     "default": "",
+     "save": true,
+     "type": "ContentId"
+    },
+    "VideoContent": {
+     "default": null,
+     "save": true,
+     "type": "Content"
+    },
+    "Visible": {
+     "default": "true",
+     "save": true,
+     "type": "bool"
+    },
+    "Volume": {
+     "default": "1",
+     "save": true,
+     "type": "float"
+    },
+    "ZIndex": {
+     "default": "1",
+     "save": true,
+     "type": "int"
+    }
+   },
+   "superclass": "GuiObject"
+  },
+  "ViewportFrame": {
+   "props": {
+    "Active": {
+     "default": "false",
+     "save": true,
+     "type": "bool"
+    },
+    "Ambient": {
+     "default": "0.784314, 0.784314, 0.784314",
+     "save": true,
+     "type": "Color3"
+    },
+    "AnchorPoint": {
+     "default": "0, 0",
+     "save": true,
+     "type": "Vector2"
+    },
+    "AutoLocalize": {
+     "default": "true",
+     "save": true,
+     "type": "bool"
+    },
+    "AutomaticSize": {
+     "default": "None",
+     "save": true,
+     "type": "Enum:AutomaticSize"
+    },
+    "BackgroundColor3": {
+     "default": "0.639216, 0.635294, 0.647059",
+     "save": true,
+     "type": "Color3"
+    },
+    "BackgroundTransparency": {
+     "default": "0",
+     "save": true,
+     "type": "float"
+    },
+    "BorderColor3": {
+     "default": "0.105882, 0.164706, 0.207843",
+     "save": true,
+     "type": "Color3"
+    },
+    "BorderMode": {
+     "default": "Outline",
+     "save": true,
+     "type": "Enum:BorderMode"
+    },
+    "BorderSizePixel": {
+     "default": "1",
+     "save": true,
+     "type": "int"
+    },
+    "ClipsDescendants": {
+     "default": "false",
+     "save": true,
+     "type": "bool"
+    },
+    "ImageColor3": {
+     "default": "1, 1, 1",
+     "save": true,
+     "type": "Color3"
+    },
+    "ImageTransparency": {
+     "default": "0",
+     "save": true,
+     "type": "float"
+    },
+    "Interactable": {
+     "default": "true",
+     "save": true,
+     "type": "bool"
+    },
+    "LayoutOrder": {
+     "default": "0",
+     "save": true,
+     "type": "int"
+    },
+    "LightColor": {
+     "default": "0.54902, 0.54902, 0.54902",
+     "save": true,
+     "type": "Color3"
+    },
+    "LightDirection": {
+     "default": "-1, -1, -1",
+     "save": true,
+     "type": "Vector3"
+    },
+    "NextSelectionDown": {
+     "default": null,
+     "save": true,
+     "type": "Ref"
+    },
+    "NextSelectionLeft": {
+     "default": null,
+     "save": true,
+     "type": "Ref"
+    },
+    "NextSelectionRight": {
+     "default": null,
+     "save": true,
+     "type": "Ref"
+    },
+    "NextSelectionUp": {
+     "default": null,
+     "save": true,
+     "type": "Ref"
+    },
+    "Position": {
+     "default": "{0, 0}, {0, 0}",
+     "save": true,
+     "type": "UDim2"
+    },
+    "Rotation": {
+     "default": "0",
+     "save": true,
+     "type": "float"
+    },
+    "Selectable": {
+     "default": "false",
+     "save": true,
+     "type": "bool"
+    },
+    "SelectionGroup": {
+     "default": "false",
+     "save": true,
+     "type": "bool"
+    },
+    "SelectionImageObject": {
+     "default": null,
+     "save": true,
+     "type": "Ref"
+    },
+    "SelectionOrder": {
+     "default": "0",
+     "save": true,
+     "type": "int"
+    },
+    "Size": {
+     "default": "{0, 0}, {0, 0}",
+     "save": true,
+     "type": "UDim2"
+    },
+    "SizeConstraint": {
+     "default": "RelativeXY",
+     "save": true,
+     "type": "Enum:SizeConstraint"
+    },
+    "Visible": {
+     "default": "true",
+     "save": true,
+     "type": "bool"
+    },
+    "ZIndex": {
+     "default": "1",
+     "save": true,
+     "type": "int"
+    }
+   },
+   "superclass": "GuiObject"
+  }
+ },
+ "enums": {
+  "ApplyShadowMode": {
+   "Shape": 0,
+   "Text": 1
+  },
+  "ApplyStrokeMode": {
+   "Border": 1,
+   "Contextual": 0
+  },
+  "AspectType": {
+   "FitWithinMaxSize": 0,
+   "ScaleWithParentSize": 1
+  },
+  "AutomaticSize": {
+   "None": 0,
+   "X": 1,
+   "XY": 3,
+   "Y": 2
+  },
+  "BorderMode": {
+   "Inset": 2,
+   "Middle": 1,
+   "Outline": 0
+  },
+  "BorderStrokePosition": {
+   "Center": 1,
+   "Inner": 2,
+   "Outer": 0
+  },
+  "DominantAxis": {
+   "Height": 1,
+   "Width": 0
+  },
+  "EasingDirection": {
+   "In": 0,
+   "InOut": 2,
+   "Out": 1
+  },
+  "EasingStyle": {
+   "Back": 2,
+   "Bezier": 11,
+   "Bounce": 6,
+   "Circular": 9,
+   "Cubic": 10,
+   "Elastic": 7,
+   "Exponential": 8,
+   "Linear": 0,
+   "Quad": 3,
+   "Quart": 4,
+   "Quint": 5,
+   "Sine": 1,
+   "Spring": 12
+  },
+  "ElasticBehavior": {
+   "Always": 1,
+   "Never": 2,
+   "WhenScrollable": 0
+  },
+  "FillDirection": {
+   "Horizontal": 0,
+   "Vertical": 1
+  },
+  "FontStyle": {
+   "Italic": 1,
+   "Normal": 0
+  },
+  "FontWeight": {
+   "Bold": 700,
+   "ExtraBold": 800,
+   "ExtraLight": 200,
+   "Heavy": 900,
+   "Light": 300,
+   "Medium": 500,
+   "Regular": 400,
+   "SemiBold": 600,
+   "Thin": 100
+  },
+  "GradientTileMode": {
+   "Clamp": 0,
+   "Mirror": 2,
+   "Repeat": 1
+  },
+  "GradientType": {
+   "Conical": 2,
+   "Elliptical": 3,
+   "Linear": 0,
+   "Radial": 1
+  },
+  "HorizontalAlignment": {
+   "Center": 0,
+   "Left": 1,
+   "Right": 2
+  },
+  "ItemLineAlignment": {
+   "Automatic": 0,
+   "Center": 2,
+   "End": 3,
+   "Start": 1,
+   "Stretch": 4
+  },
+  "LineJoinMode": {
+   "Bevel": 1,
+   "Miter": 2,
+   "Round": 0
+  },
+  "NormalId": {
+   "Back": 2,
+   "Bottom": 4,
+   "Front": 5,
+   "Left": 3,
+   "Right": 0,
+   "Top": 1
+  },
+  "ResamplerMode": {
+   "Default": 0,
+   "Pixelated": 1
+  },
+  "RollOffMode": {
+   "Inverse": 0,
+   "InverseTapered": 3,
+   "Linear": 1,
+   "LinearSquare": 2
+  },
+  "RunContext": {
+   "Client": 2,
+   "Legacy": 0,
+   "Plugin": 3,
+   "Server": 1
+  },
+  "SafeAreaCompatibility": {
+   "FullscreenExtension": 1,
+   "None": 0
+  },
+  "ScaleType": {
+   "Crop": 4,
+   "Fit": 3,
+   "Slice": 1,
+   "Stretch": 0,
+   "Tile": 2
+  },
+  "ScreenInsets": {
+   "CoreUISafeInsets": 2,
+   "DeviceSafeInsets": 1,
+   "None": 0,
+   "TopbarSafeInsets": 3
+  },
+  "ScrollBarInset": {
+   "Always": 2,
+   "None": 0,
+   "ScrollBar": 1
+  },
+  "ScrollingDirection": {
+   "X": 1,
+   "XY": 4,
+   "Y": 2
+  },
+  "SizeConstraint": {
+   "RelativeXX": 1,
+   "RelativeXY": 0,
+   "RelativeYY": 2
+  },
+  "SortOrder": {
+   "Custom": 1,
+   "LayoutOrder": 2,
+   "Name": 0
+  },
+  "StartCorner": {
+   "BottomLeft": 2,
+   "BottomRight": 3,
+   "TopLeft": 0,
+   "TopRight": 1
+  },
+  "StrokeSizingMode": {
+   "FixedSize": 0,
+   "ScaledSize": 1
+  },
+  "SurfaceGuiSizingMode": {
+   "FixedSize": 0,
+   "PixelsPerStud": 1
+  },
+  "TableMajorAxis": {
+   "ColumnMajor": 1,
+   "RowMajor": 0
+  },
+  "TextTruncate": {
+   "AtEnd": 1,
+   "None": 0,
+   "SplitWord": 2
+  },
+  "TextXAlignment": {
+   "Center": 2,
+   "Left": 0,
+   "Right": 1
+  },
+  "TextYAlignment": {
+   "Bottom": 2,
+   "Center": 1,
+   "Top": 0
+  },
+  "UIDragDetectorBoundingBehavior": {
+   "Automatic": 0,
+   "EntireObject": 1,
+   "HitPoint": 2
+  },
+  "UIDragDetectorDragRelativity": {
+   "Absolute": 0,
+   "Relative": 1
+  },
+  "UIDragDetectorDragSpace": {
+   "LayerCollector": 1,
+   "Parent": 0,
+   "Reference": 2
+  },
+  "UIDragDetectorDragStyle": {
+   "Rotate": 2,
+   "Scriptable": 3,
+   "TranslateLine": 1,
+   "TranslatePlane": 0
+  },
+  "UIDragDetectorResponseStyle": {
+   "CustomOffset": 2,
+   "CustomScale": 3,
+   "Offset": 0,
+   "Scale": 1
+  },
+  "UIDragSpeedAxisMapping": {
+   "XX": 1,
+   "XY": 0,
+   "YY": 2
+  },
+  "UIFlexAlignment": {
+   "Fill": 1,
+   "None": 0,
+   "SpaceAround": 2,
+   "SpaceBetween": 3,
+   "SpaceEvenly": 4
+  },
+  "UIFlexMode": {
+   "Custom": 4,
+   "Fill": 3,
+   "Grow": 1,
+   "None": 0,
+   "Shrink": 2
+  },
+  "VerticalAlignment": {
+   "Bottom": 2,
+   "Center": 0,
+   "Top": 1
+  },
+  "VerticalScrollBarPosition": {
+   "Left": 1,
+   "Right": 0
+  },
+  "ZIndexBehavior": {
+   "Global": 0,
+   "Sibling": 1
+  }
+ },
+ "version": 1
+}
