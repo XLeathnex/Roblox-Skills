@@ -1,0 +1,72 @@
+{
+ "meta": {
+  "genre": "roleplay",
+  "game": "Maple Bay",
+  "depth": "soft",
+  "motion": "snappy",
+  "direction": "Maple Bay phone: a cream paper home screen with sea-glass and pastel app tiles lifted on soft shadows, shells and seafront colours, coral only for the bank chip; rounded Nunito in warm ink, friendly like a town noticeboard."
+ },
+ "tokens": {
+  "c": {"surface": "#FFF7EC", "foam": "#E3F5F0", "coral": "#F2725E", "sea": "#6FC2B8", "ink": "#4B3A31",
+        "sun": "#F9D98A", "blush": "#F7B9A6", "sky": "#AEDAF2", "lilac": "#DCC0EE", "mint": "#BDE8C8", "pearl": "#D9E0E6"},
+  "r": {"lg": 24, "pill": 26},
+  "font": {"display": "Nunito:ExtraBold", "body": "Nunito:SemiBold"}
+ },
+ "components": {
+  "AppTile": {
+   "params": {"label": "App", "sub": "", "icon": "home", "color": "$c.sun"},
+   "node": {"class": "TextButton", "Size": [0, 270, 0, 130], "motion": "button", "corner": "$r.lg",
+    "gradient": ["shade({{color}},0.5)", "shade({{color}},-0.5)"],
+    "children": [
+     {"class": "UIShadow", "name": "Lift", "Color": "shade({{color}},-6)", "Offset": [0, 0, 0, 8], "BlurRadius": [0, 20], "Transparency": 0.72, "ZIndex": -1},
+     {"class": "UIShadow", "name": "Contact", "Color": "shade({{color}},-6)", "Offset": [0, 0, 0, 2], "BlurRadius": [0, 4], "Transparency": 0.8, "ZIndex": -2},
+     {"class": "UIShadow", "name": "Edge", "Inset": true, "Color": "#FFFFFF", "Offset": [0, 0, 0, 1], "Transparency": 0.4, "ZIndex": -3},
+     {"class": "ImageLabel", "name": "Icon", "Position": [0, 20, 0, 16], "Size": [0, 50, 0, 50], "Image": "asset:{{icon}}", "ScaleType": "Fit", "ImageColor3": "shade({{color}},-6)"},
+     {"class": "TextLabel", "name": "Title", "Position": [0, 20, 0, 76], "Size": [1, -40, 0, 28], "Text": "{{label}}", "FontFace": "$font.display", "TextSize": 26, "TextColor3": "$c.ink", "TextXAlignment": "Left"},
+     {"class": "TextLabel", "name": "Sub", "Position": [0, 20, 0, 102], "Size": [1, -40, 0, 20], "Text": "{{sub}}", "FontFace": "$font.body", "TextSize": 19, "TextColor3": "$c.ink", "TextTransparency": 0.25, "TextXAlignment": "Left"}
+    ]}
+  }
+ },
+ "root": {"class": "ScreenGui", "name": "PhoneMenuGui", "children": [
+  {"class": "TextButton", "name": "PhoneButton", "autoscale": "hud", "motion": "button", "opens": "PhonePanel",
+   "AnchorPoint": [0, 0.5], "Position": [0, 16, 0.46, 0], "Size": [0, 84, 0, 84], "corner": 42,
+   "gradient": ["shade($c.sea,0.5)", "shade($c.sea,-0.5)"],
+   "children": [
+    {"class": "UIShadow", "name": "Lift", "Color": "shade($c.sea,-6)", "Offset": [0, 0, 0, 6], "BlurRadius": [0, 16], "Transparency": 0.7, "ZIndex": -1},
+    {"class": "UIShadow", "name": "Edge", "Inset": true, "Color": "#FFFFFF", "Offset": [0, 0, 0, 1], "Transparency": 0.4, "ZIndex": -2},
+    {"class": "ImageLabel", "name": "Icon", "AnchorPoint": [0.5, 0.5], "Position": [0.5, 0, 0.5, 0], "Size": [0, 44, 0, 44], "Image": "asset:phone", "ScaleType": "Fit", "ImageColor3": "$c.foam"}
+   ]},
+  {"class": "Frame", "name": "PhonePanel", "autoscale": "modal", "motion": "panel", "startHidden": true,
+   "AnchorPoint": [0.5, 0.5], "Position": [0.5, 0, 0.5, 0], "Size": [0, 900, 0, 412], "corner": "$r.lg",
+   "gradient": ["shade($c.surface,0.3)", "shade($c.surface,-0.3)"],
+   "children": [
+    {"class": "UIShadow", "name": "Lift", "Color": "shade($c.surface,-6)", "Offset": [0, 0, 0, 14], "BlurRadius": [0, 36], "Transparency": 0.7, "ZIndex": -1},
+    {"class": "UIShadow", "name": "Contact", "Color": "shade($c.surface,-6)", "Offset": [0, 0, 0, 3], "BlurRadius": [0, 6], "Transparency": 0.8, "ZIndex": -2},
+    {"class": "UIShadow", "name": "Edge", "Inset": true, "Color": "#FFFFFF", "Offset": [0, 0, 0, 1], "Transparency": 0.4, "ZIndex": -3},
+    {"class": "Frame", "name": "Header", "Position": [0, 28, 0, 22], "Size": [1, -56, 0, 64], "children": [
+     {"class": "TextLabel", "name": "Title", "Position": [0, 0, 0, 0], "Size": [0, 360, 1, 0], "Text": "Maple Bay", "FontFace": "$font.display", "TextSize": 34, "TextColor3": "$c.ink", "TextXAlignment": "Left"},
+     {"class": "Frame", "name": "BankChip", "AnchorPoint": [1, 0.5], "Position": [1, -64, 0.5, 0], "Size": [0, 244, 0, 52], "corner": "$r.pill",
+      "gradient": ["shade($c.coral,0.4)", "shade($c.coral,-0.4)"],
+      "children": [
+       {"class": "TextLabel", "name": "BankName", "Position": [0, 22, 0, 0], "Size": [0, 80, 1, 0], "Text": "Bank", "FontFace": "$font.body", "TextSize": 20, "TextColor3": "#FFFFFF", "TextTransparency": 0.1, "TextXAlignment": "Left"},
+       {"class": "TextLabel", "name": "Balance", "Position": [0, 0, 0, 0], "Size": [1, -22, 1, 0], "Text": "$2,480", "FontFace": "$font.display", "TextSize": 30, "TextColor3": "#FFFFFF", "TextXAlignment": "Right"}
+      ]},
+     {"class": "TextButton", "name": "CloseButton", "AnchorPoint": [1, 0.5], "Position": [1, 0, 0.5, 0], "Size": [0, 48, 0, 48], "corner": 24, "motion": "button", "closes": "PhonePanel",
+      "gradient": ["shade($c.surface,0.2)", "shade($c.surface,-0.8)"],
+      "children": [
+       {"class": "ImageLabel", "name": "Icon", "AnchorPoint": [0.5, 0.5], "Position": [0.5, 0, 0.5, 0], "Size": [0, 22, 0, 22], "Image": "asset:close", "ScaleType": "Fit", "ImageColor3": "$c.ink"}
+      ]}
+    ]},
+    {"class": "Frame", "name": "AppGrid", "Position": [0, 28, 0, 110], "Size": [1, -56, 0, 276],
+     "grid": {"cell": [0, 270, 0, 130], "gap": 16, "max": 3},
+     "children": [
+      {"use": "AppTile", "name": "JobsTile", "label": "Jobs", "sub": "2 shifts open", "icon": "briefcase", "color": "$c.sun"},
+      {"use": "AppTile", "name": "HousesTile", "label": "Houses", "sub": "1 home owned", "icon": "home", "color": "$c.blush"},
+      {"use": "AppTile", "name": "VehiclesTile", "label": "Vehicles", "sub": "1 car parked", "icon": "car", "color": "$c.sky"},
+      {"use": "AppTile", "name": "AvatarTile", "label": "Avatar", "sub": "3 outfits", "icon": "user", "color": "$c.lilac"},
+      {"use": "AppTile", "name": "FriendsTile", "label": "Friends", "sub": "4 online now", "icon": "users", "color": "$c.mint"},
+      {"use": "AppTile", "name": "SettingsTile", "label": "Settings", "sub": "Sound, controls", "icon": "gear", "color": "$c.pearl"}
+     ]}
+   ]}
+ ]}
+}

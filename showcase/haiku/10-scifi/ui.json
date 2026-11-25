@@ -23,7 +23,7 @@
   },
   "Seg": {
    "params": {"color": "$c.track"},
-   "node": {"class": "Frame", "name": "Seg", "Size": [0, 36, 0, 22], "BackgroundColor3": "{{color}}", "corner": "$r.sm"}
+   "node": {"class": "Frame", "name": "Seg", "Size": [0, 28, 0, 22], "BackgroundColor3": "{{color}}", "corner": "$r.sm"}
   }
  },
  "root": {"class": "ScreenGui", "name": "RaceHudGui", "children": [
@@ -31,31 +31,31 @@
    "children": [
     {"use": "Plate", "Size": [1, 0, 1, 0]},
     {"class": "Frame", "name": "EdgeBar", "Size": [0, 4, 1, 0], "BackgroundColor3": "$c.signal"},
-    {"class": "TextLabel", "name": "Caption", "Position": [0, 24, 0, 14], "Size": [1, -40, 0, 24], "Text": "POSITION", "FontFace": "$font.body", "TextSize": 20, "TextColor3": "$c.dim", "TextXAlignment": "Left"},
+    {"class": "TextLabel", "name": "Caption", "Position": [0, 24, 0, 14], "Size": [1, -40, 0, 24], "Text": "POSITION", "FontFace": "$font.body", "TextSize": 22, "TextColor3": "$c.dim", "TextXAlignment": "Left"},
     {"class": "TextLabel", "name": "Place", "Position": [0, 20, 0, 40], "Size": [0, 96, 0, 68], "Text": "3", "FontFace": "$font.display", "TextSize": 64, "TextColor3": "$c.text", "TextXAlignment": "Left"},
-    {"class": "TextLabel", "name": "Field", "Position": [0, 118, 0, 64], "Size": [0, 110, 0, 40], "Text": "/8", "FontFace": "$font.display", "TextSize": 34, "TextColor3": "$c.dim", "TextXAlignment": "Left"}
+    {"class": "TextLabel", "name": "Field", "Position": [0, 118, 0, 64], "Size": [0, 110, 0, 40], "Text": "/8", "FontFace": "$font.display", "TextSize": 36, "TextColor3": "$c.dim", "TextXAlignment": "Left"}
    ]},
   {"class": "Frame", "name": "LapGroup", "autoscale": "hud", "AnchorPoint": [0.5, 0], "Position": [0.5, 0, 0, 24], "Size": [0, 560, 0, 96],
    "children": [
     {"use": "Plate", "Size": [1, 0, 1, 0]},
-    {"class": "TextLabel", "name": "LapCaption", "Position": [0, 24, 0, 12], "Size": [0, 160, 0, 22], "Text": "LAP", "FontFace": "$font.body", "TextSize": 20, "TextColor3": "$c.dim", "TextXAlignment": "Left"},
-    {"class": "TextLabel", "name": "LapCount", "Position": [0, 24, 0, 34], "Size": [0, 190, 0, 50], "Text": "2/3", "FontFace": "$font.display", "TextSize": 42, "TextColor3": "$c.text", "TextXAlignment": "Left"},
+    {"class": "TextLabel", "name": "LapCaption", "Position": [0, 24, 0, 12], "Size": [0, 160, 0, 22], "Text": "LAP", "FontFace": "$font.body", "TextSize": 22, "TextColor3": "$c.dim", "TextXAlignment": "Left"},
+    {"class": "TextLabel", "name": "LapCount", "Position": [0, 24, 0, 36], "Size": [0, 190, 0, 46], "Text": "2/3", "FontFace": "$font.display", "TextSize": 36, "TextColor3": "$c.text", "TextXAlignment": "Left"},
     {"class": "Frame", "name": "Divider", "Position": [0, 230, 0, 18], "Size": [0, 2, 0, 60], "BackgroundColor3": "$c.line"},
-    {"class": "TextLabel", "name": "TimeCaption", "Position": [0, 254, 0, 12], "Size": [0, 180, 0, 22], "Text": "LAP TIME", "FontFace": "$font.body", "TextSize": 20, "TextColor3": "$c.dim", "TextXAlignment": "Left"},
-    {"class": "TextLabel", "name": "LapTime", "Position": [0, 254, 0, 34], "Size": [0, 290, 0, 50], "Text": "00:42.318", "FontFace": "$font.display", "TextSize": 36, "TextColor3": "$c.text", "TextXAlignment": "Left"}
+    {"class": "TextLabel", "name": "TimeCaption", "Position": [0, 254, 0, 12], "Size": [0, 180, 0, 22], "Text": "LAP TIME", "FontFace": "$font.body", "TextSize": 22, "TextColor3": "$c.dim", "TextXAlignment": "Left"},
+    {"class": "TextLabel", "name": "LapTime", "Position": [0, 254, 0, 36], "Size": [0, 290, 0, 46], "Text": "00:42.318", "FontFace": "$font.display", "TextSize": 36, "TextColor3": "$c.text", "TextXAlignment": "Left"}
    ]},
-  {"class": "Frame", "name": "SpeedGroup", "autoscale": "hud", "AnchorPoint": [1, 1], "Position": [1, -24, 1, -24], "Size": [0, 340, 0, 176],
+  {"class": "Frame", "name": "SpeedGroup", "autoscale": "hud", "AnchorPoint": [1, 1], "Position": [1, -24, 1, -24], "Size": [0, 320, 0, 176],
    "children": [
     {"use": "Plate", "Size": [1, 0, 1, 0]},
-    {"class": "TextLabel", "name": "SpeedCaption", "Position": [0, 24, 0, 16], "Size": [0, 160, 0, 22], "Text": "SPEED", "FontFace": "$font.body", "TextSize": 20, "TextColor3": "$c.dim", "TextXAlignment": "Left"},
+    {"class": "TextLabel", "name": "SpeedCaption", "Position": [0, 24, 0, 16], "Size": [0, 160, 0, 22], "Text": "SPEED", "FontFace": "$font.body", "TextSize": 22, "TextColor3": "$c.dim", "TextXAlignment": "Left"},
     {"class": "TextLabel", "name": "SpeedValue", "Position": [0, 24, 0, 30], "Size": [1, -48, 0, 96], "Text": "412", "FontFace": "$font.display", "TextSize": 96, "TextColor3": "$c.text", "TextXAlignment": "Right"},
     {"class": "TextLabel", "name": "SpeedUnit", "AnchorPoint": [1, 0], "Position": [1, -24, 0, 132], "Size": [0, 120, 0, 24], "Text": "KM/H", "FontFace": "$font.body", "TextSize": 22, "TextColor3": "$c.dim", "TextXAlignment": "Right"}
    ]},
-  {"class": "Frame", "name": "BoostGroup", "autoscale": "hud", "AnchorPoint": [0.5, 1], "Position": [0.5, 0, 1, -32], "Size": [0, 560, 0, 96],
+  {"class": "Frame", "name": "BoostGroup", "autoscale": "hud", "AnchorPoint": [0.5, 1], "Position": [0.5, 0, 1, -32], "Size": [0, 480, 0, 96],
    "children": [
     {"use": "Plate", "Size": [1, 0, 1, 0]},
-    {"class": "TextLabel", "name": "BoostCaption", "Position": [0, 24, 0, 12], "Size": [0, 160, 0, 22], "Text": "BOOST", "FontFace": "$font.body", "TextSize": 20, "TextColor3": "$c.dim", "TextXAlignment": "Left"},
-    {"class": "TextLabel", "name": "BoostPercent", "AnchorPoint": [1, 0], "Position": [1, -24, 0, 10], "Size": [0, 140, 0, 28], "Text": "75%", "FontFace": "$font.display", "TextSize": 28, "TextColor3": "$c.signal", "TextXAlignment": "Right"},
+    {"class": "TextLabel", "name": "BoostCaption", "Position": [0, 24, 0, 12], "Size": [0, 160, 0, 22], "Text": "BOOST", "FontFace": "$font.body", "TextSize": 22, "TextColor3": "$c.dim", "TextXAlignment": "Left"},
+    {"class": "TextLabel", "name": "BoostPercent", "AnchorPoint": [1, 0], "Position": [1, -24, 0, 8], "Size": [0, 140, 0, 36], "Text": "75%", "FontFace": "$font.display", "TextSize": 36, "TextColor3": "$c.signal", "TextXAlignment": "Right"},
     {"class": "Frame", "name": "Segments", "Position": [0, 24, 0, 50], "Size": [1, -48, 0, 22], "list": {"dir": "H", "gap": 6},
      "children": [
       {"use": "Seg", "name": "Seg1", "color": "$c.signal"},
@@ -74,9 +74,11 @@
    ]},
   {"class": "Frame", "name": "GoBanner", "AnchorPoint": [0.5, 0.5], "Position": [0.5, 0, 0.42, 0], "Size": [0, 520, 0, 150], "motion": "panel",
    "children": [
+    {"class": "Frame", "name": "Scrim", "Position": [0, -160, 0, -80], "Size": [1, 320, 1, 160], "BackgroundColor3": "$c.base", "BackgroundTransparency": 0.2,
+     "gradient": {"transparency": [0.1, 1], "type": "Radial"}},
     {"class": "TextLabel", "name": "Kicker", "Position": [0, 0, 0, -40], "Size": [1, 0, 0, 26], "Text": "GRID RELEASE", "FontFace": "$font.body", "TextSize": 22, "TextColor3": "$c.dim"},
     {"class": "Frame", "name": "TopRule", "Size": [1, 0, 0, 2], "BackgroundColor3": "$c.signal"},
-    {"class": "TextLabel", "name": "GoText", "Size": [1, 0, 1, 0], "Text": "GO", "FontFace": "$font.display", "TextSize": 120, "TextColor3": "$c.signal"},
+    {"class": "TextLabel", "name": "GoText", "Size": [1, 0, 1, 0], "Text": "GO", "FontFace": "$font.display", "TextSize": 96, "TextColor3": "$c.signal"},
     {"class": "Frame", "name": "BottomRule", "Position": [0, 0, 1, -2], "Size": [1, 0, 0, 2], "BackgroundColor3": "$c.signal"}
    ]}
  ]}

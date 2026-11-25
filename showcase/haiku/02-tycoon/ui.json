@@ -1,0 +1,67 @@
+{
+ "meta": {
+  "genre": "tycoon",
+  "game": "Slice Empire",
+  "depth": "soft",
+  "motion": "snappy",
+  "direction": "Pizzeria ledger: tomato-orange brand on kraft-paper cash plates and cream upgrade cards, cheese-gold level bars, green for money earned and red only for money you lack, Montserrat Heavy numbers that read like a shop receipt"
+ },
+ "tokens": {
+  "c": {"brand": "#E8553A", "cheese": "#F5B82E", "money": "#2E9E5B", "lack": "#C8372D", "surface": "#FBF4E6", "paper": "#E9D2A4", "ink": "#3B2216", "dim": "#8A6A55", "track": "#E7DACA", "hair": "#E0CDB0"},
+  "r": {"sm": 8, "md": 12, "lg": 16, "pill": 26},
+  "font": {"display": "Montserrat:Heavy", "body": "Montserrat:Medium"}
+ },
+ "components": {
+  "UpgradeRow": {
+   "params": {"title": "Upgrade", "level": 0, "maxLv": 5, "price": "$0", "fill": 0, "icon": "oven", "buy": "$c.money", "ink": "#FFFFFF"},
+   "node": {"class": "Frame", "Size": [1, 0, 0, 88], "corner": "$r.md",
+    "gradient": ["#FFFFFF", "#F5EAD8"],
+    "stroke": {"color": "$c.hair", "thickness": 1, "transparency": 0.3},
+    "children": [
+     {"class": "ImageLabel", "name": "Icon", "AnchorPoint": [0, 0.5], "Position": [0, 20, 0.5, 0], "Size": [0, 52, 0, 52], "Image": "asset:{{icon}}", "ImageColor3": "$c.brand"},
+     {"class": "TextLabel", "name": "Title", "Position": [0, 92, 0, 12], "Size": [0, 420, 0, 34], "Text": "{{title}}", "FontFace": "$font.display", "TextSize": 28, "TextColor3": "$c.ink", "TextXAlignment": "Left"},
+     {"class": "Frame", "name": "LevelTrack", "Position": [0, 92, 0, 56], "Size": [0, 250, 0, 10], "BackgroundColor3": "$c.track", "corner": 5,
+      "children": [
+       {"class": "Frame", "name": "LevelFill", "Size": ["{{fill}}", 0, 1, 0], "BackgroundColor3": "$c.cheese", "corner": 5}
+      ]},
+     {"class": "TextLabel", "name": "LevelText", "Position": [0, 358, 0, 46], "Size": [0, 200, 0, 26], "Text": "Level {{level}} / {{maxLv}}", "FontFace": "$font.body", "TextSize": 22, "TextColor3": "$c.dim", "TextXAlignment": "Left"},
+     {"class": "TextButton", "name": "BuyButton", "AnchorPoint": [1, 0.5], "Position": [1, -16, 0.5, 0], "Size": [0, 184, 0, 56], "motion": "button", "corner": "$r.md",
+      "gradient": ["shade({{buy}},0.6)", "shade({{buy}},-0.6)"],
+      "children": [
+       {"class": "TextLabel", "name": "Price", "Size": [1, 0, 1, 0], "Text": "{{price}}", "FontFace": "$font.display", "TextSize": 26, "TextColor3": "{{ink}}"}
+      ]}
+    ]}
+  }
+ },
+ "root": {"class": "ScreenGui", "name": "UpgradesGui", "children": [
+  {"class": "Frame", "name": "CashPlate", "autoscale": "hud", "AnchorPoint": [0.5, 0], "Position": [0.5, 0, 0, 16], "Size": [0, 360, 0, 108], "corner": "$r.lg",
+   "gradient": ["shade($c.paper,0.3)", "shade($c.paper,-0.3)"],
+   "children": [
+    {"class": "UIShadow", "name": "Lift", "Color": "shade($c.paper,-6)", "Offset": [0, 0, 0, 8], "BlurRadius": [0, 24], "Transparency": 0.72, "ZIndex": -1},
+    {"class": "UIShadow", "name": "Contact", "Color": "shade($c.paper,-6)", "Offset": [0, 0, 0, 2], "BlurRadius": [0, 4], "Transparency": 0.8, "ZIndex": -2},
+    {"class": "TextLabel", "name": "CashLabel", "Position": [0, 24, 0, 14], "Size": [0, 160, 0, 26], "Text": "CASH", "FontFace": "$font.display", "TextSize": 22, "TextColor3": "$c.brand", "TextXAlignment": "Left"},
+    {"class": "TextLabel", "name": "IncomeLabel", "AnchorPoint": [1, 0], "Position": [1, -24, 0, 14], "Size": [0, 200, 0, 26], "Text": "+$12/s", "FontFace": "$font.body", "TextSize": 24, "TextColor3": "$c.money", "TextXAlignment": "Right"},
+    {"class": "TextLabel", "name": "CashValue", "Position": [0, 24, 0, 40], "Size": [1, -48, 0, 56], "Text": "$1,240", "FontFace": "$font.display", "TextSize": 48, "TextColor3": "$c.ink", "TextXAlignment": "Left"}
+   ]},
+  {"class": "Frame", "name": "Toolbar", "autoscale": "hud", "AnchorPoint": [0.5, 1], "Position": [0.5, 0, 1, -16], "Size": [0, 300, 0, 72], "children": [
+   {"class": "TextButton", "name": "UpgradesButton", "Size": [1, 0, 1, 0], "motion": "button", "opens": "UpgradesPanel", "corner": "$r.md",
+    "gradient": ["shade($c.brand,0.4)", "shade($c.brand,-0.4)"],
+    "Text": "UPGRADES", "FontFace": "$font.display", "TextSize": 30, "TextColor3": "#FFFFFF"}
+  ]},
+  {"class": "Frame", "name": "UpgradesPanel", "autoscale": "modal", "motion": "panel", "startHidden": true, "AnchorPoint": [0.5, 0.5], "Position": [0.5, 0, 0.5, 0], "Size": [0, 920, 0, 520], "corner": "$r.lg",
+   "gradient": ["shade($c.surface,0.3)", "shade($c.surface,-0.3)"],
+   "children": [
+    {"class": "UIShadow", "name": "Lift", "Color": "shade($c.surface,-6)", "Offset": [0, 0, 0, 8], "BlurRadius": [0, 24], "Transparency": 0.72, "ZIndex": -1},
+    {"class": "UIShadow", "name": "Contact", "Color": "shade($c.surface,-6)", "Offset": [0, 0, 0, 2], "BlurRadius": [0, 4], "Transparency": 0.8, "ZIndex": -2},
+    {"class": "TextLabel", "name": "Title", "Position": [0, 32, 0, 24], "Size": [0, 600, 0, 44], "Text": "Upgrades", "FontFace": "$font.display", "TextSize": 40, "TextColor3": "$c.ink", "TextXAlignment": "Left"},
+    {"class": "TextLabel", "name": "Subtitle", "Position": [0, 32, 0, 68], "Size": [0, 600, 0, 26], "Text": "Every level pays back faster", "FontFace": "$font.body", "TextSize": 22, "TextColor3": "$c.dim", "TextXAlignment": "Left"},
+    {"class": "TextButton", "name": "CloseButton", "AnchorPoint": [1, 0], "Position": [1, -20, 0, 20], "Size": [0, 52, 0, 52], "motion": "button", "closes": "UpgradesPanel", "corner": "$r.pill", "BackgroundColor3": "$c.track", "Text": "X", "FontFace": "$font.display", "TextSize": 26, "TextColor3": "$c.ink"},
+    {"class": "ScrollingFrame", "name": "UpgradeList", "Position": [0, 32, 0, 112], "Size": [1, -64, 1, -132], "BackgroundTransparency": 1, "CanvasSize": [0, 0, 0, 0], "AutomaticCanvasSize": "Y", "ScrollBarThickness": 6, "list": {"dir": "V", "gap": 12}, "children": [
+     {"use": "UpgradeRow", "name": "OvenRow", "title": "Better Oven", "level": 2, "maxLv": 5, "price": "$250", "fill": 0.4, "icon": "oven"},
+     {"use": "UpgradeRow", "name": "ScooterRow", "title": "Delivery Scooter", "level": 1, "maxLv": 5, "price": "$400", "fill": 0.2, "icon": "scooter"},
+     {"use": "UpgradeRow", "name": "TablesRow", "title": "More Tables", "level": 3, "maxLv": 10, "price": "$180", "fill": 0.3, "icon": "tables"},
+     {"use": "UpgradeRow", "name": "ChefRow", "title": "Hire a Chef", "level": 0, "maxLv": 3, "price": "$1,500", "fill": 0, "icon": "chef", "buy": "$c.track", "ink": "$c.lack"}
+    ]}
+   ]}
+ ]}
+}

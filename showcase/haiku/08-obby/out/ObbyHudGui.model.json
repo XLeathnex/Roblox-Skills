@@ -1,0 +1,1871 @@
+{
+  "ClassName": "ScreenGui",
+  "Properties": {
+    "ZIndexBehavior": "Sibling",
+    "ResetOnSpawn": false,
+    "Attributes": {
+      "MotionStyle": "bouncy"
+    }
+  },
+  "Children": [
+    {
+      "Name": "TopHud",
+      "ClassName": "Frame",
+      "Properties": {
+        "BorderSizePixel": 0,
+        "BackgroundTransparency": 1.0,
+        "AnchorPoint": {
+          "Vector2": [
+            0.5,
+            0.0
+          ]
+        },
+        "Position": {
+          "UDim2": [
+            [
+              0.5,
+              0.0
+            ],
+            [
+              0.0,
+              68.0
+            ]
+          ]
+        },
+        "Size": {
+          "UDim2": [
+            [
+              0.0,
+              524.0
+            ],
+            [
+              0.0,
+              84.0
+            ]
+          ]
+        },
+        "Attributes": {
+          "AutoScale": "hud"
+        }
+      },
+      "Children": [
+        {
+          "Name": "AutoScale",
+          "ClassName": "UIScale",
+          "Properties": {
+            "Scale": 1.0
+          }
+        },
+        {
+          "Name": "StageChip",
+          "ClassName": "Frame",
+          "Properties": {
+            "BorderSizePixel": 0,
+            "BackgroundTransparency": 0.0,
+            "Position": {
+              "UDim2": [
+                [
+                  0.0,
+                  0.0
+                ],
+                [
+                  0.0,
+                  0.0
+                ]
+              ]
+            },
+            "Size": {
+              "UDim2": [
+                [
+                  0.0,
+                  300.0
+                ],
+                [
+                  0.0,
+                  84.0
+                ]
+              ]
+            },
+            "BackgroundColor3": [
+              1.0,
+              1.0,
+              1.0
+            ]
+          },
+          "Children": [
+            {
+              "Name": "UICorner",
+              "ClassName": "UICorner",
+              "Properties": {
+                "CornerRadius": {
+                  "UDim": [
+                    0.0,
+                    22.0
+                  ]
+                }
+              }
+            },
+            {
+              "Name": "UIGradient",
+              "ClassName": "UIGradient",
+              "Properties": {
+                "Color": {
+                  "ColorSequence": {
+                    "keypoints": [
+                      {
+                        "time": 0.0,
+                        "color": [
+                          1.0,
+                          0.584038,
+                          0.704919
+                        ]
+                      },
+                      {
+                        "time": 0.5,
+                        "color": [
+                          1.0,
+                          0.372549,
+                          0.635294
+                        ]
+                      },
+                      {
+                        "time": 1.0,
+                        "color": [
+                          0.923586,
+                          0.295977,
+                          0.60526
+                        ]
+                      }
+                    ]
+                  }
+                },
+                "Rotation": 90.0
+              }
+            },
+            {
+              "Name": "UIStroke",
+              "ClassName": "UIStroke",
+              "Properties": {
+                "Color": [
+                  0.352941,
+                  0.129412,
+                  0.27451
+                ],
+                "Thickness": 3.0,
+                "ApplyStrokeMode": "Border"
+              }
+            },
+            {
+              "Name": "LipEdge",
+              "ClassName": "UIShadow",
+              "Properties": {
+                "Color": [
+                  0.352941,
+                  0.129412,
+                  0.27451
+                ],
+                "Offset": {
+                  "UDim2": [
+                    [
+                      0.0,
+                      0.0
+                    ],
+                    [
+                      0.0,
+                      7.0
+                    ]
+                  ]
+                },
+                "Spread": {
+                  "UDim2": [
+                    [
+                      0.0,
+                      3.0
+                    ],
+                    [
+                      0.0,
+                      3.0
+                    ]
+                  ]
+                },
+                "ZIndex": -2
+              }
+            },
+            {
+              "Name": "Lip",
+              "ClassName": "UIShadow",
+              "Properties": {
+                "Color": [
+                  0.709196,
+                  0.0,
+                  0.523651
+                ],
+                "Offset": {
+                  "UDim2": [
+                    [
+                      0.0,
+                      0.0
+                    ],
+                    [
+                      0.0,
+                      7.0
+                    ]
+                  ]
+                },
+                "ZIndex": -1
+              }
+            },
+            {
+              "Name": "TopLight",
+              "ClassName": "UIShadow",
+              "Properties": {
+                "Inset": true,
+                "Color": [
+                  1.0,
+                  1.0,
+                  1.0
+                ],
+                "Offset": {
+                  "UDim2": [
+                    [
+                      0.0,
+                      0.0
+                    ],
+                    [
+                      0.0,
+                      3.0
+                    ]
+                  ]
+                },
+                "Transparency": 0.5,
+                "ZIndex": -3
+              }
+            },
+            {
+              "Name": "BottomShade",
+              "ClassName": "UIShadow",
+              "Properties": {
+                "Inset": true,
+                "Color": [
+                  0.709196,
+                  0.0,
+                  0.523651
+                ],
+                "Offset": {
+                  "UDim2": [
+                    [
+                      0.0,
+                      0.0
+                    ],
+                    [
+                      0.0,
+                      -4.0
+                    ]
+                  ]
+                },
+                "Transparency": 0.45,
+                "ZIndex": -4
+              }
+            },
+            {
+              "Name": "FlagIcon",
+              "ClassName": "ImageLabel",
+              "Properties": {
+                "BorderSizePixel": 0,
+                "BackgroundTransparency": 1.0,
+                "AnchorPoint": {
+                  "Vector2": [
+                    0.0,
+                    0.5
+                  ]
+                },
+                "Position": {
+                  "UDim2": [
+                    [
+                      0.0,
+                      20.0
+                    ],
+                    [
+                      0.5,
+                      0.0
+                    ]
+                  ]
+                },
+                "Size": {
+                  "UDim2": [
+                    [
+                      0.0,
+                      40.0
+                    ],
+                    [
+                      0.0,
+                      40.0
+                    ]
+                  ]
+                },
+                "Image": "",
+                "ImageColor3": [
+                  1.0,
+                  1.0,
+                  1.0
+                ],
+                "Attributes": {
+                  "PendingAsset": "flag"
+                }
+              }
+            },
+            {
+              "Name": "StageText",
+              "ClassName": "TextLabel",
+              "Properties": {
+                "BorderSizePixel": 0,
+                "BackgroundTransparency": 1.0,
+                "Position": {
+                  "UDim2": [
+                    [
+                      0.0,
+                      74.0
+                    ],
+                    [
+                      0.0,
+                      0.0
+                    ]
+                  ]
+                },
+                "Size": {
+                  "UDim2": [
+                    [
+                      1.0,
+                      -90.0
+                    ],
+                    [
+                      1.0,
+                      0.0
+                    ]
+                  ]
+                },
+                "Text": "STAGE 1",
+                "FontFace": {
+                  "Font": {
+                    "family": "rbxasset://fonts/families/FredokaOne.json",
+                    "weight": "Regular",
+                    "style": "Normal"
+                  }
+                },
+                "TextSize": 42.0,
+                "TextColor3": [
+                  1.0,
+                  1.0,
+                  1.0
+                ],
+                "TextXAlignment": "Left"
+              },
+              "Children": [
+                {
+                  "Name": "UIStroke",
+                  "ClassName": "UIStroke",
+                  "Properties": {
+                    "Color": [
+                      0.352941,
+                      0.129412,
+                      0.27451
+                    ],
+                    "Thickness": 2.5
+                  }
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "Name": "TimerChip",
+          "ClassName": "Frame",
+          "Properties": {
+            "BorderSizePixel": 0,
+            "BackgroundTransparency": 0.0,
+            "Position": {
+              "UDim2": [
+                [
+                  0.0,
+                  314.0
+                ],
+                [
+                  0.0,
+                  0.0
+                ]
+              ]
+            },
+            "Size": {
+              "UDim2": [
+                [
+                  0.0,
+                  210.0
+                ],
+                [
+                  0.0,
+                  84.0
+                ]
+              ]
+            },
+            "BackgroundColor3": [
+              1.0,
+              1.0,
+              1.0
+            ]
+          },
+          "Children": [
+            {
+              "Name": "UICorner",
+              "ClassName": "UICorner",
+              "Properties": {
+                "CornerRadius": {
+                  "UDim": [
+                    0.0,
+                    22.0
+                  ]
+                }
+              }
+            },
+            {
+              "Name": "UIGradient",
+              "ClassName": "UIGradient",
+              "Properties": {
+                "Color": {
+                  "ColorSequence": {
+                    "keypoints": [
+                      {
+                        "time": 0.0,
+                        "color": [
+                          0.713178,
+                          0.5497,
+                          1.0
+                        ]
+                      },
+                      {
+                        "time": 0.5,
+                        "color": [
+                          0.607843,
+                          0.419608,
+                          1.0
+                        ]
+                      },
+                      {
+                        "time": 1.0,
+                        "color": [
+                          0.522493,
+                          0.358247,
+                          0.95177
+                        ]
+                      }
+                    ]
+                  }
+                },
+                "Rotation": 90.0
+              }
+            },
+            {
+              "Name": "UIStroke",
+              "ClassName": "UIStroke",
+              "Properties": {
+                "Color": [
+                  0.352941,
+                  0.129412,
+                  0.27451
+                ],
+                "Thickness": 3.0,
+                "ApplyStrokeMode": "Border"
+              }
+            },
+            {
+              "Name": "LipEdge",
+              "ClassName": "UIShadow",
+              "Properties": {
+                "Color": [
+                  0.352941,
+                  0.129412,
+                  0.27451
+                ],
+                "Offset": {
+                  "UDim2": [
+                    [
+                      0.0,
+                      0.0
+                    ],
+                    [
+                      0.0,
+                      7.0
+                    ]
+                  ]
+                },
+                "Spread": {
+                  "UDim2": [
+                    [
+                      0.0,
+                      3.0
+                    ],
+                    [
+                      0.0,
+                      3.0
+                    ]
+                  ]
+                },
+                "ZIndex": -2
+              }
+            },
+            {
+              "Name": "Lip",
+              "ClassName": "UIShadow",
+              "Properties": {
+                "Color": [
+                  0.299997,
+                  0.172389,
+                  0.811599
+                ],
+                "Offset": {
+                  "UDim2": [
+                    [
+                      0.0,
+                      0.0
+                    ],
+                    [
+                      0.0,
+                      7.0
+                    ]
+                  ]
+                },
+                "ZIndex": -1
+              }
+            },
+            {
+              "Name": "TopLight",
+              "ClassName": "UIShadow",
+              "Properties": {
+                "Inset": true,
+                "Color": [
+                  1.0,
+                  1.0,
+                  1.0
+                ],
+                "Offset": {
+                  "UDim2": [
+                    [
+                      0.0,
+                      0.0
+                    ],
+                    [
+                      0.0,
+                      3.0
+                    ]
+                  ]
+                },
+                "Transparency": 0.5,
+                "ZIndex": -3
+              }
+            },
+            {
+              "Name": "BottomShade",
+              "ClassName": "UIShadow",
+              "Properties": {
+                "Inset": true,
+                "Color": [
+                  0.299997,
+                  0.172389,
+                  0.811599
+                ],
+                "Offset": {
+                  "UDim2": [
+                    [
+                      0.0,
+                      0.0
+                    ],
+                    [
+                      0.0,
+                      -4.0
+                    ]
+                  ]
+                },
+                "Transparency": 0.45,
+                "ZIndex": -4
+              }
+            },
+            {
+              "Name": "ClockIcon",
+              "ClassName": "ImageLabel",
+              "Properties": {
+                "BorderSizePixel": 0,
+                "BackgroundTransparency": 1.0,
+                "AnchorPoint": {
+                  "Vector2": [
+                    0.0,
+                    0.5
+                  ]
+                },
+                "Position": {
+                  "UDim2": [
+                    [
+                      0.0,
+                      18.0
+                    ],
+                    [
+                      0.5,
+                      0.0
+                    ]
+                  ]
+                },
+                "Size": {
+                  "UDim2": [
+                    [
+                      0.0,
+                      38.0
+                    ],
+                    [
+                      0.0,
+                      38.0
+                    ]
+                  ]
+                },
+                "Image": "",
+                "ImageColor3": [
+                  1.0,
+                  1.0,
+                  1.0
+                ],
+                "Attributes": {
+                  "PendingAsset": "clock"
+                }
+              }
+            },
+            {
+              "Name": "TimerText",
+              "ClassName": "TextLabel",
+              "Properties": {
+                "BorderSizePixel": 0,
+                "BackgroundTransparency": 1.0,
+                "Position": {
+                  "UDim2": [
+                    [
+                      0.0,
+                      66.0
+                    ],
+                    [
+                      0.0,
+                      0.0
+                    ]
+                  ]
+                },
+                "Size": {
+                  "UDim2": [
+                    [
+                      1.0,
+                      -76.0
+                    ],
+                    [
+                      1.0,
+                      0.0
+                    ]
+                  ]
+                },
+                "Text": "0:00",
+                "FontFace": {
+                  "Font": {
+                    "family": "rbxasset://fonts/families/FredokaOne.json",
+                    "weight": "Regular",
+                    "style": "Normal"
+                  }
+                },
+                "TextSize": 42.0,
+                "TextColor3": [
+                  1.0,
+                  1.0,
+                  1.0
+                ],
+                "TextXAlignment": "Left"
+              },
+              "Children": [
+                {
+                  "Name": "UIStroke",
+                  "ClassName": "UIStroke",
+                  "Properties": {
+                    "Color": [
+                      0.352941,
+                      0.129412,
+                      0.27451
+                    ],
+                    "Thickness": 2.5
+                  }
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "Name": "CoinsHud",
+      "ClassName": "Frame",
+      "Properties": {
+        "BorderSizePixel": 0,
+        "BackgroundTransparency": 1.0,
+        "AnchorPoint": {
+          "Vector2": [
+            1.0,
+            0.0
+          ]
+        },
+        "Position": {
+          "UDim2": [
+            [
+              1.0,
+              -16.0
+            ],
+            [
+              0.0,
+              68.0
+            ]
+          ]
+        },
+        "Size": {
+          "UDim2": [
+            [
+              0.0,
+              220.0
+            ],
+            [
+              0.0,
+              84.0
+            ]
+          ]
+        },
+        "Attributes": {
+          "AutoScale": "hud"
+        }
+      },
+      "Children": [
+        {
+          "Name": "AutoScale",
+          "ClassName": "UIScale",
+          "Properties": {
+            "Scale": 1.0
+          }
+        },
+        {
+          "Name": "CoinChip",
+          "ClassName": "Frame",
+          "Properties": {
+            "BorderSizePixel": 0,
+            "BackgroundTransparency": 0.0,
+            "Size": {
+              "UDim2": [
+                [
+                  1.0,
+                  0.0
+                ],
+                [
+                  1.0,
+                  0.0
+                ]
+              ]
+            },
+            "BackgroundColor3": [
+              1.0,
+              1.0,
+              1.0
+            ]
+          },
+          "Children": [
+            {
+              "Name": "UICorner",
+              "ClassName": "UICorner",
+              "Properties": {
+                "CornerRadius": {
+                  "UDim": [
+                    0.0,
+                    22.0
+                  ]
+                }
+              }
+            },
+            {
+              "Name": "UIGradient",
+              "ClassName": "UIGradient",
+              "Properties": {
+                "Color": {
+                  "ColorSequence": {
+                    "keypoints": [
+                      {
+                        "time": 0.0,
+                        "color": [
+                          1.0,
+                          0.866957,
+                          0.485491
+                        ]
+                      },
+                      {
+                        "time": 0.5,
+                        "color": [
+                          1.0,
+                          0.788235,
+                          0.235294
+                        ]
+                      },
+                      {
+                        "time": 1.0,
+                        "color": [
+                          0.954588,
+                          0.709665,
+                          0.084899
+                        ]
+                      }
+                    ]
+                  }
+                },
+                "Rotation": 90.0
+              }
+            },
+            {
+              "Name": "UIStroke",
+              "ClassName": "UIStroke",
+              "Properties": {
+                "Color": [
+                  0.352941,
+                  0.129412,
+                  0.27451
+                ],
+                "Thickness": 3.0,
+                "ApplyStrokeMode": "Border"
+              }
+            },
+            {
+              "Name": "LipEdge",
+              "ClassName": "UIShadow",
+              "Properties": {
+                "Color": [
+                  0.352941,
+                  0.129412,
+                  0.27451
+                ],
+                "Offset": {
+                  "UDim2": [
+                    [
+                      0.0,
+                      0.0
+                    ],
+                    [
+                      0.0,
+                      7.0
+                    ]
+                  ]
+                },
+                "Spread": {
+                  "UDim2": [
+                    [
+                      0.0,
+                      3.0
+                    ],
+                    [
+                      0.0,
+                      3.0
+                    ]
+                  ]
+                },
+                "ZIndex": -2
+              }
+            },
+            {
+              "Name": "Lip",
+              "ClassName": "UIShadow",
+              "Properties": {
+                "Color": [
+                  0.783973,
+                  0.51673,
+                  0.0
+                ],
+                "Offset": {
+                  "UDim2": [
+                    [
+                      0.0,
+                      0.0
+                    ],
+                    [
+                      0.0,
+                      7.0
+                    ]
+                  ]
+                },
+                "ZIndex": -1
+              }
+            },
+            {
+              "Name": "TopLight",
+              "ClassName": "UIShadow",
+              "Properties": {
+                "Inset": true,
+                "Color": [
+                  1.0,
+                  1.0,
+                  1.0
+                ],
+                "Offset": {
+                  "UDim2": [
+                    [
+                      0.0,
+                      0.0
+                    ],
+                    [
+                      0.0,
+                      3.0
+                    ]
+                  ]
+                },
+                "Transparency": 0.5,
+                "ZIndex": -3
+              }
+            },
+            {
+              "Name": "BottomShade",
+              "ClassName": "UIShadow",
+              "Properties": {
+                "Inset": true,
+                "Color": [
+                  0.783973,
+                  0.51673,
+                  0.0
+                ],
+                "Offset": {
+                  "UDim2": [
+                    [
+                      0.0,
+                      0.0
+                    ],
+                    [
+                      0.0,
+                      -4.0
+                    ]
+                  ]
+                },
+                "Transparency": 0.45,
+                "ZIndex": -4
+              }
+            },
+            {
+              "Name": "CoinIcon",
+              "ClassName": "ImageLabel",
+              "Properties": {
+                "BorderSizePixel": 0,
+                "BackgroundTransparency": 1.0,
+                "AnchorPoint": {
+                  "Vector2": [
+                    0.0,
+                    0.5
+                  ]
+                },
+                "Position": {
+                  "UDim2": [
+                    [
+                      0.0,
+                      12.0
+                    ],
+                    [
+                      0.5,
+                      0.0
+                    ]
+                  ]
+                },
+                "Size": {
+                  "UDim2": [
+                    [
+                      0.0,
+                      56.0
+                    ],
+                    [
+                      0.0,
+                      56.0
+                    ]
+                  ]
+                },
+                "Image": "",
+                "Attributes": {
+                  "PendingAsset": "coin"
+                }
+              }
+            },
+            {
+              "Name": "CoinText",
+              "ClassName": "TextLabel",
+              "Properties": {
+                "BorderSizePixel": 0,
+                "BackgroundTransparency": 1.0,
+                "Position": {
+                  "UDim2": [
+                    [
+                      0.0,
+                      72.0
+                    ],
+                    [
+                      0.0,
+                      0.0
+                    ]
+                  ]
+                },
+                "Size": {
+                  "UDim2": [
+                    [
+                      1.0,
+                      -90.0
+                    ],
+                    [
+                      1.0,
+                      0.0
+                    ]
+                  ]
+                },
+                "Text": "0",
+                "FontFace": {
+                  "Font": {
+                    "family": "rbxasset://fonts/families/FredokaOne.json",
+                    "weight": "Regular",
+                    "style": "Normal"
+                  }
+                },
+                "TextSize": 44.0,
+                "TextColor3": [
+                  0.290196,
+                  0.121569,
+                  0.239216
+                ],
+                "TextXAlignment": "Right"
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "Name": "SkipHud",
+      "ClassName": "Frame",
+      "Properties": {
+        "BorderSizePixel": 0,
+        "BackgroundTransparency": 1.0,
+        "AnchorPoint": {
+          "Vector2": [
+            0.0,
+            0.5
+          ]
+        },
+        "Position": {
+          "UDim2": [
+            [
+              0.0,
+              16.0
+            ],
+            [
+              0.5,
+              0.0
+            ]
+          ]
+        },
+        "Size": {
+          "UDim2": [
+            [
+              0.0,
+              250.0
+            ],
+            [
+              0.0,
+              76.0
+            ]
+          ]
+        },
+        "Attributes": {
+          "AutoScale": "hud"
+        }
+      },
+      "Children": [
+        {
+          "Name": "AutoScale",
+          "ClassName": "UIScale",
+          "Properties": {
+            "Scale": 1.0
+          }
+        },
+        {
+          "Name": "SkipStageButton",
+          "ClassName": "TextButton",
+          "Properties": {
+            "BorderSizePixel": 0,
+            "BackgroundTransparency": 0.0,
+            "Text": "",
+            "TextSize": 14.0,
+            "AutoButtonColor": false,
+            "Size": {
+              "UDim2": [
+                [
+                  1.0,
+                  0.0
+                ],
+                [
+                  1.0,
+                  0.0
+                ]
+              ]
+            },
+            "BackgroundColor3": [
+              1.0,
+              1.0,
+              1.0
+            ],
+            "Attributes": {
+              "Motion": "button"
+            }
+          },
+          "Children": [
+            {
+              "Name": "UICorner",
+              "ClassName": "UICorner",
+              "Properties": {
+                "CornerRadius": {
+                  "UDim": [
+                    0.0,
+                    16.0
+                  ]
+                }
+              }
+            },
+            {
+              "Name": "UIGradient",
+              "ClassName": "UIGradient",
+              "Properties": {
+                "Color": {
+                  "ColorSequence": {
+                    "keypoints": [
+                      {
+                        "time": 0.0,
+                        "color": [
+                          0.536075,
+                          0.941734,
+                          0.775574
+                        ]
+                      },
+                      {
+                        "time": 0.5,
+                        "color": [
+                          0.372549,
+                          0.878431,
+                          0.721569
+                        ]
+                      },
+                      {
+                        "time": 1.0,
+                        "color": [
+                          0.241525,
+                          0.81416,
+                          0.679075
+                        ]
+                      }
+                    ]
+                  }
+                },
+                "Rotation": 90.0
+              }
+            },
+            {
+              "Name": "UIStroke",
+              "ClassName": "UIStroke",
+              "Properties": {
+                "Color": [
+                  0.352941,
+                  0.129412,
+                  0.27451
+                ],
+                "Thickness": 3.0,
+                "ApplyStrokeMode": "Border"
+              }
+            },
+            {
+              "Name": "LipEdge",
+              "ClassName": "UIShadow",
+              "Properties": {
+                "Color": [
+                  0.352941,
+                  0.129412,
+                  0.27451
+                ],
+                "Offset": {
+                  "UDim2": [
+                    [
+                      0.0,
+                      0.0
+                    ],
+                    [
+                      0.0,
+                      7.0
+                    ]
+                  ]
+                },
+                "Spread": {
+                  "UDim2": [
+                    [
+                      0.0,
+                      3.0
+                    ],
+                    [
+                      0.0,
+                      3.0
+                    ]
+                  ]
+                },
+                "ZIndex": -2
+              }
+            },
+            {
+              "Name": "Lip",
+              "ClassName": "UIShadow",
+              "Properties": {
+                "Color": [
+                  0.0,
+                  0.620486,
+                  0.561853
+                ],
+                "Offset": {
+                  "UDim2": [
+                    [
+                      0.0,
+                      0.0
+                    ],
+                    [
+                      0.0,
+                      7.0
+                    ]
+                  ]
+                },
+                "ZIndex": -1
+              }
+            },
+            {
+              "Name": "TopLight",
+              "ClassName": "UIShadow",
+              "Properties": {
+                "Inset": true,
+                "Color": [
+                  1.0,
+                  1.0,
+                  1.0
+                ],
+                "Offset": {
+                  "UDim2": [
+                    [
+                      0.0,
+                      0.0
+                    ],
+                    [
+                      0.0,
+                      3.0
+                    ]
+                  ]
+                },
+                "Transparency": 0.5,
+                "ZIndex": -3
+              }
+            },
+            {
+              "Name": "BottomShade",
+              "ClassName": "UIShadow",
+              "Properties": {
+                "Inset": true,
+                "Color": [
+                  0.0,
+                  0.620486,
+                  0.561853
+                ],
+                "Offset": {
+                  "UDim2": [
+                    [
+                      0.0,
+                      0.0
+                    ],
+                    [
+                      0.0,
+                      -4.0
+                    ]
+                  ]
+                },
+                "Transparency": 0.45,
+                "ZIndex": -4
+              }
+            },
+            {
+              "Name": "ArrowIcon",
+              "ClassName": "ImageLabel",
+              "Properties": {
+                "BorderSizePixel": 0,
+                "BackgroundTransparency": 1.0,
+                "AnchorPoint": {
+                  "Vector2": [
+                    0.0,
+                    0.5
+                  ]
+                },
+                "Position": {
+                  "UDim2": [
+                    [
+                      0.0,
+                      18.0
+                    ],
+                    [
+                      0.5,
+                      0.0
+                    ]
+                  ]
+                },
+                "Size": {
+                  "UDim2": [
+                    [
+                      0.0,
+                      38.0
+                    ],
+                    [
+                      0.0,
+                      38.0
+                    ]
+                  ]
+                },
+                "Image": "",
+                "ImageColor3": [
+                  0.290196,
+                  0.121569,
+                  0.239216
+                ],
+                "Attributes": {
+                  "PendingAsset": "arrow"
+                }
+              }
+            },
+            {
+              "Name": "SkipText",
+              "ClassName": "TextLabel",
+              "Properties": {
+                "BorderSizePixel": 0,
+                "BackgroundTransparency": 1.0,
+                "Position": {
+                  "UDim2": [
+                    [
+                      0.0,
+                      68.0
+                    ],
+                    [
+                      0.0,
+                      0.0
+                    ]
+                  ]
+                },
+                "Size": {
+                  "UDim2": [
+                    [
+                      1.0,
+                      -80.0
+                    ],
+                    [
+                      1.0,
+                      0.0
+                    ]
+                  ]
+                },
+                "Text": "SKIP STAGE",
+                "FontFace": {
+                  "Font": {
+                    "family": "rbxasset://fonts/families/Nunito.json",
+                    "weight": "Bold",
+                    "style": "Normal"
+                  }
+                },
+                "TextSize": 30.0,
+                "TextColor3": [
+                  0.290196,
+                  0.121569,
+                  0.239216
+                ],
+                "TextXAlignment": "Left"
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "Name": "StageBanner",
+      "ClassName": "Frame",
+      "Properties": {
+        "BorderSizePixel": 0,
+        "BackgroundTransparency": 1.0,
+        "AnchorPoint": {
+          "Vector2": [
+            0.5,
+            0.5
+          ]
+        },
+        "Position": {
+          "UDim2": [
+            [
+              0.5,
+              0.0
+            ],
+            [
+              0.4,
+              0.0
+            ]
+          ]
+        },
+        "Size": {
+          "UDim2": [
+            [
+              0.0,
+              820.0
+            ],
+            [
+              0.0,
+              230.0
+            ]
+          ]
+        },
+        "Attributes": {
+          "AutoScale": "modal",
+          "Motion": "panel",
+          "StartHidden": true
+        }
+      },
+      "Children": [
+        {
+          "Name": "AutoScale",
+          "ClassName": "UIScale",
+          "Properties": {
+            "Scale": 1.0
+          }
+        },
+        {
+          "Name": "BannerBody",
+          "ClassName": "Frame",
+          "Properties": {
+            "BorderSizePixel": 0,
+            "BackgroundTransparency": 0.0,
+            "Size": {
+              "UDim2": [
+                [
+                  1.0,
+                  0.0
+                ],
+                [
+                  1.0,
+                  0.0
+                ]
+              ]
+            },
+            "BackgroundColor3": [
+              1.0,
+              1.0,
+              1.0
+            ]
+          },
+          "Children": [
+            {
+              "Name": "UICorner",
+              "ClassName": "UICorner",
+              "Properties": {
+                "CornerRadius": {
+                  "UDim": [
+                    0.0,
+                    22.0
+                  ]
+                }
+              }
+            },
+            {
+              "Name": "UIGradient",
+              "ClassName": "UIGradient",
+              "Properties": {
+                "Color": {
+                  "ColorSequence": {
+                    "keypoints": [
+                      {
+                        "time": 0.0,
+                        "color": [
+                          1.0,
+                          0.961298,
+                          0.887289
+                        ]
+                      },
+                      {
+                        "time": 1.0,
+                        "color": [
+                          0.976232,
+                          0.930696,
+                          0.852813
+                        ]
+                      }
+                    ]
+                  }
+                },
+                "Rotation": 90.0
+              }
+            },
+            {
+              "Name": "UIStroke",
+              "ClassName": "UIStroke",
+              "Properties": {
+                "Color": [
+                  0.352941,
+                  0.129412,
+                  0.27451
+                ],
+                "Thickness": 4.0,
+                "ApplyStrokeMode": "Border"
+              }
+            },
+            {
+              "Name": "LipEdge",
+              "ClassName": "UIShadow",
+              "Properties": {
+                "Color": [
+                  0.352941,
+                  0.129412,
+                  0.27451
+                ],
+                "Offset": {
+                  "UDim2": [
+                    [
+                      0.0,
+                      0.0
+                    ],
+                    [
+                      0.0,
+                      8.0
+                    ]
+                  ]
+                },
+                "Spread": {
+                  "UDim2": [
+                    [
+                      0.0,
+                      4.0
+                    ],
+                    [
+                      0.0,
+                      4.0
+                    ]
+                  ]
+                },
+                "ZIndex": -2
+              }
+            },
+            {
+              "Name": "Lip",
+              "ClassName": "UIShadow",
+              "Properties": {
+                "Color": [
+                  0.691711,
+                  0.619325,
+                  0.553444
+                ],
+                "Offset": {
+                  "UDim2": [
+                    [
+                      0.0,
+                      0.0
+                    ],
+                    [
+                      0.0,
+                      8.0
+                    ]
+                  ]
+                },
+                "ZIndex": -1
+              }
+            },
+            {
+              "Name": "CandyStripes",
+              "ClassName": "ImageLabel",
+              "Properties": {
+                "BorderSizePixel": 0,
+                "BackgroundTransparency": 1.0,
+                "Size": {
+                  "UDim2": [
+                    [
+                      1.0,
+                      0.0
+                    ],
+                    [
+                      1.0,
+                      0.0
+                    ]
+                  ]
+                },
+                "Image": "",
+                "ScaleType": "Tile",
+                "TileSize": {
+                  "UDim2": [
+                    [
+                      0.0,
+                      128.0
+                    ],
+                    [
+                      0.0,
+                      128.0
+                    ]
+                  ]
+                },
+                "ImageColor3": [
+                  1.0,
+                  0.372549,
+                  0.635294
+                ],
+                "ImageTransparency": 0.9,
+                "Attributes": {
+                  "PendingAsset": "stripes"
+                }
+              },
+              "Children": [
+                {
+                  "Name": "UICorner",
+                  "ClassName": "UICorner",
+                  "Properties": {
+                    "CornerRadius": {
+                      "UDim": [
+                        0.0,
+                        22.0
+                      ]
+                    }
+                  }
+                }
+              ]
+            },
+            {
+              "Name": "Ribbon",
+              "ClassName": "ImageLabel",
+              "Properties": {
+                "BorderSizePixel": 0,
+                "BackgroundTransparency": 1.0,
+                "Position": {
+                  "UDim2": [
+                    [
+                      0.0,
+                      30.0
+                    ],
+                    [
+                      0.0,
+                      30.0
+                    ]
+                  ]
+                },
+                "Size": {
+                  "UDim2": [
+                    [
+                      1.0,
+                      -60.0
+                    ],
+                    [
+                      0.0,
+                      118.0
+                    ]
+                  ]
+                },
+                "Image": "",
+                "ScaleType": "Slice",
+                "SliceCenter": {
+                  "Rect": [
+                    [
+                      27.0,
+                      47.0
+                    ],
+                    [
+                      165.0,
+                      49.0
+                    ]
+                  ]
+                },
+                "ImageColor3": [
+                  1.0,
+                  0.372549,
+                  0.635294
+                ],
+                "ZIndex": 2,
+                "Attributes": {
+                  "PendingAsset": "ribbon"
+                }
+              },
+              "Children": [
+                {
+                  "Name": "BannerText",
+                  "ClassName": "TextLabel",
+                  "Properties": {
+                    "BorderSizePixel": 0,
+                    "BackgroundTransparency": 1.0,
+                    "Size": {
+                      "UDim2": [
+                        [
+                          1.0,
+                          0.0
+                        ],
+                        [
+                          1.0,
+                          0.0
+                        ]
+                      ]
+                    },
+                    "Text": "STAGE COMPLETE!",
+                    "FontFace": {
+                      "Font": {
+                        "family": "rbxasset://fonts/families/FredokaOne.json",
+                        "weight": "Regular",
+                        "style": "Normal"
+                      }
+                    },
+                    "TextSize": 58.0,
+                    "TextColor3": [
+                      1.0,
+                      1.0,
+                      1.0
+                    ]
+                  },
+                  "Children": [
+                    {
+                      "Name": "UIStroke",
+                      "ClassName": "UIStroke",
+                      "Properties": {
+                        "Color": [
+                          0.352941,
+                          0.129412,
+                          0.27451
+                        ],
+                        "Thickness": 3.0
+                      }
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "Name": "Reward",
+              "ClassName": "Frame",
+              "Properties": {
+                "BorderSizePixel": 0,
+                "BackgroundTransparency": 1.0,
+                "AnchorPoint": {
+                  "Vector2": [
+                    0.5,
+                    0.0
+                  ]
+                },
+                "Position": {
+                  "UDim2": [
+                    [
+                      0.5,
+                      0.0
+                    ],
+                    [
+                      0.0,
+                      170.0
+                    ]
+                  ]
+                },
+                "Size": {
+                  "UDim2": [
+                    [
+                      0.0,
+                      300.0
+                    ],
+                    [
+                      0.0,
+                      46.0
+                    ]
+                  ]
+                }
+              },
+              "Children": [
+                {
+                  "Name": "UIListLayout",
+                  "ClassName": "UIListLayout",
+                  "Properties": {
+                    "FillDirection": "Horizontal",
+                    "Padding": {
+                      "UDim": [
+                        0.0,
+                        10.0
+                      ]
+                    },
+                    "VerticalAlignment": "Center",
+                    "SortOrder": "LayoutOrder"
+                  }
+                },
+                {
+                  "Name": "RewardCoin",
+                  "ClassName": "ImageLabel",
+                  "Properties": {
+                    "BorderSizePixel": 0,
+                    "BackgroundTransparency": 1.0,
+                    "Size": {
+                      "UDim2": [
+                        [
+                          0.0,
+                          44.0
+                        ],
+                        [
+                          0.0,
+                          44.0
+                        ]
+                      ]
+                    },
+                    "Image": "",
+                    "Attributes": {
+                      "PendingAsset": "coin"
+                    }
+                  }
+                },
+                {
+                  "Name": "RewardText",
+                  "ClassName": "TextLabel",
+                  "Properties": {
+                    "BorderSizePixel": 0,
+                    "BackgroundTransparency": 1.0,
+                    "Size": {
+                      "UDim2": [
+                        [
+                          0.0,
+                          230.0
+                        ],
+                        [
+                          1.0,
+                          0.0
+                        ]
+                      ]
+                    },
+                    "Text": "+50 COINS",
+                    "FontFace": {
+                      "Font": {
+                        "family": "rbxasset://fonts/families/Nunito.json",
+                        "weight": "Bold",
+                        "style": "Normal"
+                      }
+                    },
+                    "TextSize": 30.0,
+                    "TextColor3": [
+                      0.290196,
+                      0.121569,
+                      0.239216
+                    ],
+                    "TextXAlignment": "Left"
+                  }
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "Name": "UIRuntime",
+      "ClassName": "LocalScript",
+      "Properties": {
+        "Source": "--!strict\n--[[\n\tUIRuntime\n\tBehaviour for a ScreenGui built with the roblox-ui-design skill. The UI is made of real\n\tinstances you can edit in the Explorer; this LocalScript only adds what instances cannot do\n\ton their own:\n\n\t  AutoScale   attribute \"hud\" | \"modal\" on a GuiObject that has a UIScale named \"AutoScale\".\n\t              The object is authored in 1080p pixels and scaled per device. \"modal\" also\n\t              shrinks to fit the safe area.\n\t  Motion      attribute \"button\" (hover / press feedback) or \"panel\" (animated open / close).\n\t  Opens / Closes / Toggles\n\t              attribute on a GuiButton naming a panel in this ScreenGui.\n\t  StartHidden attribute true on a panel that should be closed when the game starts.\n\t  MotionStyle attribute on the ScreenGui: \"bouncy\" | \"snappy\" | \"calm\".\n\n\tFrom your own scripts, open or close a panel with:\n\t    panel:SetAttribute(\"Open\", true)\n]]\n\nlocal GuiService = game:GetService(\"GuiService\")\nlocal TweenService = game:GetService(\"TweenService\")\nlocal Workspace = game:GetService(\"Workspace\")\n\nlocal gui = script.Parent :: LayerCollector\n\nlocal REFERENCE_HEIGHT = 1080\n\ntype Style = {\n\thover: number,\n\tpress: number,\n\tbuttonTime: number,\n\topenTime: number,\n\tcloseTime: number,\n\topenFrom: number,\n\topenEasing: Enum.EasingStyle,\n}\n\nlocal STYLES: { [string]: Style } = {\n\t-- cartoon / simulator: overshoot and squash\n\tbouncy = {\n\t\thover = 1.06,\n\t\tpress = 0.93,\n\t\tbuttonTime = 0.12,\n\t\topenTime = 0.30,\n\t\tcloseTime = 0.16,\n\t\topenFrom = 0.7,\n\t\topenEasing = Enum.EasingStyle.Back,\n\t},\n\t-- clean / competitive: quick, no overshoot\n\tsnappy = {\n\t\thover = 1.03,\n\t\tpress = 0.97,\n\t\tbuttonTime = 0.08,\n\t\topenTime = 0.18,\n\t\tcloseTime = 0.12,\n\t\topenFrom = 0.94,\n\t\topenEasing = Enum.EasingStyle.Quint,\n\t},\n\t-- horror / cinematic: slow fades, no scaling\n\tcalm = {\n\t\thover = 1,\n\t\tpress = 0.985,\n\t\tbuttonTime = 0.2,\n\t\topenTime = 0.6,\n\t\tcloseTime = 0.4,\n\t\topenFrom = 1,\n\t\topenEasing = Enum.EasingStyle.Sine,\n\t},\n}\n\nlocal function currentStyle(): Style\n\tlocal name = gui:GetAttribute(\"MotionStyle\")\n\tif typeof(name) == \"string\" and STYLES[name] then\n\t\treturn STYLES[name]\n\tend\n\treturn STYLES.snappy\nend\n\nlocal function reducedMotion(): boolean\n\tlocal ok, value = pcall(function()\n\t\treturn GuiService.ReducedMotionEnabled\n\tend)\n\treturn ok and value == true\nend\n\n-- One UIScale per object carries both the device scale and the motion factor.\ntype State = {\n\tscale: UIScale,\n\tauto: number,\n\tfactor: NumberValue,\n\ttween: Tween?,\n}\n\nlocal states: { [GuiObject]: State } = {}\n\nlocal function getState(object: GuiObject): State\n\tlocal existing = states[object]\n\tif existing then\n\t\treturn existing\n\tend\n\tlocal uiScale = object:FindFirstChildOfClass(\"UIScale\")\n\tif not uiScale then\n\t\tlocal created = Instance.new(\"UIScale\")\n\t\tcreated.Name = \"MotionScale\"\n\t\tcreated.Parent = object\n\t\tuiScale = created\n\tend\n\tlocal factor = Instance.new(\"NumberValue\")\n\tfactor.Value = 1\n\tlocal state: State = { scale = uiScale :: UIScale, auto = 1, factor = factor, tween = nil }\n\tfactor.Changed:Connect(function()\n\t\tstate.scale.Scale = state.auto * factor.Value\n\tend)\n\tstates[object] = state\n\tobject.Destroying:Connect(function()\n\t\tstates[object] = nil\n\t\tfactor:Destroy()\n\tend)\n\treturn state\nend\n\nlocal function setFactor(object: GuiObject, target: number, info: TweenInfo?)\n\tlocal state = getState(object)\n\tif state.tween then\n\t\tstate.tween:Cancel()\n\t\tstate.tween = nil\n\tend\n\tif info == nil or reducedMotion() then\n\t\tstate.factor.Value = target\n\t\tstate.scale.Scale = state.auto * target\n\t\treturn\n\tend\n\tlocal tween = TweenService:Create(state.factor, info, { Value = target })\n\tstate.tween = tween\n\ttween:Play()\nend\n\n---------------------------------------------------------------------------------------------\n-- Device scaling\n\nlocal function baseScale(): number\n\tlocal camera = Workspace.CurrentCamera\n\tlocal height = if camera then camera.ViewportSize.Y else REFERENCE_HEIGHT\n\tif height <= 0 then\n\t\theight = REFERENCE_HEIGHT\n\tend\n\treturn math.clamp((height / REFERENCE_HEIGHT) ^ 0.4, 0.55, 1.5)\nend\n\nlocal function applyAutoScale(object: GuiObject)\n\tlocal mode = object:GetAttribute(\"AutoScale\")\n\tif mode ~= \"hud\" and mode ~= \"modal\" then\n\t\treturn\n\tend\n\tlocal state = getState(object)\n\tlocal scale = baseScale()\n\tif mode == \"modal\" then\n\t\tlocal available = gui.AbsoluteSize\n\t\tlocal size = object.Size\n\t\tif size.X.Scale == 0 and size.X.Offset > 0 and available.X > 0 then\n\t\t\tscale = math.min(scale, 0.96 * available.X / size.X.Offset)\n\t\tend\n\t\tif size.Y.Scale == 0 and size.Y.Offset > 0 and available.Y > 0 then\n\t\t\tscale = math.min(scale, 0.94 * available.Y / size.Y.Offset)\n\t\tend\n\tend\n\tstate.auto = scale\n\tstate.scale.Scale = scale * state.factor.Value\nend\n\nlocal function applyAllScales()\n\tfor _, descendant in gui:GetDescendants() do\n\t\tif descendant:IsA(\"GuiObject\") and descendant:GetAttribute(\"AutoScale\") ~= nil then\n\t\t\tapplyAutoScale(descendant)\n\t\tend\n\tend\nend\n\n---------------------------------------------------------------------------------------------\n-- Panels\n\nlocal function setPanelOpen(panel: GuiObject, open: boolean, instant: boolean?)\n\tlocal style = currentStyle()\n\tlocal group = if panel:IsA(\"CanvasGroup\") then panel else nil\n\tif open then\n\t\tpanel.Visible = true\n\t\tif instant or reducedMotion() then\n\t\t\tsetFactor(panel, 1, nil)\n\t\t\tif group then\n\t\t\t\tgroup.GroupTransparency = 0\n\t\t\tend\n\t\t\treturn\n\t\tend\n\t\tsetFactor(panel, style.openFrom, nil)\n\t\tsetFactor(panel, 1, TweenInfo.new(style.openTime, style.openEasing, Enum.EasingDirection.Out))\n\t\tif group then\n\t\t\tgroup.GroupTransparency = 1\n\t\t\tTweenService:Create(group, TweenInfo.new(style.openTime * 0.6, Enum.EasingStyle.Sine), { GroupTransparency = 0 }):Play()\n\t\tend\n\telse\n\t\tif instant or reducedMotion() or not panel.Visible then\n\t\t\tpanel.Visible = false\n\t\t\treturn\n\t\tend\n\t\tlocal info = TweenInfo.new(style.closeTime, Enum.EasingStyle.Quad, Enum.EasingDirection.In)\n\t\tsetFactor(panel, style.openFrom, info)\n\t\tif group then\n\t\t\tTweenService:Create(group, info, { GroupTransparency = 1 }):Play()\n\t\tend\n\t\ttask.delay(style.closeTime, function()\n\t\t\tif panel:GetAttribute(\"Open\") ~= true then\n\t\t\t\tpanel.Visible = false\n\t\t\t\tsetFactor(panel, 1, nil)\n\t\t\tend\n\t\tend)\n\tend\nend\n\nlocal function bindPanel(panel: GuiObject)\n\tlocal startOpen = panel:GetAttribute(\"StartHidden\") ~= true and panel.Visible\n\tpanel:SetAttribute(\"Open\", startOpen)\n\tsetPanelOpen(panel, startOpen, true)\n\tpanel:GetAttributeChangedSignal(\"Open\"):Connect(function()\n\t\tsetPanelOpen(panel, panel:GetAttribute(\"Open\") == true)\n\tend)\nend\n\nlocal function findPanel(name: string): GuiObject?\n\tlocal found = gui:FindFirstChild(name, true)\n\tif found and found:IsA(\"GuiObject\") then\n\t\treturn found\n\tend\n\twarn(`UIRuntime: no panel named \"{name}\" in {gui:GetFullName()}`)\n\treturn nil\nend\n\nlocal function requestOpen(name: unknown, open: boolean?)\n\tif typeof(name) ~= \"string\" then\n\t\treturn\n\tend\n\tlocal panel = findPanel(name)\n\tif not panel then\n\t\treturn\n\tend\n\tlocal target = if open == nil then panel:GetAttribute(\"Open\") ~= true else open\n\tif panel:GetAttribute(\"Motion\") == \"panel\" then\n\t\tpanel:SetAttribute(\"Open\", target)\n\telse\n\t\tpanel.Visible = target\n\tend\nend\n\n---------------------------------------------------------------------------------------------\n-- Buttons\n\nlocal function bindButton(button: GuiButton)\n\tlocal hovering = false\n\tlocal pressing = false\n\n\tlocal function refresh()\n\t\tlocal style = currentStyle()\n\t\tlocal target = if pressing then style.press elseif hovering then style.hover else 1\n\t\tsetFactor(button, target, TweenInfo.new(style.buttonTime, Enum.EasingStyle.Quad, Enum.EasingDirection.Out))\n\tend\n\n\tbutton.InputBegan:Connect(function(input: InputObject)\n\t\tif input.UserInputType == Enum.UserInputType.MouseMovement then\n\t\t\thovering = true\n\t\telseif input.UserInputType == Enum.UserInputType.MouseButton1 or input.UserInputType == Enum.UserInputType.Touch then\n\t\t\tpressing = true\n\t\telse\n\t\t\treturn\n\t\tend\n\t\trefresh()\n\tend)\n\tbutton.InputEnded:Connect(function(input: InputObject)\n\t\tif input.UserInputType == Enum.UserInputType.MouseMovement then\n\t\t\thovering = false\n\t\t\tpressing = false\n\t\telseif input.UserInputType == Enum.UserInputType.MouseButton1 then\n\t\t\tpressing = false\n\t\telseif input.UserInputType == Enum.UserInputType.Touch then\n\t\t\tpressing = false\n\t\t\thovering = false\n\t\telse\n\t\t\treturn\n\t\tend\n\t\trefresh()\n\tend)\n\tbutton.SelectionGained:Connect(function()\n\t\thovering = true\n\t\trefresh()\n\tend)\n\tbutton.SelectionLost:Connect(function()\n\t\thovering = false\n\t\trefresh()\n\tend)\nend\n\nlocal function bindActions(button: GuiButton)\n\tbutton.Activated:Connect(function()\n\t\trequestOpen(button:GetAttribute(\"Opens\"), true)\n\t\trequestOpen(button:GetAttribute(\"Closes\"), false)\n\t\trequestOpen(button:GetAttribute(\"Toggles\"), nil)\n\tend)\nend\n\n---------------------------------------------------------------------------------------------\n-- Wiring\n\nlocal bound: { [Instance]: boolean } = {}\n\nlocal function bind(instance: Instance)\n\tif bound[instance] or not instance:IsA(\"GuiObject\") then\n\t\treturn\n\tend\n\tbound[instance] = true\n\tif instance:GetAttribute(\"AutoScale\") ~= nil then\n\t\tapplyAutoScale(instance)\n\tend\n\tlocal motion = instance:GetAttribute(\"Motion\")\n\tif motion == \"panel\" then\n\t\tbindPanel(instance)\n\telseif motion == \"button\" and instance:IsA(\"GuiButton\") then\n\t\tbindButton(instance)\n\tend\n\tif instance:IsA(\"GuiButton\") then\n\t\tif instance:GetAttribute(\"Opens\") ~= nil or instance:GetAttribute(\"Closes\") ~= nil or instance:GetAttribute(\"Toggles\") ~= nil then\n\t\t\tbindActions(instance)\n\t\tend\n\tend\nend\n\nfor _, descendant in gui:GetDescendants() do\n\tbind(descendant)\nend\ngui.DescendantAdded:Connect(bind)\ngui.DescendantRemoving:Connect(function(instance)\n\tbound[instance] = nil\nend)\n\ngui:GetPropertyChangedSignal(\"AbsoluteSize\"):Connect(applyAllScales)\n\nlocal function watchCamera()\n\tlocal camera = Workspace.CurrentCamera\n\tif camera then\n\t\tcamera:GetPropertyChangedSignal(\"ViewportSize\"):Connect(applyAllScales)\n\tend\n\tapplyAllScales()\nend\nWorkspace:GetPropertyChangedSignal(\"CurrentCamera\"):Connect(watchCamera)\nwatchCamera()\n"
+      }
+    }
+  ]
+}

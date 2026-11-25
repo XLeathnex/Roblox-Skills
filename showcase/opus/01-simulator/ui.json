@@ -1,0 +1,122 @@
+{
+ "meta": {
+  "genre": "simulator",
+  "game": "Bubble Reef",
+  "depth": "chunky",
+  "motion": "bouncy",
+  "direction": "Bubble Reef: smooth sea-glass panels in seafoam with deep-trench teal outlines instead of black, bubble-round corners, a lagoon-teal header fizzing with bubbles, each egg glowing in its rarity light like sun through water, warm coral means hatch, gold for coins and lilac for pearls, soft rounded DenkOne type"
+ },
+ "tokens": {
+  "c": {
+   "line": "#0B3B4C",
+   "panel": "#D3F4EC",
+   "card": "#EFFCF8",
+   "lagoon": "#25A9AE",
+   "hatch": "#FF8A3D",
+   "close": "#1D7F92",
+   "coin": "#FFC531",
+   "pearl": "#E3D2FF",
+   "well": "#0F4E60",
+   "common": "#BFB08C",
+   "uncommon": "#4FC96B",
+   "rare": "#3AA8F2",
+   "epic": "#A962F5",
+   "legendary": "#F5B323",
+   "mythic": "#F2445F"
+  },
+  "r": {"sm": 12, "md": 16, "card": 18, "lg": 26, "pill": [1, 0]},
+  "font": {"display": "DenkOne", "body": "Nunito:ExtraBold"}
+ },
+ "components": {
+  "HatchBtn": {
+   "params": {"price": "100", "icon": "asset:coin", "color": "$c.hatch"},
+   "node": {"class": "TextButton", "Size": [1, -28, 0, 52], "motion": "button", "corner": "$r.md",
+    "gradient": ["shade({{color}},1.2)", "{{color}}", "shade({{color}},-0.8)"],
+    "stroke": {"color": "$c.line", "thickness": 3, "mode": "Border"},
+    "children": [
+     {"class": "UIShadow", "name": "LipEdge", "Color": "$c.line", "Offset": [0, 0, 0, 6], "Spread": [0, 3, 0, 3], "ZIndex": -2},
+     {"class": "UIShadow", "name": "Lip", "Color": "shade({{color}},-3)", "Offset": [0, 0, 0, 6], "ZIndex": -1},
+     {"class": "UIShadow", "name": "TopLight", "Inset": true, "Color": "#FFFFFF", "Offset": [0, 0, 0, 3], "Transparency": 0.5, "ZIndex": -3},
+     {"class": "UIShadow", "name": "BottomShade", "Inset": true, "Color": "shade({{color}},-3)", "Offset": [0, 0, 0, -4], "Transparency": 0.45, "ZIndex": -4},
+     {"class": "Frame", "name": "PriceRow", "Size": [1, 0, 1, 0], "list": {"dir": "H", "gap": 6, "align": "Center", "valign": "Center"},
+      "children": [
+       {"class": "ImageLabel", "name": "CurrencyIcon", "Size": [0, 34, 0, 34], "Image": "{{icon}}", "ScaleType": "Fit", "LayoutOrder": 1},
+       {"class": "TextLabel", "name": "Price", "Size": [0, 0, 1, 0], "AutomaticSize": "X", "Text": "{{price}}", "FontFace": "$font.display", "TextSize": 28, "TextColor3": "#FFFFFF", "LayoutOrder": 2,
+        "stroke": {"color": "$c.line", "thickness": 2.5},
+        "children": [{"class": "UIShadow", "Mode": "Text", "Color": "$c.line", "Offset": [0, 0, 0, 3]}]}
+      ]}
+    ]}
+  },
+  "EggCard": {
+   "params": {"title": "Egg", "egg": "asset:egg-kelp", "rarity": "COMMON", "rcolor": "$c.common", "price": "100", "icon": "asset:coin"},
+   "node": {"class": "Frame", "corner": "$r.card",
+    "gradient": ["$c.card", "shade($c.card,-0.5)"],
+    "stroke": {"color": "$c.line", "thickness": 3, "mode": "Border"},
+    "children": [
+     {"class": "UIShadow", "name": "LipEdge", "Color": "$c.line", "Offset": [0, 0, 0, 6], "Spread": [0, 3, 0, 3], "ZIndex": -2},
+     {"class": "UIShadow", "name": "Lip", "Color": "shade($c.panel,-2.5)", "Offset": [0, 0, 0, 6], "ZIndex": -1},
+     {"class": "Frame", "name": "RarityGlow", "AnchorPoint": [0.5, 0.5], "Position": [0.5, 0, 0, 74], "Size": [0, 200, 0, 130],
+      "gradient": {"colors": ["{{rcolor}}", "{{rcolor}}"], "type": "Radial", "transparency": [0.35, 1]}},
+     {"class": "ImageLabel", "name": "EggIcon", "AnchorPoint": [0.5, 0.5], "Position": [0.5, 0, 0, 72], "Size": [0, 112, 0, 112], "Rotation": -8, "Image": "{{egg}}", "ScaleType": "Fit"},
+     {"class": "TextLabel", "name": "RarityTag", "Position": [0, 10, 0, 10], "Size": [0, 0, 0, 24], "AutomaticSize": "X", "Rotation": -4, "corner": "$r.pill",
+      "BackgroundColor3": "{{rcolor}}", "padding": [0, 10], "stroke": {"color": "$c.line", "thickness": 2, "mode": "Border"},
+      "Text": "{{rarity}}", "FontFace": "$font.body", "TextSize": 14, "TextColor3": "#FFFFFF"},
+     {"class": "TextLabel", "name": "EggName", "Position": [0, 12, 0, 132], "Size": [1, -24, 0, 28], "Text": "{{title}}", "FontFace": "$font.display", "TextSize": 24, "TextColor3": "$c.line"},
+     {"use": "HatchBtn", "name": "HatchButton", "AnchorPoint": [0.5, 1], "Position": [0.5, 0, 1, -18], "price": "{{price}}", "icon": "{{icon}}"}
+    ]}
+  },
+  "Chip": {
+   "params": {"value": "0", "icon": "asset:coin", "tint": "$c.coin"},
+   "node": {"class": "Frame", "Size": [0, 156, 0, 42], "corner": "$r.pill", "BackgroundColor3": "$c.well",
+    "stroke": {"color": "$c.line", "thickness": 3, "mode": "Border"},
+    "children": [
+     {"class": "UIShadow", "name": "InsetShade", "Inset": true, "Color": "#000000", "Offset": [0, 0, 0, 4], "Transparency": 0.6, "ZIndex": -1},
+     {"class": "ImageLabel", "name": "CurrencyIcon", "AnchorPoint": [0, 0.5], "Position": [0, -14, 0.5, 0], "Size": [0, 50, 0, 50], "Rotation": -10, "Image": "{{icon}}", "ScaleType": "Fit", "ZIndex": 2},
+     {"class": "TextLabel", "name": "Amount", "Position": [0, 42, 0, 0], "Size": [1, -56, 1, 0], "Text": "{{value}}", "TextXAlignment": "Right", "FontFace": "$font.display", "TextSize": 24, "TextColor3": "{{tint}}",
+      "stroke": {"color": "$c.line", "thickness": 2}}
+    ]}
+  }
+ },
+ "root": {"class": "ScreenGui", "name": "EggShopGui", "ResetOnSpawn": false, "children": [
+  {"class": "Frame", "name": "EggShopPanel", "autoscale": "modal", "motion": "panel", "AnchorPoint": [0.5, 0.5], "Position": [0.5, 0, 0.5, 0], "Size": [0, 860, 0, 626],
+   "corner": "$r.lg", "gradient": ["$c.panel", "shade($c.panel,-0.6)"],
+   "stroke": {"color": "$c.line", "thickness": 4, "mode": "Border"},
+   "children": [
+    {"class": "UIShadow", "name": "LipEdge", "Color": "$c.line", "Offset": [0, 0, 0, 10], "Spread": [0, 4, 0, 4], "ZIndex": -2},
+    {"class": "UIShadow", "name": "Lip", "Color": "shade($c.panel,-3)", "Offset": [0, 0, 0, 10], "ZIndex": -1},
+    {"class": "Frame", "name": "Header", "Size": [1, 0, 0, 88], "corner": {"tl": 26, "tr": 26, "bl": 0, "br": 0},
+     "gradient": ["shade($c.lagoon,1)", "shade($c.lagoon,-0.6)"],
+     "children": [
+      {"class": "ImageLabel", "name": "Bubbles", "Size": [1, 0, 1, 0], "Image": "asset:dots", "ScaleType": "Tile", "TileSize": [0, 128, 0, 128], "ImageTransparency": 0.88, "ImageColor3": "#FFFFFF"},
+      {"class": "Frame", "name": "HeaderEdge", "AnchorPoint": [0, 1], "Position": [0, 0, 1, 0], "Size": [1, 0, 0, 4], "BackgroundColor3": "$c.line"},
+      {"class": "TextLabel", "name": "Title", "Position": [0, 28, 0, 8], "Size": [0, 320, 0, 52], "Text": "EGG SHOP", "TextXAlignment": "Left", "FontFace": "$font.display", "TextSize": 44, "TextColor3": "#FFFFFF",
+       "stroke": {"color": "$c.line", "thickness": 3.5},
+       "children": [{"class": "UIShadow", "Mode": "Text", "Color": "$c.line", "Offset": [0, 0, 0, 4]}]},
+      {"class": "TextLabel", "name": "Subtitle", "Position": [0, 30, 0, 56], "Size": [0, 320, 0, 20], "Text": "Hatch a sea creature friend!", "TextXAlignment": "Left", "FontFace": "$font.body", "TextSize": 17, "TextColor3": "shade($c.lagoon,4)"},
+      {"class": "Frame", "name": "Balance", "AnchorPoint": [1, 0.5], "Position": [1, -64, 0.5, -2], "Size": [0, 360, 0, 50], "list": {"dir": "H", "gap": 26, "align": "Right", "valign": "Center"},
+       "children": [
+        {"use": "Chip", "name": "CoinBalance", "LayoutOrder": 1, "value": "48.2K", "icon": "asset:coin", "tint": "$c.coin"},
+        {"use": "Chip", "name": "PearlBalance", "LayoutOrder": 2, "value": "312", "icon": "asset:pearl", "tint": "$c.pearl"}
+       ]}
+     ]},
+    {"class": "ImageButton", "name": "CloseButton", "closes": "EggShopPanel", "motion": "button", "AnchorPoint": [0.5, 0.5], "Position": [1, -8, 0, 8], "Size": [0, 56, 0, 56], "corner": "$r.sm",
+     "gradient": ["shade($c.close,1.2)", "$c.close", "shade($c.close,-0.8)"],
+     "stroke": {"color": "$c.line", "thickness": 3, "mode": "Border"},
+     "children": [
+      {"class": "UIShadow", "name": "LipEdge", "Color": "$c.line", "Offset": [0, 0, 0, 6], "Spread": [0, 3, 0, 3], "ZIndex": -2},
+      {"class": "UIShadow", "name": "Lip", "Color": "shade($c.close,-3)", "Offset": [0, 0, 0, 6], "ZIndex": -1},
+      {"class": "UIShadow", "name": "TopLight", "Inset": true, "Color": "#FFFFFF", "Offset": [0, 0, 0, 3], "Transparency": 0.5, "ZIndex": -3},
+      {"class": "ImageLabel", "name": "CloseIcon", "AnchorPoint": [0.5, 0.5], "Position": [0.5, 0, 0.5, 0], "Size": [0, 30, 0, 30], "Image": "asset:close", "ScaleType": "Fit", "ImageColor3": "#FFFFFF"}
+     ]},
+    {"class": "Frame", "name": "EggGrid", "Position": [0, 24, 0, 110], "Size": [1, -48, 1, -134], "grid": {"cell": [0, 260, 0, 232], "gap": 16, "max": 3},
+     "children": [
+      {"use": "EggCard", "name": "TidePoolEgg", "LayoutOrder": 1, "title": "Tide Pool Egg", "egg": "asset:egg-tidepool", "rarity": "COMMON", "rcolor": "$c.common", "price": "250", "icon": "asset:coin"},
+      {"use": "EggCard", "name": "KelpEgg", "LayoutOrder": 2, "title": "Kelp Forest Egg", "egg": "asset:egg-kelp", "rarity": "UNCOMMON", "rcolor": "$c.uncommon", "price": "1.2K", "icon": "asset:coin"},
+      {"use": "EggCard", "name": "LagoonEgg", "LayoutOrder": 3, "title": "Lagoon Egg", "egg": "asset:egg-lagoon", "rarity": "RARE", "rcolor": "$c.rare", "price": "8.5K", "icon": "asset:coin"},
+      {"use": "EggCard", "name": "AnemoneEgg", "LayoutOrder": 4, "title": "Anemone Egg", "egg": "asset:egg-anemone", "rarity": "EPIC", "rcolor": "$c.epic", "price": "45K", "icon": "asset:coin"},
+      {"use": "EggCard", "name": "SunkenTreasureEgg", "LayoutOrder": 5, "title": "Sunken Treasure Egg", "egg": "asset:egg-treasure", "rarity": "LEGENDARY", "rcolor": "$c.legendary", "price": "150", "icon": "asset:pearl"},
+      {"use": "EggCard", "name": "AbyssEgg", "LayoutOrder": 6, "title": "Abyss Egg", "egg": "asset:egg-abyss", "rarity": "MYTHIC", "rcolor": "$c.mythic", "price": "600", "icon": "asset:pearl"}
+     ]}
+   ]}
+ ]}
+}
