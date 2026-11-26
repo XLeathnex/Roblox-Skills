@@ -5,6 +5,7 @@
     python3 scripts/rbxui check ui.json --build out  ...and export when there are no errors
     python3 scripts/rbxui check ui.json --no-image   lint only (cheapest)
     python3 scripts/rbxui build ui.json --out out    .build.luau + .rbxmx + .model.json
+    python3 scripts/rbxui storyboard ui.json         frames of the enter/leave animation sequence
     python3 scripts/rbxui tree  ui.json              instance hierarchy
 """
 from __future__ import annotations
@@ -173,6 +174,45 @@ def cmd_preview(args):
     return 0
 
 
+def cmd_storyboard(args):
+    """Frames of the entrance sequence, so choreography can be judged without Studio."""
+    render = _render_mod()
+    if render is None:
+        return 3
+    from PIL import Image, ImageDraw
+
+    spec = _load(args.spec)
+    hidden = [n.name for n in spec.root.walk() if n.attrs.get("StartHidden")]
+    panel = args.panel or (hidden[0] if hidden else None)
+    L.HIDE_START_HIDDEN.update({"on": bool(hidden), "except": panel})
+    end = L.timeline_end(spec.root)
+    if end <= 0:
+        print("no enter/leave animations in this spec (add \"enter\" / \"leave\" to nodes).")
+        return 1
+    if args.times:
+        times = [float(x) for x in args.times.split(",")]
+    else:
+        n = 6
+        times = [round(end * i / (n - 1) * 1.02, 2) for i in range(n)]
+    fw, fh, cols = 640, 360, 3
+    rows = (len(times) + cols - 1) // cols
+    sheet = Image.new("RGB", (fw * cols, fh * rows), (16, 18, 22))
+    d = ImageDraw.Draw(sheet)
+    for i, t in enumerate(times):
+        L.ANIM["t"] = t
+        img, _ = render.render(spec, args.device, 1.0, args.backdrop, chrome=False)
+        x, y = (i % cols) * fw, (i // cols) * fh
+        sheet.paste(img.resize((fw, fh), Image.LANCZOS), (x, y))
+        d.rectangle([x + 6, y + 6, x + 78, y + 24], fill=(0, 0, 0))
+        d.text((x + 10, y + 9), f"t = {t:.2f}s", fill=(255, 255, 255))
+    L.ANIM["t"] = None
+    L.HIDE_START_HIDDEN.update({"on": False, "except": None})
+    out = Path(args.out or Path(args.spec).with_suffix(".story.png"))
+    sheet.save(out)
+    print(f"storyboard: {out}  ({len(times)} frames, 0 to {times[-1]:.2f}s" + (f", panel {panel} opening" if panel else "") + ")")
+    return 0
+
+
 def cmd_tree(args):
     print(export.tree_text(_load(args.spec).root))
     return 0
@@ -210,6 +250,15 @@ def main(argv=None):
     p.add_argument("--backdrop")
     p.add_argument("--no-chrome", action="store_true")
     p.set_defaults(fn=cmd_preview)
+
+    p = sub.add_parser("storyboard", help="frames of the enter/leave animation sequence")
+    p.add_argument("spec")
+    p.add_argument("-o", "--out")
+    p.add_argument("--panel", help="startHidden panel to open (default: the first)")
+    p.add_argument("--times", help="comma-separated seconds, e.g. 0,0.3,0.6,1,1.5,2.2")
+    p.add_argument("--device", default="pc")
+    p.add_argument("--backdrop")
+    p.set_defaults(fn=cmd_storyboard)
 
     p = sub.add_parser("tree", help="print the instance hierarchy")
     p.add_argument("spec")

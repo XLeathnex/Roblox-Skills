@@ -28,5 +28,6 @@
   - `padding`: `12` | `[v, h]` | `[t, r, b, l]`. `list`: `{dir: "H|V", gap, align, valign, wraps, hflex}`. `grid`: `{cell: [0, 200, 0, 240], gap: 12, max: 3}`. `aspect`, `maxText`, `minText`, `flex`.
   - `autoscale`: `"modal"` (centred panel) or `"hud"` (edge-anchored group). Design in 1080p pixels inside it; it is scaled per device.
   - `motion`: `"button"` | `"panel"`. `opens` / `closes` / `toggles`: `"PanelName"`. `startHidden`: `true`.
+  - `enter` / `leave` / `loop`: choreography on any object (fly in, unroll, exit, idle). See `motion.md`.
 - **Defaults here** (unlike raw Studio): no background unless you give `BackgroundColor3`; no border; empty text; gradient runs top to bottom.
 - `"extends": "design-system.json"` shares tokens and components across every screen of one game. Use it for the second screen onward.

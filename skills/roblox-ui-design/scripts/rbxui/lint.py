@@ -341,6 +341,11 @@ def _rule_fonts(spec, nodes, rep: Report):
         if fam in GENERIC_FONTS:
             rep.warn("generic-font", "typography", f"{fam} is a default-looking face; it reads as \"nobody chose the type\".",
                      "Choose a display face that belongs to this game's world, plus one quiet body face.")
+    overused = [f for f in fams if f in ("FredokaOne", "LuckiestGuy")]
+    if overused:
+        rep.warn("overused-font", "typography", f"{', '.join(overused)} is the face of every generic Roblox simulator; players read it as "
+                 "a template.", "Give titles their own lettering (draw the wordmark as an image, see references/assets.md) and pick "
+                 "a less worn face for live text (references/fonts.md).")
     if len(text_nodes) >= 5 and len(faces) == 1:
         rep.warn("one-font", "typography", f"all {len(text_nodes)} text nodes use {next(iter(faces))[0]} at one weight. "
                  "Hierarchy needs contrast in face or weight.",
@@ -631,22 +636,6 @@ def _rule_depth(nodes, rep: Report, depth: str):
         rep.warn("flat-rectangles", "depth", f"{len(bare)} of {len(shapes)} filled shapes have no gradient, stroke, shadow or texture "
                  f"(e.g. {', '.join(n.name for n in bare[:3])}), but meta.depth is \"{depth}\".",
                  "One light from above: lighter top, darker bottom, a same-hue edge. See references/depth.md.")
-    if depth == "chunky":
-        lipless = []
-        for b in buttons:
-            host = b if bg_alpha(b) > 0.3 else next((c for c in b.children if c.cls in GUI_OBJECTS and bg_alpha(c) > 0.3), None)
-            if host is None:
-                continue
-            hard = any(s.cls == "UIShadow" and not s.props.get("Inset") and s.props.get("BlurRadius", (0, 0))[1] <= 2
-                       and s.props.get("Offset", (0, 0, 0, 0))[3] >= 2 for s in host.children)
-            lip_frame = b.parent is not None and any(
-                sib is not b and sib.cls == "Frame" and has_rect(sib) and abs(sib.rect[2] - host.rect[2]) < 6
-                and 1 < (sib.rect[1] + sib.rect[3]) - (host.rect[1] + host.rect[3]) < 16 for sib in b.parent.children)
-            if not hard and not lip_frame and host.rect[3] >= 30:
-                lipless.append(b)
-        if buttons and len(lipless) >= max(2, 0.6 * len(buttons)):
-            rep.warn("no-button-lip", "depth", f"{len(lipless)} of {len(buttons)} buttons have no bottom lip, yet depth is \"chunky\".",
-                     "A chunky button stands on a hard, darker bottom edge: UIShadow with blur 0, offset [0, 4-6], colour shade($fill, -3).")
     if depth == "flat":
         heavy = [n for n in nodes if n.cls == "UIShadow" and not n.props.get("Inset") and n.props.get("Mode", "Shape") == "Shape"
                  and n.props.get("BlurRadius", (0, 0))[1] <= 2 and n.props.get("Offset", (0, 0, 0, 0))[3] >= 3]

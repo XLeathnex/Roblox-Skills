@@ -14,7 +14,9 @@ Write `"FontFace": "Family"` or `"Family:Weight"`. Pick one display face (titles
 | Handwritten, cosy | Kalam (Light, Regular, Bold), PatrickHand, IndieFlower, AmaticSC (Regular, Bold) |
 | Retro pixel | PressStart2P (small sizes, `ResampleMode` irrelevant; keep text short) |
 
-- FredokaOne on everything is the Roblox equivalent of a default font. If you use it, pair it with a distinct body face and make the shapes and palette carry the identity.
+- **FredokaOne and LuckiestGuy are worn out.** They are on every generic simulator, so players read them as a template. Avoid them unless the user's game already uses them.
+- **Titles should be lettering, not a font choice.** Draw the screen title, logo and hero numbers as images with `da.lettering()` (assets.md): any Google Fonts family, layered outlines, depth, an arch. That is where a UI gets a voice no other game has.
+- For live text (numbers, names, descriptions) choose a built-in face that echoes the lettering and is not the obvious one: Bangers or Sarpanch instead of LuckiestGuy; Nunito:ExtraBold, DenkOne or TitilliumWeb:Bold instead of FredokaOne.
 - Good pairings: LuckiestGuy + Nunito:Bold; Bangers + Montserrat:SemiBold; Oswald:Bold + RobotoCondensed; Michroma + Jura:Medium; SpecialElite + RobotoCondensed:Light; GrenzeGotisch:Bold + Merriweather; Fondamento + Balthazar; Montserrat:Heavy + Montserrat:Medium.
 - Type scale: 3-4 sizes with clear jumps, e.g. 18 / 24 / 32 / 48 at 1080p. Title at least 2x body.
 - Roblox has no letter-spacing. For tracked-out caps, use a wide face (Michroma, BuilderExtended) or put spaces between letters in short labels.

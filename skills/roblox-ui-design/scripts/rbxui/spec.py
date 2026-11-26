@@ -70,8 +70,52 @@ LEGACY_FONTS = {
 SUGAR_KEYS = {
     "corner", "stroke", "strokes", "gradient", "shadow", "padding", "aspect", "list", "grid",
     "scale", "maxText", "minText", "sizeLimit", "flex", "tags", "attrs", "sourceFile",
-    "autoscale", "motion", "opens", "closes", "toggles", "startHidden",
+    "autoscale", "motion", "opens", "closes", "toggles", "startHidden", "enter", "leave", "loop",
 }
+ANIM_KEYS = {
+    "enter": ("AnimEnter", {"from", "delay", "dur", "ease", "rot", "scale", "fade", "reveal"}),
+    "leave": ("AnimLeave", {"at", "to", "dur", "rot", "scale", "fade"}),
+    "loop": ("AnimLoop", {"bob", "sway", "pulse", "spin", "period"}),
+}
+EASES = ("Back", "Quad", "Quint", "Cubic", "Sine", "Elastic", "Bounce", "Linear", "Exponential")
+
+
+def anim_string(kind: str, value, path: str) -> str:
+    """{"from": [0, -600], "delay": 0.2} -> "from=0,-600;delay=0.2" (read by UIRuntime and the storyboard)."""
+    attr, allowed = ANIM_KEYS[kind]
+    if not isinstance(value, dict):
+        raise SpecError(path, f"{kind} must be an object; keys: {', '.join(sorted(allowed))}")
+    parts = []
+    for k, v in value.items():
+        if k not in allowed:
+            raise SpecError(path, f"unknown {kind} key {k!r}; use {', '.join(sorted(allowed))}")
+        if k in ("from", "to"):
+            if not (isinstance(v, list) and len(v) == 2):
+                raise SpecError(path, f"{kind}.{k} is an [x, y] pixel offset, e.g. [0, -700]")
+            v = f"{float(v[0]):g},{float(v[1]):g}"
+        elif k == "ease":
+            if v not in EASES:
+                raise SpecError(path, f"ease must be one of {', '.join(EASES)}")
+        elif k == "reveal":
+            if v not in ("down", "right"):
+                raise SpecError(path, "reveal must be \"down\" or \"right\"")
+        elif isinstance(v, bool):
+            v = "true" if v else "false"
+        elif isinstance(v, (int, float)):
+            v = f"{float(v):g}"
+        else:
+            raise SpecError(path, f"{kind}.{k} must be a number")
+        parts.append(f"{k}={v}")
+    return ";".join(parts)
+
+
+def parse_anim(text) -> dict:
+    out = {}
+    for pair in str(text or "").split(";"):
+        if "=" in pair:
+            k, v = pair.split("=", 1)
+            out[k.strip()] = v.strip()
+    return out
 RUNTIME_ATTRS = {"autoscale": "AutoScale", "motion": "Motion", "opens": "Opens", "closes": "Closes",
                  "toggles": "Toggles", "startHidden": "StartHidden"}
 RUNTIME_SCRIPT = SKILL_ROOT / "assets" / "runtime" / "UIRuntime.client.luau"
@@ -770,6 +814,10 @@ def _build(raw: dict, tokens: Tokens, path: str, base_dir: Path | None, problems
                     node.attrs = dict(value)
                 elif key in ("maxText", "minText"):
                     text_limits[key] = value
+                elif key in ANIM_KEYS:
+                    if cls not in GUI_OBJECTS:
+                        raise SpecError(ppath, f"{key!r} only applies to GuiObjects, not {cls}")
+                    node.attrs[ANIM_KEYS[key][0]] = anim_string(key, value, ppath)
                 elif key in RUNTIME_ATTRS:
                     if cls not in GUI_OBJECTS:
                         raise SpecError(ppath, f"{key!r} only applies to GuiObjects, not {cls}")
@@ -926,7 +974,8 @@ def from_dict(raw: dict, source: Path | None = None) -> Spec:
 
 def _attach_runtime(root: Node, meta: dict, problems: list):
     """Add the UIRuntime LocalScript when the tree uses autoscale / motion / opens / closes / toggles."""
-    uses = [n for n in root.walk() if any(a in n.attrs for a in RUNTIME_ATTRS.values())]
+    wanted = set(RUNTIME_ATTRS.values()) | {v[0] for v in ANIM_KEYS.values()}
+    uses = [n for n in root.walk() if any(a in n.attrs for a in wanted)]
     if not uses or root.cls != "ScreenGui":
         return
     names = {n.name for n in root.walk()}

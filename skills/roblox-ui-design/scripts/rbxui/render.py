@@ -298,6 +298,11 @@ class Renderer:
             self.paint(c, layer, clip)
 
     def paint(self, node: Node, layer: Layer, clip):
+        if L.ANIM["t"] is not None and not getattr(node, "_anim_done", False):
+            st = L.anim_state(node, L.ANIM["t"])
+            if st is not None:
+                self._paint_animated(node, layer, clip, st)
+                return
         rot = effective(node, "Rotation") or 0.0
         if abs(rot) > 0.01:
             self._paint_rotated(node, layer, clip, rot)
@@ -327,6 +332,44 @@ class Renderer:
                 xs0.append(x), ys0.append(y), xs1.append(x + w), ys1.append(y + h)
         m = int(margin * self.k)
         return int(min(xs0)) - m, int(min(ys0)) - m, int(max(xs1)) + m + 1, int(max(ys1)) + m + 1
+
+    def _paint_animated(self, node: Node, layer: Layer, clip, st: dict):
+        """One frame of an enter/leave animation: offset, scale, rotation, opacity, unroll."""
+        if st["gone"] or st["alpha"] <= 0.01 or st["scale"] <= 0.01 or (st["reveal"] and st["reveal_frac"] <= 0.005):
+            return
+        bx0, by0, bx1, by1 = self._subtree_bounds(node, 48)
+        if (bx1 - bx0) * (by1 - by0) > 60_000_000:
+            return
+        tmp = Layer(bx0, by0, bx1 - bx0, by1 - by0)
+        node._anim_done = True
+        try:
+            self.paint(node, tmp, (bx0, by0, bx1, by1))
+        finally:
+            node._anim_done = False
+        x, y, w, h = node.rect
+        if st["reveal"]:
+            rx0, ry0 = int(x) - bx0, int(y) - by0
+            if st["reveal"] == "down":
+                cut = ry0 + int(h * st["reveal_frac"])
+                tmp.a[max(0, cut):, :, :] = 0
+            else:
+                cut = rx0 + int(w * st["reveal_frac"])
+                tmp.a[:, max(0, cut):, :] = 0
+        img = Image.fromarray((np.clip(tmp.a, 0, 1) * 255 + 0.5).astype(np.uint8), "RGBA")
+        cx, cy = x + w / 2 - bx0, y + h / 2 - by0
+        if abs(st["scale"] - 1) > 0.005:
+            nw, nh = max(1, int(img.width * st["scale"])), max(1, int(img.height * st["scale"]))
+            scaled = img.resize((nw, nh), Image.BICUBIC)
+            out = Image.new("RGBA", img.size, (0, 0, 0, 0))
+            out.paste(scaled, (int(cx - cx * st["scale"]), int(cy - cy * st["scale"])))
+            img = out
+        if abs(st["rot"]) > 0.05:
+            img = img.rotate(-st["rot"], resample=Image.BICUBIC, center=(cx, cy))
+        tmp.a = np.asarray(img, dtype=F) / 255
+        unit = node.parent.px if node.parent is not None and hasattr(node.parent, "px") else self.k
+        tmp.ox += int(round(st["dx"] * unit))
+        tmp.oy += int(round(st["dy"] * unit))
+        layer.composite(tmp, opacity=st["alpha"], clip=clip)
 
     def _paint_rotated(self, node: Node, layer: Layer, clip, rot: float):
         bx0, by0, bx1, by1 = self._subtree_bounds(node)

@@ -1,23 +1,22 @@
 #!/usr/bin/env python3
-"""Draw UI image assets that Roblox instances cannot make on their own.
+"""Drawing toolkit for Roblox UI art.
 
-UICorner, UIStroke, UIGradient and UIShadow cover rounded rectangles. Everything
-else a designer reaches for is an image: textures, cut-corner and skewed shapes,
-ribbons, sunbursts, vignettes, material frames, and icons. This script draws
-them as PNGs, records them in <out-dir>/assets.json, and prints the spec snippet
-that uses each one.
+Two parts:
 
-    python3 scripts/draw_assets.py list
-    python3 scripts/draw_assets.py texture studs  -o ui/assets/studs.png
-    python3 scripts/draw_assets.py shape chamfer  -o ui/assets/plate.png --cut 18 --border 3
-    python3 scripts/draw_assets.py material wood  -o ui/assets/wood.png --color "#8A5A34"
-    python3 scripts/draw_assets.py icon coin      -o ui/assets/coin.png --style toon --color "#FFC531"
+1. A library for drawing a game's own art in Python: Shape (a supersampled vector canvas), paint()
+   (shading, outline, rim light), layer(), glow(), plate() (tintable 9-slice plates), lettering()
+   (titles as art in any font), tile_noise(), save() (alpha-bleed + assets.json + spec snippet).
+   Import it:  sys.path.insert(0, "<skill>/scripts"); import draw_assets as da
+
+2. A small command line for generic building blocks that are the same in every game:
+
+    python3 scripts/draw_assets.py texture stripes -o ui/assets/stripes.png
     python3 scripts/draw_assets.py overlay vignette -o ui/assets/vignette.png
-    python3 scripts/draw_assets.py batch ui/assets "icon coin --style toon --color #FFC531" "texture stripes" "icon gem --style toon --color #B66BFF --name gem-purple"
-    python3 scripts/draw_assets.py sheet -o ui/assets/contact.png      # look at everything this dir holds
+    python3 scripts/draw_assets.py material wood -o ui/assets/wood.png --color "#8A5A34"
+    python3 scripts/draw_assets.py batch ui/assets "texture noise" "overlay glow" "material stone"
+    python3 scripts/draw_assets.py sheet -o ui/assets/_sheet.png     # contact sheet of a folder
 
-White / greyscale assets are meant to be tinted with ImageColor3, so one upload
-serves every colour in the palette. Keep each image at or under 1024x1024.
+There is deliberately no stock icon or shape catalogue. Keep each image at or under 1024x1024.
 """
 from __future__ import annotations
 
@@ -253,71 +252,8 @@ def _shade_shape(mask: np.ndarray, border: int, bevel: bool) -> Image.Image:
     return Image.fromarray(arr, "RGBA")
 
 
-def shape(kind: str, w: int, h: int, cut: int, border: int, bevel: bool) -> tuple:
-    if kind == "chamfer":
-        c = cut
-        pts = [(c, 0), (w - c, 0), (w, c), (w, h - c), (w - c, h), (c, h), (0, h - c), (0, c)]
-        m = c + border + 4
-        slice_center = [m, m, w - m, h - m]
-        note = "Cut-corner plate (sci-fi, tactical, military). 9-slice."
-    elif kind == "chamfer2":
-        c = cut
-        pts = [(c, 0), (w, 0), (w, h - c), (w - c, h), (0, h), (0, c)]
-        m = c + border + 4
-        slice_center = [m, m, w - m, h - m]
-        note = "Two opposite corners cut (anime, sci-fi cards). 9-slice."
-    elif kind == "skew":
-        c = cut
-        pts = [(c, 0), (w, 0), (w - c, h), (0, h)]
-        slice_center = [c + border + 4, h // 2 - 1, w - c - border - 4, h // 2 + 1]
-        note = ("Parallelogram (sport, racing, anime, action). Slices horizontally only: keep the ImageLabel "
-                "at this asset's height times SliceScale.")
-    elif kind == "ribbon":
-        c = cut
-        pts = [(0, 0), (w, 0), (w - c, h / 2), (w, h), (0, h), (c, h / 2)]
-        slice_center = [c + border + 6, h // 2 - 1, w - c - border - 6, h // 2 + 1]
-        note = "Notched title ribbon. Slices horizontally only."
-    elif kind == "tab":
-        c = cut
-        pts = [(c, 0), (w - c, 0), (w, h), (0, h)]
-        slice_center = [c + border + 4, h // 2 - 1, w - c - border - 4, h // 2 + 1]
-        note = "Trapezoid tab / header plate. Slices horizontally only."
-    elif kind == "hexagon":
-        c = h / 2 * 0.58
-        pts = [(c, 0), (w - c, 0), (w, h / 2), (w - c, h), (c, h), (0, h / 2)]
-        slice_center = [int(c) + border + 4, h // 2 - 1, w - int(c) - border - 4, h // 2 + 1]
-        note = "Hexagonal plate. Slices horizontally only."
-    elif kind == "burst":
-        n = 14
-        pts = []
-        for i in range(n * 2):
-            rad = (min(w, h) / 2) * (1.0 if i % 2 == 0 else 0.84)
-            a = math.pi * i / n - math.pi / 2
-            pts.append((w / 2 + math.cos(a) * rad, h / 2 + math.sin(a) * rad))
-        slice_center = None
-        note = "Starburst seal for NEW / SALE / -50% tags. Use ScaleType Fit and rotate the label 8-12 degrees."
-    elif kind == "bracket":
-        t = max(2, border or 3)
-        ln = cut * 2
-        img = Image.new("L", (w * SS, h * SS), 0)
-        d = ImageDraw.Draw(img)
-        for (x0, y0, sx, sy) in ((0, 0, 1, 1), (w, 0, -1, 1), (0, h, 1, -1), (w, h, -1, -1)):
-            d.rectangle(sorted_box(x0 * SS, y0 * SS, (x0 + sx * ln) * SS, (y0 + sy * t) * SS), fill=255)
-            d.rectangle(sorted_box(x0 * SS, y0 * SS, (x0 + sx * t) * SS, (y0 + sy * ln) * SS), fill=255)
-        mask = np.asarray(img.resize((w, h), Image.LANCZOS), dtype=np.float32) / 255
-        m = ln + 2
-        return rgba((1, 1, 1), mask), [m, m, w - m, h - m], "Corner brackets with a transparent centre (HUD frames, target boxes). 9-slice."
-    else:
-        raise SystemExit(f"unknown shape {kind!r}; choose from {', '.join(SHAPES)}")
-    mask = _poly_mask(w, h, pts)
-    return _shade_shape(mask, border, bevel), slice_center, note
-
-
 def sorted_box(x0, y0, x1, y1):
     return [min(x0, x1), min(y0, y1), max(x0, x1), max(y0, y1)]
-
-
-SHAPES = ["chamfer", "chamfer2", "skew", "ribbon", "tab", "hexagon", "burst", "bracket"]
 
 
 # ------------------------------------------------------------------ materials
@@ -456,11 +392,32 @@ class Glyph:
         self.circle(cx, cy, r + width / 2)
         self.circle(cx, cy, r - width / 2, fill=0)
 
+    def curve(self, p0, p1, p2, p3=None, width=6, fill=255):
+        """A stroked bezier (3 or 4 control points)."""
+        self.line(bezier_points(p0, p1, p2, p3), width, fill)
+
+    def blob(self, *controls, fill=255):
+        """A filled closed shape through bezier segments: blob((p0, c, p1), (p1, c, p2), ...)."""
+        pts = []
+        for seg in controls:
+            pts += bezier_points(*seg)
+        self.poly(pts, fill)
+
     def mask(self) -> np.ndarray:
         return np.asarray(self.img.resize((self.size, self.size), Image.LANCZOS), dtype=np.float32) / 255
 
 
-def _star(cx, cy, r_out, r_in, n=5, rot=-90):
+Shape = Glyph
+
+
+def toonify(mask: np.ndarray, base, outline_px: float, pad: int) -> Image.Image:
+    """Cartoon shading with a same-hue outline and a small hard drop. See paint() for every knob."""
+    return paint(mask, base, outline_px=outline_px, lip=outline_px * 0.9, light=0.85, shade=0.75, gradient=1.25, pad=pad)
+
+
+# ------------------------------------------------------------------ toolkit for bespoke art
+
+def star_points(cx, cy, r_out, r_in, n=5, rot=-90):
     pts = []
     for i in range(n * 2):
         r = r_out if i % 2 == 0 else r_in
@@ -469,353 +426,191 @@ def _star(cx, cy, r_out, r_in, n=5, rot=-90):
     return pts
 
 
-def _i_coin(g):
-    g.circle(50, 50, 40)
-    g.ring(50, 50, 29, 4.5) if False else None
-    g.circle(50, 50, 31, fill=0)
-    g.circle(50, 50, 26)
-    g.poly(_star(50, 51, 15, 6.5), fill=0)
-
-
-def _i_gem(g):
-    g.poly([(26, 20), (74, 20), (92, 42), (50, 88), (8, 42)])
-    for a, b in (((8, 42), (92, 42)), ((26, 20), (38, 42)), ((74, 20), (62, 42)), ((38, 42), (50, 88)), ((62, 42), (50, 88)), ((50, 20), (38, 42)), ((50, 20), (62, 42))):
-        g.line([a, b], 2.6, fill=0)
-
-
-def _i_star(g):
-    g.poly(_star(50, 53, 44, 19))
-    g.line(_star(50, 53, 44, 19) + [_star(50, 53, 44, 19)[0]], 6)
-
-
-def _i_heart(g):
-    g.circle(31, 37, 21)
-    g.circle(69, 37, 21)
-    g.poly([(11.5, 46), (88.5, 46), (50, 88)])
-    g.line([(14, 49), (50, 86), (86, 49)], 5)
-
-
-def _i_gear(g):
-    for i in range(8):
-        a = math.radians(i * 45)
-        g.line([(50 + math.cos(a) * 26, 50 + math.sin(a) * 26), (50 + math.cos(a) * 40, 50 + math.sin(a) * 40)], 13)
-    g.circle(50, 50, 30)
-    g.circle(50, 50, 13, fill=0)
-
-
-def _i_cart(g):
-    g.line([(8, 20), (22, 20), (33, 62), (78, 62)], 7)
-    g.poly([(24, 28), (92, 28), (82, 56), (31, 56)])
-    g.circle(40, 78, 8)
-    g.circle(72, 78, 8)
-
-
-def _i_bag(g):
-    g.arc(50, 34, 16, 180, 360, 7)
-    g.rrect(16, 34, 84, 88, 12)
-    g.rrect(34, 52, 66, 60, 4, fill=0)
-
-
-def _i_home(g):
-    g.poly([(50, 12), (92, 50), (8, 50)])
-    g.line([(50, 14), (90, 50)], 5)
-    g.line([(50, 14), (10, 50)], 5)
-    g.rrect(20, 46, 80, 88, 5)
-    g.rrect(41, 60, 59, 88, 3, fill=0)
-
-
-def _i_lock(g):
-    g.arc(50, 40, 18, 180, 360, 9)
-    g.line([(32, 40), (32, 50)], 9)
-    g.line([(68, 40), (68, 50)], 9)
-    g.rrect(18, 46, 82, 90, 10)
-    g.circle(50, 64, 7, fill=0)
-    g.line([(50, 64), (50, 76)], 5, fill=0)
-
-
-def _i_check(g):
-    g.line([(16, 52), (40, 76), (84, 26)], 15)
-
-
-def _i_close(g):
-    g.line([(22, 22), (78, 78)], 16)
-    g.line([(78, 22), (22, 78)], 16)
-
-
-def _i_plus(g):
-    g.line([(50, 16), (50, 84)], 17)
-    g.line([(16, 50), (84, 50)], 17)
-
-
-def _i_trophy(g):
-    g.arc(26, 30, 14, 90, 270, 6)
-    g.arc(74, 30, 14, -90, 90, 6)
-    g.poly([(26, 12), (74, 12), (72, 40), (60, 56), (40, 56), (28, 40)])
-    g.circle(50, 40, 22)
-    g.rrect(24, 10, 76, 22, 4)
-    g.rrect(45, 56, 55, 72, 2)
-    g.rrect(28, 72, 72, 86, 5)
-
-
-def _i_crown(g):
-    g.poly([(12, 34), (32, 54), (50, 20), (68, 54), (88, 34), (80, 80), (20, 80)])
-    for cx, cy in ((12, 32), (50, 18), (88, 32)):
-        g.circle(cx, cy, 7)
-    g.rrect(18, 72, 82, 86, 5)
-
-
-def _i_bolt(g):
-    g.poly([(58, 6), (20, 56), (44, 56), (36, 94), (80, 40), (54, 40)])
-    g.line([(58, 8), (22, 55), (45, 55), (37, 92), (78, 41), (53, 41), (58, 8)], 4)
-
-
-def _i_gift(g):
-    g.rrect(14, 44, 86, 90, 7)
-    g.rrect(8, 28, 92, 46, 6)
-    g.rrect(44, 28, 56, 90, 0, fill=0)
-    g.arc(36, 22, 10, 0, 360, 6)
-    g.arc(64, 22, 10, 0, 360, 6)
-
-
-def _i_clock(g):
-    g.circle(50, 50, 40)
-    g.circle(50, 50, 31, fill=0)
-    g.line([(50, 30), (50, 50), (64, 60)], 7)
-
-
-def _i_sword(g):
-    g.poly([(78, 8), (92, 8), (92, 22), (42, 72), (28, 58)])
-    g.line([(20, 50), (50, 80)], 9)
-    g.line([(30, 70), (14, 86)], 10)
-    g.circle(12, 88, 7)
-
-
-def _i_shield(g):
-    g.poly([(50, 8), (86, 20), (86, 50), (50, 92), (14, 50), (14, 20)])
-    g.line([(50, 10), (84, 21), (84, 50), (50, 90), (16, 50), (16, 21), (50, 10)], 5)
-    g.poly([(50, 24), (72, 31), (72, 50), (50, 76)], fill=0)
-
-
-def _i_skull(g):
-    g.circle(50, 42, 34)
-    g.rrect(30, 56, 70, 88, 8)
-    g.circle(36, 44, 10, fill=0)
-    g.circle(64, 44, 10, fill=0)
-    g.poly([(50, 54), (44, 66), (56, 66)], fill=0)
-    for x in (42, 50, 58):
-        g.line([(x, 78), (x, 90)], 2.6, fill=0)
-
-
-def _i_key(g):
-    g.ring(30, 50, 16, 10)
-    g.line([(48, 50), (90, 50)], 10)
-    g.line([(72, 50), (72, 66)], 9)
-    g.line([(86, 50), (86, 64)], 9)
-
-
-def _i_eye(g):
-    g.poly([(4, 50), (26, 26), (50, 18), (74, 26), (96, 50), (74, 74), (50, 82), (26, 74)])
-    g.ellipse(50, 50, 44, 30)
-    g.circle(50, 50, 20, fill=0)
-    g.circle(50, 50, 10)
-
-
-def _i_flame(g):
-    g.poly([(50, 4), (66, 30), (80, 44), (84, 62), (50, 94), (16, 62), (24, 40), (36, 46), (40, 22)])
-    g.circle(50, 64, 30)
-    g.poly([(50, 46), (62, 66), (50, 86), (38, 66)], fill=0)
-    g.circle(50, 72, 12, fill=0)
-
-
-def _i_leaf(g):
-    g.poly([(88, 12), (86, 50), (62, 82), (30, 84), (16, 70), (18, 40), (50, 16)])
-    g.circle(46, 54, 32)
-    g.line([(12, 90), (40, 60), (70, 30)], 5, fill=0)
-
-
-def _i_egg(g):
-    g.ellipse(50, 56, 32, 38)
-    g.ellipse(50, 42, 25, 34)
-    g.line([(20, 54), (32, 46), (42, 56), (52, 46), (62, 56), (72, 46), (80, 54)], 4.5, fill=0)
-
-
-def _i_paw(g):
-    g.ellipse(50, 66, 24, 20)
-    g.circle(34, 60, 10)
-    g.circle(66, 60, 10)
-    for cx, cy in ((20, 42), (40, 24), (60, 24), (80, 42)):
-        g.ellipse(cx, cy, 10, 12)
-
-
-def _i_pin(g):
-    g.circle(50, 38, 28)
-    g.poly([(26, 52), (74, 52), (50, 94)])
-    g.circle(50, 38, 11, fill=0)
-
-
-def _i_user(g):
-    g.circle(50, 30, 20)
-    g.circle(50, 86, 36)
-    g.rrect(0, 88, 100, 100, 0, fill=0)
-
-
-def _i_users(g):
-    g.circle(70, 34, 15)
-    g.circle(70, 84, 26)
-    g.circle(36, 30, 19, fill=0) if False else None
-    g.circle(36, 30, 18)
-    g.circle(36, 86, 32)
-    g.rrect(0, 88, 100, 100, 0, fill=0)
-
-
-def _i_chat(g):
-    g.rrect(10, 14, 90, 70, 16)
-    g.poly([(26, 62), (26, 90), (50, 66)])
-    for x in (32, 50, 68):
-        g.circle(x, 42, 6, fill=0)
-
-
-def _i_sound(g):
-    g.poly([(10, 38), (30, 38), (54, 16), (54, 84), (30, 62), (10, 62)])
-    g.arc(54, 50, 18, -50, 50, 7)
-    g.arc(54, 50, 34, -50, 50, 7)
-
-
-def _i_music(g):
-    g.line([(38, 72), (38, 20), (80, 12), (80, 62)], 8)
-    g.ellipse(28, 74, 14, 11)
-    g.ellipse(70, 64, 14, 11)
-
-
-def _i_trade(g):
-    g.line([(14, 34), (78, 34)], 10)
-    g.poly([(70, 14), (94, 34), (70, 54)])
-    g.line([(86, 68), (22, 68)], 10)
-    g.poly([(30, 48), (6, 68), (30, 88)])
-
-
-def _i_menu(g):
-    for y in (26, 50, 74):
-        g.line([(16, 30 if False else y), (84, y)], 12)
-
-
-def _i_play(g):
-    g.poly([(24, 12), (88, 50), (24, 88)])
-    g.line([(26, 14), (86, 50), (26, 86), (26, 14)], 6)
-
-
-def _i_arrow(g):
-    g.line([(14, 50), (78, 50)], 14)
-    g.line([(52, 22), (82, 50), (52, 78)], 14)
-
-
-def _i_info(g):
-    g.circle(50, 50, 42)
-    g.circle(50, 28, 7, fill=0)
-    g.line([(50, 44), (50, 74)], 10, fill=0)
-
-
-def _i_warn(g):
-    g.poly([(50, 8), (94, 86), (6, 86)])
-    g.line([(50, 12), (90, 84), (10, 84), (50, 12)], 6)
-    g.line([(50, 36), (50, 60)], 9, fill=0)
-    g.circle(50, 74, 5.5, fill=0)
-
-
-def _i_backpack(g):
-    g.arc(50, 22, 12, 180, 360, 6)
-    g.rrect(18, 22, 82, 90, 16)
-    g.rrect(30, 54, 70, 80, 6, fill=0)
-    g.rrect(34, 58, 66, 76, 4)
-    g.rrect(30, 34, 70, 42, 4, fill=0)
-
-
-def _i_potion(g):
-    g.rrect(40, 8, 60, 16, 3)
-    g.rrect(43, 14, 57, 40, 0)
-    g.circle(50, 62, 30)
-    g.arc(50, 62, 20, 20, 160, 5, fill=0)
-
-
-def _i_book(g):
-    g.rrect(12, 14, 88, 86, 8)
-    g.rrect(47, 14, 53, 86, 0, fill=0)
-    for y in (32, 46, 60):
-        g.line([(22, y), (40, y)], 4, fill=0)
-        g.line([(60, y), (78, y)], 4, fill=0)
-
-
-def _i_flag(g):
-    g.line([(22, 10), (22, 92)], 8)
-    g.poly([(26, 14), (84, 22), (64, 38), (84, 56), (26, 56)])
-
-
-def _i_target(g):
-    g.ring(50, 50, 36, 9)
-    g.ring(50, 50, 18, 8)
-    g.circle(50, 50, 6)
-
-
-ICONS = {
-    "coin": _i_coin, "gem": _i_gem, "star": _i_star, "heart": _i_heart, "gear": _i_gear, "cart": _i_cart,
-    "bag": _i_bag, "backpack": _i_backpack, "home": _i_home, "lock": _i_lock, "check": _i_check,
-    "close": _i_close, "plus": _i_plus, "trophy": _i_trophy, "crown": _i_crown, "bolt": _i_bolt,
-    "gift": _i_gift, "clock": _i_clock, "sword": _i_sword, "shield": _i_shield, "skull": _i_skull,
-    "key": _i_key, "eye": _i_eye, "flame": _i_flame, "leaf": _i_leaf, "egg": _i_egg, "paw": _i_paw,
-    "pin": _i_pin, "user": _i_user, "users": _i_users, "chat": _i_chat, "sound": _i_sound,
-    "music": _i_music, "trade": _i_trade, "menu": _i_menu, "play": _i_play, "arrow": _i_arrow,
-    "info": _i_info, "warn": _i_warn, "potion": _i_potion, "book": _i_book, "flag": _i_flag,
-    "target": _i_target,
-}
-
-
-def toonify(mask: np.ndarray, base, outline_px: float, pad: int) -> Image.Image:
-    """Shade a silhouette like a cartoon game icon: dark same-hue outline, top-lit body, one rim light, hard drop."""
+def bezier_points(p0, p1, p2, p3=None, steps=24):
+    """Points along a quadratic (3 control points) or cubic (4) bezier, for Glyph.poly / Glyph.line."""
+    out = []
+    for i in range(steps + 1):
+        t = i / steps
+        if p3 is None:
+            x = (1 - t) ** 2 * p0[0] + 2 * (1 - t) * t * p1[0] + t * t * p2[0]
+            y = (1 - t) ** 2 * p0[1] + 2 * (1 - t) * t * p1[1] + t * t * p2[1]
+        else:
+            x = (1 - t) ** 3 * p0[0] + 3 * (1 - t) ** 2 * t * p1[0] + 3 * (1 - t) * t * t * p2[0] + t ** 3 * p3[0]
+            y = (1 - t) ** 3 * p0[1] + 3 * (1 - t) ** 2 * t * p1[1] + 3 * (1 - t) * t * t * p2[1] + t ** 3 * p3[1]
+        out.append((x, y))
+    return out
+
+
+def _blur(a: np.ndarray, r: float) -> np.ndarray:
+    return np.asarray(Image.fromarray((np.clip(a, 0, 1) * 255).astype(np.uint8), "L").filter(ImageFilter.GaussianBlur(r)), dtype=np.float32) / 255
+
+
+def paint(mask: np.ndarray, color, outline=None, outline_px: float = 0, light: float = 0.8, shade: float = 0.7,
+          gradient: float = 1.2, lip: float = 0, pad: int = None) -> Image.Image:
+    """Shade a silhouette mask into a finished piece of art. Every knob is optional:
+    color       base colour (r, g, b) 0..1, e.g. C.parse_hex("#E8563A")
+    gradient    top-to-bottom shading strength in shade() steps (0 = flat fill)
+    light/shade strength 0..1 of the top rim light and bottom rim shade (0 = none)
+    outline     outline colour (default: a deep shade of `color`); outline_px its width (0 = no outline)
+    lip         extra pixels of outline dropped below the shape, like a hard shadow
+    Returns an RGBA image padded so the outline fits. Paint parts separately and stack them with layer()."""
     h, w = mask.shape
+    pad = int(outline_px + lip + 4) if pad is None else pad
     big = np.zeros((h + pad * 2, w + pad * 2), dtype=np.float32)
-    big[pad : pad + h, pad : pad + w] = mask
+    big[pad:pad + h, pad:pad + w] = mask
     H, W = big.shape
-    m_img = Image.fromarray((big * 255).astype(np.uint8), "L")
-    k = int(outline_px) * 2 + 1
-    out_mask = np.asarray(m_img.filter(ImageFilter.MaxFilter(k)).filter(ImageFilter.GaussianBlur(0.8)), dtype=np.float32) / 255
-    out_mask = np.clip(out_mask * 1.6, 0, 1)
-    drop = np.roll(out_mask, int(outline_px * 0.9), axis=0)
-    d = max(2, int(h * 0.045))
-    up = np.roll(big, d, axis=0)
-    down = np.roll(big, -d, axis=0)
-    blur = lambda a, r: np.asarray(Image.fromarray((np.clip(a, 0, 1) * 255).astype(np.uint8), "L").filter(ImageFilter.GaussianBlur(r)), dtype=np.float32) / 255
-    rim_light = blur(np.clip(big - up, 0, 1), 1.0)
-    rim_shade = blur(np.clip(big - down, 0, 1), 1.6)
     yy = np.linspace(0, 1, H, dtype=np.float32)[:, None] * np.ones((1, W), dtype=np.float32)
-    top, mid, bot = (np.array(C.shade(base, s), dtype=np.float32) for s in (1.2, 0.0, -1.3))
-    body = np.where(yy[..., None] < 0.5, top + (mid - top) * (yy[..., None] * 2), mid + (bot - mid) * ((yy[..., None] - 0.5) * 2))
-    light = np.array(C.shade(base, 3.2), dtype=np.float32)
-    dark = np.array(C.shade(base, -2.6), dtype=np.float32)
-    body = body * (1 - rim_shade[..., None] * 0.75) + dark * rim_shade[..., None] * 0.75
-    body = body * (1 - rim_light[..., None] * 0.85) + light * rim_light[..., None] * 0.85
-    line = np.array(C.shade(base, -5.2), dtype=np.float32)
+    top, mid, bot = (np.array(C.shade(color, s), dtype=np.float32) for s in (gradient, 0.0, -gradient * 1.1))
+    y3 = yy[..., None]
+    body = np.where(y3 < 0.5, top + (mid - top) * (y3 * 2), mid + (bot - mid) * ((y3 - 0.5) * 2))
+    d = max(2, int(h * 0.045))
+    if shade > 0:
+        rim = _blur(np.clip(big - np.roll(big, -d, axis=0), 0, 1), 1.6)[..., None] * shade
+        body = body * (1 - rim) + np.array(C.shade(color, -2.6), dtype=np.float32) * rim
+    if light > 0:
+        rim = _blur(np.clip(big - np.roll(big, d, axis=0), 0, 1), 1.0)[..., None] * light
+        body = body * (1 - rim) + np.array(C.shade(color, 3.2), dtype=np.float32) * rim
     arr = np.zeros((H, W, 4), dtype=np.float32)
-    a_out = np.clip(np.maximum(out_mask, drop), 0, 1)
-    arr[..., :3] = line
-    arr[..., 3] = a_out
+    if outline_px > 0:
+        k = int(outline_px) * 2 + 1
+        m_img = Image.fromarray((big * 255).astype(np.uint8), "L")
+        om = np.asarray(m_img.filter(ImageFilter.MaxFilter(k)).filter(ImageFilter.GaussianBlur(0.8)), dtype=np.float32) / 255
+        om = np.clip(om * 1.6, 0, 1)
+        if lip > 0:
+            om = np.maximum(om, np.roll(om, int(lip), axis=0))
+        arr[..., :3] = np.array(outline if outline is not None else C.shade(color, -5.2), dtype=np.float32)
+        arr[..., 3] = om
     arr[..., :3] = arr[..., :3] * (1 - big[..., None]) + body * big[..., None]
     arr[..., 3] = np.maximum(arr[..., 3], big)
     return Image.fromarray((np.clip(arr, 0, 1) * 255).astype(np.uint8), "RGBA")
 
 
-def icon(name: str, size: int, style: str, base) -> Image.Image:
-    if name not in ICONS:
-        raise SystemExit(f"unknown icon {name!r}; choose from {', '.join(sorted(ICONS))}")
-    inner = int(size * (0.80 if style == "toon" else 0.9))
-    g = Glyph(inner)
-    ICONS[name](g)
-    mask = g.mask()
-    pad = (size - inner) // 2
-    if style == "toon":
-        return toonify(mask, base, max(2.0, size * 0.035), pad)
-    big = np.zeros((size, size), dtype=np.float32)
-    big[pad : pad + inner, pad : pad + inner] = mask
-    return rgba((1, 1, 1), big)
+def layer(*images, size=None, align="center") -> Image.Image:
+    """Stack RGBA images back to front on one canvas (largest size by default, each centred)."""
+    w = size[0] if size else max(i.width for i in images)
+    h = size[1] if size else max(i.height for i in images)
+    out = Image.new("RGBA", (w, h), (0, 0, 0, 0))
+    for im in images:
+        tmp = Image.new("RGBA", (w, h), (0, 0, 0, 0))
+        tmp.paste(im, ((w - im.width) // 2, (h - im.height) // 2))
+        out = Image.alpha_composite(out, tmp)
+    return out
+
+
+def glow(mask: np.ndarray, color, radius: float, strength: float = 1.0) -> Image.Image:
+    """A soft halo in `color` around a mask (same size as the mask; put it behind the art)."""
+    return rgba(color, np.clip(_blur(mask, radius) * strength, 0, 1))
+
+
+def plate(mask: np.ndarray, border: int = 3, bevel: bool = True) -> Image.Image:
+    """Greyscale shaded plate from any mask, tintable with ImageColor3 (one upload, every colour)."""
+    return _shade_shape(mask, border, bevel)
+
+
+FONT_DIRS = [Path(__file__).resolve().parent.parent / "assets" / "fonts", Path.home() / ".cache" / "rbxui-fonts"]
+
+
+def font_path(name: str) -> Path:
+    """Find a .ttf for lettering: a path, a bundled preview font (e.g. "Bangers"), or a Google Fonts family
+    name (e.g. "Bungee", "Rye", "Pirata One"), which is downloaded once and cached."""
+    if Path(name).exists():
+        return Path(name)
+    key = name.replace(" ", "").lower()
+    for d in FONT_DIRS:
+        if d.exists():
+            for f in d.glob("*.ttf"):
+                if f.stem.lower() == key:
+                    return f
+    import urllib.parse
+    import urllib.request
+
+    cache = FONT_DIRS[1]
+    cache.mkdir(parents=True, exist_ok=True)
+    compact = name.replace(" ", "")
+    for lic in ("ofl", "apache", "ufl"):
+        for fname in (f"{compact}-Regular.ttf", f"{compact}[wght].ttf", f"{compact}-Bold.ttf", f"{compact}.ttf"):
+            url = f"https://raw.githubusercontent.com/google/fonts/main/{lic}/{key}/{urllib.parse.quote(fname)}"
+            try:
+                data = urllib.request.urlopen(url, timeout=20).read()
+            except Exception:
+                continue
+            out = cache / f"{compact}.ttf"
+            out.write_bytes(data)
+            return out
+    bundled = sorted(f.stem for f in FONT_DIRS[0].glob("*.ttf"))
+    raise SystemExit(f"font {name!r} not found locally or on Google Fonts. Bundled: {', '.join(bundled)}")
+
+
+def lettering(text: str, font: str, size: int = 160, fill="#FFFFFF", fill_bottom=None, strokes=(), extrude: int = 0,
+              extrude_color=None, arc: float = 0.0, slant: float = 0.0, highlight: float = 0.35, spacing: int = 0) -> Image.Image:
+    """Draw a title as art instead of a TextLabel: any font, layered outlines, a 3D drop, an arch.
+    fill / fill_bottom   top and bottom colours of the letters (hex); one colour = flat
+    strokes              outlines from inside out: [("#4A2618", 10), ("#FFFFFF", 6)]
+    extrude              pixels of solid depth below the letters (in extrude_color or the outer stroke colour)
+    arc                  arch height in pixels (positive bows upward in the middle); slant: shear, e.g. 0.2
+    highlight            strength 0..1 of a light band across the top of the letters
+    Upload the PNG and show it in an ImageLabel with ScaleType Fit. Use for logos, headers, big numbers."""
+    from PIL import ImageFont
+
+    f = ImageFont.truetype(str(font_path(font)), size)
+    total = sum(px for _, px in strokes)
+    pad = total + extrude + int(abs(arc)) + 12
+    probe = ImageDraw.Draw(Image.new("L", (8, 8)))
+    widths = [probe.textlength(ch, font=f) + spacing for ch in text]
+    asc, desc = f.getmetrics()
+    W, H = int(sum(widths)) + pad * 2 + int(abs(slant) * size), asc + desc + pad * 2
+
+    def text_mask(stroke_w: int) -> np.ndarray:
+        img = Image.new("L", (W, H), 0)
+        d = ImageDraw.Draw(img)
+        x = pad + (abs(slant) * size if slant > 0 else 0)
+        for ch, wd in zip(text, widths):
+            d.text((x, pad), ch, font=f, fill=255, stroke_width=stroke_w, stroke_fill=255)
+            x += wd
+        m = np.asarray(img, dtype=np.float32) / 255
+        if slant:
+            rows = np.arange(H)
+            shift = ((H - rows) * slant * 0.5 - H * slant * 0.25).astype(int)
+            m = np.stack([np.roll(m[r], shift[r]) for r in rows])
+        if arc:
+            cols = np.arange(W)
+            lift = (arc * (1 - ((cols - W / 2) / (W / 2)) ** 2)).astype(int)
+            m = np.stack([np.roll(m[:, c], -lift[c]) for c in cols], axis=1)
+        return m
+
+    top = np.array(C.parse_hex(fill), dtype=np.float32)
+    bottom = np.array(C.parse_hex(fill_bottom), dtype=np.float32) if fill_bottom else top
+    face = text_mask(0)
+    yy = np.clip((np.arange(H, dtype=np.float32) - pad) / max(1, asc + desc), 0, 1)[:, None, None]
+    rgb = top * (1 - yy) + bottom * yy
+    if highlight > 0:
+        band = np.clip(face - np.roll(face, max(2, size // 22), axis=0), 0, 1)[..., None] * highlight
+        rgb = rgb * (1 - band) + np.ones(3, dtype=np.float32) * band
+    out = np.zeros((H, W, 4), dtype=np.float32)
+
+    def over(col, a):
+        a3 = a[..., None]
+        out[..., :3] = np.asarray(col, dtype=np.float32) * a3 + out[..., :3] * (1 - a3)
+        out[..., 3] = a + out[..., 3] * (1 - a)
+
+    widths_acc, acc = [], 0
+    for col, px in strokes:
+        acc += px
+        widths_acc.append((C.parse_hex(col), acc))
+    outer_mask = text_mask(widths_acc[-1][1]) if widths_acc else face
+    if extrude > 0:
+        ecol = C.parse_hex(extrude_color) if extrude_color else (widths_acc[-1][0] if widths_acc else C.shade(tuple(bottom), -4))
+        depth = outer_mask.copy()
+        for dy in range(1, extrude + 1):
+            depth = np.maximum(depth, np.roll(outer_mask, dy, axis=0))
+        over(ecol, depth)
+    for col, w_px in reversed(widths_acc):
+        over(col, text_mask(w_px))
+    out[..., :3] = rgb * face[..., None] + out[..., :3] * (1 - face[..., None])
+    out[..., 3] = np.maximum(out[..., 3], face)
+    img = Image.fromarray((np.clip(out, 0, 1) * 255).astype(np.uint8), "RGBA")
+    box = img.getbbox()
+    return img.crop(box) if box else img
 
 
 # ------------------------------------------------------------------ contact sheet
@@ -862,28 +657,12 @@ def main(argv=None):
     p.add_argument("--color")
     p.add_argument("--rays", type=int, default=12)
 
-    p = sub.add_parser("shape")
-    p.add_argument("kind", choices=SHAPES)
-    p.add_argument("-o", "--out", required=True)
-    p.add_argument("--width", type=int, default=192)
-    p.add_argument("--height", type=int, default=96)
-    p.add_argument("--cut", type=int, default=18, help="corner cut / skew / notch size in px")
-    p.add_argument("--border", type=int, default=3, help="baked darker border in px (0 = none)")
-    p.add_argument("--flat", action="store_true", help="no baked top-light")
-
     p = sub.add_parser("material")
     p.add_argument("kind", choices=MATERIALS)
     p.add_argument("-o", "--out", required=True, help="base path; writes <name>-fill.png and <name>-frame.png")
     p.add_argument("--color", help="base colour, e.g. #8A5A34")
     p.add_argument("--size", type=int, default=256)
     p.add_argument("--seed", type=int, default=3)
-
-    p = sub.add_parser("icon")
-    p.add_argument("name")
-    p.add_argument("-o", "--out", required=True)
-    p.add_argument("--style", choices=["toon", "glyph"], default="glyph")
-    p.add_argument("--color", default="#FFC531", help="toon base colour")
-    p.add_argument("--size", type=int, default=256)
 
     p = sub.add_parser("sheet")
     p.add_argument("-o", "--out", required=True)
@@ -918,10 +697,9 @@ def main(argv=None):
     if a.cmd == "list":
         print("texture :", ", ".join(TEXTURES), " (tileable, white + alpha, tint with ImageColor3)")
         print("overlay :", ", ".join(OVERLAYS))
-        print("shape   :", ", ".join(SHAPES), " (greyscale, tintable, 9-slice)")
-        print("material:", ", ".join(MATERIALS), " (full colour: a tile fill + a 9-slice frame)")
-        print("icon    :", ", ".join(sorted(ICONS)))
-        print("          --style glyph (flat white, tintable) | toon (shaded, outlined, coloured)")
+        print("material:", ", ".join(MATERIALS), " (full colour tile fill + a plain 9-slice frame)")
+        print("There is no stock icon or shape set: draw this game's own art with the toolkit")
+        print("(Shape, paint, layer, glow, plate, lettering) - see references/assets.md.")
         return 0
     out = Path(a.out)
     name = out.stem
@@ -936,15 +714,6 @@ def main(argv=None):
         img, note = overlay(a.kind, a.size, col, a.rays)
         save(img, out, "overlay", {"class": "ImageLabel", "name": name.title().replace("-", ""), "Size": [1, 0, 1, 0],
                                    "Image": f"asset:{name}", "ScaleType": "Stretch"}, note)
-    elif a.cmd == "shape":
-        img, sc, note = shape(a.kind, a.width, a.height, a.cut, a.border, not a.flat)
-        snippet = {"class": "ImageLabel", "name": name.title().replace("-", ""), "Size": [0, a.width, 0, a.height],
-                   "Image": f"asset:{name}", "ImageColor3": "#FFFFFF"}
-        if sc:
-            snippet.update({"ScaleType": "Slice", "SliceCenter": sc})
-        else:
-            snippet.update({"ScaleType": "Fit"})
-        save(img, out, "shape", snippet, note + " Tint with ImageColor3.", slice=sc)
     elif a.cmd == "material":
         base = C.parse_hex(a.color) if a.color else C.parse_hex({"wood": "#8A5A34", "stone": "#7C7F86", "parchment": "#E2CFA4",
                                                                  "metal": "#6F7B88", "leather": "#6B3F2A"}[a.kind])
@@ -958,14 +727,6 @@ def main(argv=None):
              {"class": "ImageLabel", "name": "Frame", "Size": [1, 0, 1, 0], "Image": f"asset:{name}-frame",
               "ScaleType": "Slice", "SliceCenter": sc, "ZIndex": 5},
              "Bevelled border with a transparent centre. Layer it over the fill; put content between them.", slice=sc)
-    elif a.cmd == "icon":
-        img = icon(a.name, a.size, a.style, C.parse_hex(a.color))
-        snippet = {"class": "ImageLabel", "name": a.name.title() + "Icon", "Size": [0, 48, 0, 48], "Image": f"asset:{name}",
-                   "ScaleType": "Fit"}
-        if a.style == "glyph":
-            snippet["ImageColor3"] = "#FFFFFF"
-        save(img, out, "icon", snippet, "Glyph icons are white: tint them with ImageColor3." if a.style == "glyph"
-             else "Toon icon with a same-hue outline; do not tint it.")
     elif a.cmd == "sheet":
         sheet(Path(a.dir) if a.dir else out.parent, out)
     return 0

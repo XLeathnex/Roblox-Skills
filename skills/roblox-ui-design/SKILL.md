@@ -22,6 +22,10 @@ This skill gives you knowledge and optional tools. It does not give you a house 
 3. **Build it rich.** Top Roblox UI is layered and largely image-based: custom panel frames, ribbons, plaques, item art, icons, textures, glows. Draw the pieces this game needs yourself in Python (`references/assets.md`) rather than settling for plain rounded rectangles and generic glyphs. Layer instances freely: backing plates, inner wells, highlights, shadows, patterns, decorative shapes that break the frame.
 4. **Look at it, then make it better.** Render or screenshot, compare it honestly against the bar, and iterate on what is weakest: composition first, then depth and material, then detail. Keep going until it would pass. Stop when another pass would only move pixels.
 
+## Motion, and screens that are special
+
+Every UI gets the basics: buttons that respond, panels that open with character, lists that land as a wave. When the user asks for something special, impressive or unique (or the screen is a game's centrepiece, like its main shop), go further and give it a **signature entrance**: a short scene from the game's world that brings the UI in, where things that belong to the game carry, build or reveal it, and its contents arrive in their places. `references/motion.md` has the choreography keys, how to design one, and a storyboard command to see it as frames.
+
 ## What makes UI read as AI slop
 
 Avoid these because they are defaults, not choices:
@@ -29,7 +33,7 @@ Avoid these because they are defaults, not choices:
 - every shape a pill or the same radius; every surface a flat rectangle
 - a different vivid two-colour gradient on each button; purple-to-pink anything
 - a pale blob in the top half of a button pretending to be gloss (real highlights follow the shape's edge and fade)
-- one font at one weight; emoji as icons; pure black outlines and shadows
+- one font at one weight; the worn-out Roblox cartoon faces (FredokaOne, LuckiestGuy) used as a title; emoji as icons; pure black outlines and shadows
 - everything the same size and centred, nothing dominant; a small card in a big empty screen
 - the same look regardless of genre
 

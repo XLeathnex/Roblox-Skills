@@ -23,6 +23,108 @@ DEVICES = {
 
 
 HIDE_START_HIDDEN = {"on": False, "except": None}
+ANIM = {"t": None}  # None = settled (every entrance finished, everything that leaves has left)
+
+
+def _num(d: dict, key: str, default: float) -> float:
+    try:
+        return float(d.get(key, default))
+    except (TypeError, ValueError):
+        return default
+
+
+def _pair(d: dict, key: str):
+    try:
+        x, y = str(d.get(key, "0,0")).split(",")
+        return float(x), float(y)
+    except ValueError:
+        return 0.0, 0.0
+
+
+def ease_out(kind: str, p: float) -> float:
+    import math
+
+    p = max(0.0, min(1.0, p))
+    if kind == "Linear":
+        return p
+    if kind == "Sine":
+        return math.sin(p * math.pi / 2)
+    if kind == "Quad":
+        return 1 - (1 - p) ** 2
+    if kind == "Cubic":
+        return 1 - (1 - p) ** 3
+    if kind in ("Quint", "Exponential"):
+        return 1 - (1 - p) ** 5
+    if kind == "Elastic":
+        return 1 if p in (0.0, 1.0) and p else (0 if p == 0 else 2 ** (-10 * p) * math.sin((p * 10 - 0.75) * (2 * math.pi / 3)) + 1)
+    if kind == "Bounce":
+        n, d = 7.5625, 2.75
+        if p < 1 / d:
+            return n * p * p
+        if p < 2 / d:
+            p -= 1.5 / d
+            return n * p * p + 0.75
+        if p < 2.5 / d:
+            p -= 2.25 / d
+            return n * p * p + 0.9375
+        p -= 2.625 / d
+        return n * p * p + 0.984375
+    c1, c3 = 1.70158, 2.70158  # Back
+    return 1 + c3 * (p - 1) ** 3 + c1 * (p - 1) ** 2
+
+
+def anim_state(node: Node, t):
+    """Where an animated node is at time t (seconds after its panel opens). None when it is at rest.
+    -> dict(dx, dy, rot, scale, alpha, reveal, reveal_frac, gone)"""
+    from spec import parse_anim
+
+    enter = parse_anim(node.attrs.get("AnimEnter"))
+    leave = parse_anim(node.attrs.get("AnimLeave"))
+    if not enter and not leave:
+        return None
+    st = {"dx": 0.0, "dy": 0.0, "rot": 0.0, "scale": 1.0, "alpha": 1.0, "reveal": None, "reveal_frac": 1.0, "gone": False}
+    if t is None:
+        st["gone"] = bool(leave)
+        return st if leave else None
+    if enter:
+        delay, dur = _num(enter, "delay", 0), max(0.01, _num(enter, "dur", 0.45))
+        p = (t - delay) / dur
+        e = ease_out(enter.get("ease", "Back"), p) if p > 0 else 0.0
+        fx, fy = _pair(enter, "from")
+        st["dx"], st["dy"] = fx * (1 - e), fy * (1 - e)
+        st["rot"] = _num(enter, "rot", 0) * (1 - e)
+        s0 = _num(enter, "scale", 1)
+        st["scale"] = s0 + (1 - s0) * e
+        if enter.get("fade") == "true":
+            st["alpha"] = max(0.0, min(1.0, (t - delay) / (dur * 0.6)))
+        if enter.get("reveal"):
+            st["reveal"], st["reveal_frac"] = enter["reveal"], max(0.0, min(1.0, e))
+    if leave:
+        at, dur = _num(leave, "at", 1), max(0.01, _num(leave, "dur", 0.5))
+        q = max(0.0, min(1.0, (t - at) / dur))
+        q2 = q * q
+        tx, ty = _pair(leave, "to")
+        st["dx"] += tx * q2
+        st["dy"] += ty * q2
+        st["rot"] += _num(leave, "rot", 0) * q2
+        st["scale"] *= 1 + (_num(leave, "scale", 1) - 1) * q2
+        if leave.get("fade") == "true":
+            st["alpha"] *= 1 - q
+        st["gone"] = q >= 1
+    return st
+
+
+def timeline_end(root: Node) -> float:
+    from spec import parse_anim
+
+    end = 0.0
+    for n in root.walk():
+        e, l = parse_anim(n.attrs.get("AnimEnter")), parse_anim(n.attrs.get("AnimLeave"))
+        if e:
+            end = max(end, _num(e, "delay", 0) + _num(e, "dur", 0.45))
+        if l:
+            end = max(end, _num(l, "at", 1) + _num(l, "dur", 0.5))
+    return end
 
 
 def visible_gui_children(node: Node):
@@ -32,6 +134,10 @@ def visible_gui_children(node: Node):
             continue
         if HIDE_START_HIDDEN["on"] and c.attrs.get("StartHidden") and c.name != HIDE_START_HIDDEN["except"]:
             continue
+        if "AnimLeave" in c.attrs:
+            st = anim_state(c, ANIM["t"])
+            if st and st["gone"]:
+                continue  # a prop that has flown off; it no longer takes part in layout or checks
         out.append(c)
     return out
 
