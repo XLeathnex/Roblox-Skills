@@ -6,6 +6,7 @@
     python3 scripts/rbxui check ui.json --no-image   lint only (cheapest)
     python3 scripts/rbxui build ui.json --out out    .build.luau + .rbxmx + .model.json
     python3 scripts/rbxui storyboard ui.json         frames of the enter/leave animation sequence
+    python3 scripts/rbxui animate ui.json            the same sequence as an animated GIF for a person to watch
     python3 scripts/rbxui tree  ui.json              instance hierarchy
 """
 from __future__ import annotations
@@ -213,6 +214,41 @@ def cmd_storyboard(args):
     return 0
 
 
+def cmd_animate(args):
+    """Play the entrance as an animated GIF so a person can watch it without Studio."""
+    render = _render_mod()
+    if render is None:
+        return 3
+    from PIL import Image
+
+    spec = _load(args.spec)
+    hidden = [n.name for n in spec.root.walk() if n.attrs.get("StartHidden")]
+    panel = args.panel or (hidden[0] if hidden else None)
+    L.HIDE_START_HIDDEN.update({"on": bool(hidden), "except": panel})
+    end = L.timeline_end(spec.root)
+    if end <= 0:
+        print("no enter/leave animations in this spec.")
+        return 1
+    total = end + args.tail
+    n = int(total * args.fps) + 1
+    scale = args.width / L.DEVICES[args.device][0]
+    frames = []
+    for i in range(n):
+        L.ANIM["t"] = i / args.fps
+        img, _ = render.render(spec, args.device, scale, args.backdrop, chrome=False)
+        frames.append(img.convert("P", palette=Image.ADAPTIVE, colors=255))
+    L.ANIM["t"] = None
+    L.HIDE_START_HIDDEN.update({"on": False, "except": None})
+    out = Path(args.out or Path(args.spec).with_suffix(".gif"))
+    step = int(1000 / args.fps)
+    durations = [step] * len(frames)
+    durations[0] = 500
+    durations[-1] = 1500
+    frames[0].save(out, save_all=True, append_images=frames[1:], duration=durations, loop=0, optimize=False)
+    print(f"animation: {out}  ({len(frames)} frames, {total:.1f}s at {args.fps} fps, {frames[0].width}x{frames[0].height})")
+    return 0
+
+
 def cmd_tree(args):
     print(export.tree_text(_load(args.spec).root))
     return 0
@@ -259,6 +295,17 @@ def main(argv=None):
     p.add_argument("--device", default="pc")
     p.add_argument("--backdrop")
     p.set_defaults(fn=cmd_storyboard)
+
+    p = sub.add_parser("animate", help="render the enter/leave sequence as an animated GIF")
+    p.add_argument("spec")
+    p.add_argument("-o", "--out")
+    p.add_argument("--panel", help="startHidden panel to open (default: the first)")
+    p.add_argument("--fps", type=int, default=20)
+    p.add_argument("--width", type=int, default=800)
+    p.add_argument("--tail", type=float, default=1.2, help="seconds to keep playing after the last entrance (shows idle loops)")
+    p.add_argument("--device", default="pc")
+    p.add_argument("--backdrop")
+    p.set_defaults(fn=cmd_animate)
 
     p = sub.add_parser("tree", help="print the instance hierarchy")
     p.add_argument("spec")

@@ -23,7 +23,7 @@ Any GuiObject can take these. They play when its panel opens (or at start for al
 - `loop`: idle motion after it has landed.
 - `from` and `to` are ignored on direct children of a list or grid (the layout owns their position); use `scale` and `fade` there, or wrap the child in a fixed holder.
 
-See it without Studio: `python3 <skill>/scripts/rbxui storyboard ui.json` renders six frames of the sequence (`--times 0,0.3,0.6,1,1.5,2.2` to choose them). Read the frames like a film strip: is each beat clear, does anything pass through anything, does it end tidy?
+See it without Studio: `python3 <skill>/scripts/rbxui storyboard ui.json` renders six frames of the sequence (`--times 0,0.3,0.6,1,1.5,2.2` to choose them). Read the frames like a film strip: is each beat clear, does anything pass through anything, does it end tidy? When it is right, `python3 <skill>/scripts/rbxui animate ui.json` writes the sequence as an animated GIF for the user to watch; always hand them that file for a special UI, because a still cannot show it.
 
 ## Signature entrances (when the user wants something special)
 

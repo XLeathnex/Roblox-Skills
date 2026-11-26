@@ -80,7 +80,8 @@ def anim_state(node: Node, t):
 
     enter = parse_anim(node.attrs.get("AnimEnter"))
     leave = parse_anim(node.attrs.get("AnimLeave"))
-    if not enter and not leave:
+    loop = parse_anim(node.attrs.get("AnimLoop")) if t is not None else {}
+    if not enter and not leave and not loop:
         return None
     st = {"dx": 0.0, "dy": 0.0, "rot": 0.0, "scale": 1.0, "alpha": 1.0, "reveal": None, "reveal_frac": 1.0, "gone": False}
     if t is None:
@@ -99,6 +100,20 @@ def anim_state(node: Node, t):
             st["alpha"] = max(0.0, min(1.0, (t - delay) / (dur * 0.6)))
         if enter.get("reveal"):
             st["reveal"], st["reveal_frac"] = enter["reveal"], max(0.0, min(1.0, e))
+    if loop and not leave:
+        import math
+
+        start = (_num(enter, "delay", 0) + _num(enter, "dur", 0.45)) if enter else 0.0
+        u = t - start
+        if u > 0:
+            period = max(0.2, _num(loop, "period", 2))
+            wave = 0.5 - 0.5 * math.cos(2 * math.pi * u / period)
+            st["dy"] -= _num(loop, "bob", 0) * wave
+            st["scale"] *= 1 + _num(loop, "pulse", 0) * wave
+            if "sway" in loop:
+                st["rot"] += _num(loop, "sway", 0) * wave
+            elif "spin" in loop:
+                st["rot"] += _num(loop, "spin", 30) * u
     if leave:
         at, dur = _num(leave, "at", 1), max(0.01, _num(leave, "dur", 0.5))
         q = max(0.0, min(1.0, (t - at) / dur))
