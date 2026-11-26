@@ -347,7 +347,7 @@ class Renderer:
         finally:
             node._anim_done = False
         x, y, w, h = node.rect
-        if st["reveal"]:
+        if st["reveal"] and st["reveal_frac"] < 0.995:
             rx0, ry0 = int(x) - bx0, int(y) - by0
             if st["reveal"] == "down":
                 cut = ry0 + int(h * st["reveal_frac"])
